@@ -1,0 +1,74 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/audit-log.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/commit-msg-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/secret-scan.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/protected-branch-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/condense-planner-input.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/format-on-edit.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/lint-on-edit.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/test-reminder.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/remind-cleanup.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/notify-done.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
