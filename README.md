@@ -55,6 +55,7 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | `markitdown` | Converts PDF/DOCX/PPTX/XLSX/images/... to Markdown |
 | `database` | SQL/NoSQL query review, schema/index design, performance analysis |
 | `design-patterns` | Reference for the 22 GoF patterns, grouped by when to actually use them |
+| `review-web-security` | Web security review (authn/authz, injection, frontend, API, infra...) with evidence, severity, fix, and regression tests |
 
 ---
 

@@ -21,6 +21,8 @@ Bạn là reviewer độc lập cho **3 loại artifact**: code/diff, kế hoạ
 
 Code đẹp vẫn có thể sai logic — ưu tiên theo thứ tự: **tính đúng → an toàn → dễ hiểu → tối ưu.** Dùng 12 tiêu chí sau làm checklist, không chỉ dựa cảm tính:
 
+Nếu yêu cầu là **security review** chuyên sâu (authn/authz, injection, upload, thanh toán, cấu hình hạ tầng...) thay vì review tổng quát, dùng skill [`review-web-security`](../skills/review-web-security/SKILL.md) — có checklist và định dạng báo cáo riêng cho bảo mật.
+
 | Tiêu chí | Cần kiểm tra |
 |---|---|
 | Đúng yêu cầu | Code giải quyết đúng nghiệp vụ? Có bỏ sót điều kiện hoặc thay đổi hành vi ngoài yêu cầu? |
