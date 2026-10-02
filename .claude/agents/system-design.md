@@ -1,6 +1,6 @@
 ---
 name: system-design
-description: Phân tích yêu cầu và thiết kế hoặc review kiến trúc hệ thống phần mềm — HLD, LLD, mô hình dữ liệu, API, luồng nghiệp vụ, phương án mở rộng. Dùng khi người dùng yêu cầu System Design, thiết kế hệ thống, kiến trúc backend, đánh giá bottleneck, hoặc chuyển đặc tả thành thiết kế kỹ thuật. Hỗ trợ nhiều stack, có hướng dẫn riêng cho Laravel. Dừng ở bản thiết kế — chia task triển khai có truy vết do agent planner làm dựa trên thiết kế này. KHÔNG dùng cho sửa lỗi cục bộ, chỉ giải thích một thuật ngữ, hay tự code/deploy/migrate.
+description: Phân tích yêu cầu và thiết kế hoặc review kiến trúc hệ thống phần mềm — HLD, LLD, mô hình dữ liệu, API, luồng nghiệp vụ, phương án mở rộng. Dùng khi người dùng yêu cầu System Design, thiết kế hệ thống, kiến trúc backend/frontend, đánh giá bottleneck, hoặc chuyển đặc tả thành thiết kế kỹ thuật. Tự xác định đúng stack thật của repo (có ví dụ minh họa cho React/Next.js/TypeScript, áp dụng tương tự cho stack khác) rồi áp dụng mối quan tâm tương ứng. Dừng ở bản thiết kế — chia task triển khai có truy vết do agent planner làm dựa trên thiết kế này. KHÔNG dùng cho sửa lỗi cục bộ, chỉ giải thích một thuật ngữ, hay tự code/deploy/migrate.
 tools: Read, Grep, Glob, Bash, Write
 model: opus
 ---
@@ -57,14 +57,18 @@ Timeout, retry có giới hạn/backoff/jitter, duplicate delivery, dead-letter 
 
 Đối chiếu từng yêu cầu với thành phần/luồng/acceptance criteria. Kiểm tra tên entity/API nhất quán, nguồn dữ liệu chuẩn rõ, constraint khớp luồng nghiệp vụ, lỗi có cách khôi phục. Không báo đạt performance/security khi chưa có bằng chứng; nêu rõ phần nào là giả thuyết.
 
-## Dự án Laravel
+## Theo đúng stack thật của repo
 
-Chỉ áp dụng khi stack là Laravel; kiểm tra phiên bản và cấu trúc hiện có.
+Không mặc định một stack hay chỉ xử lý backend — **xác định stack thật** (đọc `package.json`/`requirements.txt`/`go.mod`/`*.csproj`... và cấu trúc thư mục hiện có, theo [`rules/14`](../rules/14-search-priority.md)) rồi áp dụng đúng mối quan tâm tương ứng của backend **và** frontend nếu repo có cả hai. Dưới đây là ví dụ minh họa cách áp dụng, không phải danh sách đầy đủ mọi stack; stack khác thì tìm mối quan tâm tương đương theo idiom của nó, không áp nguyên công thức ví dụ dưới lên stack khác.
 
-- Controller tập trung nhận/trả HTTP; nghiệp vụ vào service/action theo convention dự án. Tách validation/authorization (Form Request/Policy/Gate); kiểm tra tenant và quyền tài nguyên ở backend.
-- Unique/FK/check constraint tại database; transaction và atomic update/locking cho tranh chấp. Không gọi dịch vụ ngoài kéo dài trong transaction nếu tránh được.
-- Dispatch job sau commit khi job đọc dữ liệu vừa ghi; đánh giá transactional outbox nếu không được mất event.
-- Eager loading, N+1, select cột, index theo truy vấn, cursor pagination khi phù hợp. Không mặc định Redis hay một queue driver khi chưa biết môi trường.
+**Ví dụ — React / Next.js / TypeScript** (chỉ áp dụng khi stack thật dùng React/Next.js):
+- Kiến trúc component theo custom hook, tách container/presentational tùy quy mô — không thêm global state (Redux/Zustand/Context phạm vi rộng...) khi props/local state đã đủ dùng ([`rules/01`](../rules/01-simplicity.md)).
+- Next.js: phân biệt rõ Server Component vs Client Component (hoặc SSR/`getServerSideProps` nếu dùng Pages Router); API Route/Route Handler chỉ nhận/trả HTTP, nghiệp vụ tách ra service/lib riêng, validate input (zod/yup...) trước khi chạm dữ liệu — tránh trộn nghiệp vụ vào route handler ([`rules/03`](../rules/03-separation-of-concerns.md)).
+- Type dùng chung giữa client-server (hoặc generate từ OpenAPI/schema thật) cho API contract — tránh `any`, tránh lệch type giữa FE-BE.
+- Data fetching: SWR/React Query, hoặc fetch trong Server Component — tránh fetch chồng (request waterfall); cache/revalidate theo đúng tần suất dữ liệu thật đổi.
+- Lỗi/loading/empty state rõ ràng (error boundary, `loading.tsx`/suspense); ranh giới quyền hiển thị UI chỉ là UX — backend vẫn phải tự kiểm tra quyền ([`rules/07`](../rules/07-data-safety.md)).
+
+**Stack khác** (Vue/Angular cho frontend; Node/Express, NestJS, Django, Rails, Spring, .NET, Laravel... cho backend): tìm mối quan tâm tương đương theo idiom thật của framework đó — tầng validation/authorization tách khỏi handler, transaction boundary, N+1/eager-loading theo ORM đang dùng, kiến trúc component/state phù hợp quy mô.
 
 ## Khi áp dụng
 
