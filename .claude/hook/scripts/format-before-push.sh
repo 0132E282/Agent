@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# PreToolUse hook: trước khi `git push`, chạy Prettier MỘT LẦN trên các
-# file đã thay đổi so với remote tracking branch — liên hệ skill
-# git-workflow (mục "Trước khi git push") và rules/08-quality-assurance.md
-# (format thống nhất trước khi đẩy lên, không tranh cãi khoảng trắng khi
-# review PR).
+# PreToolUse hook: trước khi `git push`, chạy Prettier MỘT LẦN trên các file đã thay đổi so với remote tracking
+# branch — liên hệ skill git-workflow (mục "Trước khi git push") và
+# rules/08-quality-assurance.md (format thống nhất trước khi đẩy lên,
+# không tranh cãi khoảng trắng khi review PR).
 #
 # Nhận JSON input từ stdin theo schema PreToolUse:
 #   { "tool_name": "Bash", "tool_input": { "command": "..." }, ... }
@@ -15,7 +14,7 @@
 # commit thêm rồi push lại hay bỏ qua.
 #
 # Best-effort: thiếu jq/git, không phải lệnh git push, không có remote
-# tracking branch, thiếu Prettier, hoặc không có file nào trong diff cần
+# tracking branch, thiếu `prettier`, hoặc không có file nào trong diff cần
 # format -> không chặn, không cảnh báo gì.
 
 set -o pipefail
@@ -34,35 +33,25 @@ command_str="$(printf '%s' "$input" | jq -r '.tool_input.command // ""' 2>/dev/n
 
 printf '%s' "$command_str" | grep -qE '(^|[;&|]|[[:space:]])git[[:space:]]+push([[:space:]]|$)' || exit 0
 
-prettier_bin=""
-if command -v prettier >/dev/null 2>&1; then
-  prettier_bin="prettier"
-elif npx --no-install prettier --version >/dev/null 2>&1; then
-  prettier_bin="npx --no-install prettier"
-fi
-[ -z "$prettier_bin" ] && exit 0
+project_root="$(git rev-parse --show-toplevel 2>/dev/null)"
+[ -n "$project_root" ] || exit 0
+cd "$project_root" || exit 0
+prettier_bin="$project_root/node_modules/.bin/prettier"
+[ -x "$prettier_bin" ] || exit 0
 
 upstream="$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null)"
 [ -z "$upstream" ] && exit 0
 
-changed_files="$(git diff --name-only --diff-filter=d "$upstream...HEAD" 2>/dev/null)"
-[ -z "$changed_files" ] && exit 0
-
 formatted=()
-while IFS= read -r f; do
-  [ -z "$f" ] && continue
+while IFS= read -r -d '' f; do
   [ -f "$f" ] || continue
-  case "$f" in
-    *.js|*.jsx|*.ts|*.tsx|*.json|*.css|*.scss|*.less|*.html|*.vue|*.md|*.yaml|*.yml)
-      before_hash="$(git hash-object "$f" 2>/dev/null)"
-      $prettier_bin --write "$f" >/dev/null 2>&1 || true
-      after_hash="$(git hash-object "$f" 2>/dev/null)"
-      if [ "$before_hash" != "$after_hash" ]; then
-        formatted+=("$f")
-      fi
-      ;;
-  esac
-done <<< "$changed_files"
+  before_hash="$(git hash-object "$f" 2>/dev/null)"
+  "$prettier_bin" --write --ignore-unknown "$f" >/dev/null 2>&1 || true
+  after_hash="$(git hash-object "$f" 2>/dev/null)"
+  if [ "$before_hash" != "$after_hash" ]; then
+    formatted+=("$f")
+  fi
+done < <(git diff --name-only -z --diff-filter=ACMR "$upstream" -- 2>/dev/null)
 
 [ "${#formatted[@]}" -eq 0 ] && exit 0
 

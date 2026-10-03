@@ -1,4 +1,4 @@
-# 🚀 Claude Code Agent Framework
+# Shared Agent Framework
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -10,10 +10,16 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 
 | Folder | What it holds |
 |---|---|
+| [`AGENTS.md`](./AGENTS.md) | Codex instructions referencing the shared conventions and rules |
+| [`.agents/rules/`](./.agents/rules) | Canonical shared Markdown rules for Claude and Codex |
+| [`.agents/skills/`](./.agents/skills) | Canonical shared skills and workflow adapters, discovered by Codex |
+| [`.codex/agents/`](./.codex/agents) | Codex custom agents in TOML, inheriting the session model |
+| [`.codex/rules/`](./.codex/rules) | Link to `.agents/rules/`, loaded through AGENTS.md |
+| [`.codex/skills/`](./.codex/skills) | Convenience link to `.agents/skills/`; Codex discovery remains in `.agents/skills/` |
 | [`.claude/agents/`](./.claude/agents) | Subagents — each with its own tools, model, and single responsibility |
 | [`.claude/commands/`](./.claude/commands) | Slash commands — the entry points a user actually types |
-| [`.claude/skills/`](./.claude/skills) | Reusable skills — git workflow, reporting, docs sync, format conversion, DB/pattern references, testing/dependency/CI practices |
-| [`.claude/rules/`](./.claude/rules) | 15 mandatory rule files every agent must follow |
+| [`.claude/skills/`](./.claude/skills) | Link to the shared `.agents/skills/` directory |
+| [`.claude/rules/`](./.claude/rules) | Link to the 18 shared rules in `.agents/rules/` |
 | [`.claude/hook/`](./.claude/hook) | Automated hooks (audit log, commit-msg guard, secret scan, auto-format, auto-lint...) |
 
 ### Agents
@@ -24,6 +30,7 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | `system-design` | Produces HLD/LLD, data model, API, and reliability/security/performance design for features that need architecture |
 | `planner` | Breaks a spec or design doc into traceable tasks (REQ → Task → AC → Test) — plan only, never touches product code |
 | `coding-agent` | Implements code per SOLID/DRY/KISS/YAGNI, strictly within the assigned scope |
+| `setup` | Installs and configures requested tools, libraries, runtimes and applications; verifies compatibility and a working smoke test |
 | `qa-tester` | Designs and executes test cases (equivalence partitioning, boundary values, decision tables...) with full requirement traceability |
 | `reviewer` | Independent "fresh eyes" review for code, plans, or test cases — never fixes, only reports |
 | `researcher` | Reads widely, answers briefly — local docs first, then web, no fabrication |
@@ -78,17 +85,21 @@ Each stage **stops and asks for confirmation** before moving to the next — not
 
 ## 📐 Core rules (`.claude/rules/`)
 
-Every agent is bound by some or all of 15 rule groups — see [`rules/README.md`](./.claude/rules/README.md) for the full table:
+Every agent is bound by some or all of 18 rule groups — see [`rules/README.md`](./.claude/rules/README.md) for the full table:
 
 KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync.
 
-`coding-agent` reads all 15 as its system prompt; other agents link to the specific rules relevant to their task.
+`coding-agent` reads all 18 as its system prompt; other agents link to the specific rules relevant to their task.
 
 ---
 
 ## 🚀 Using this in another project
 
-1. Copy the whole `.claude/` folder into the target project.
+This repository uses npm tooling for Git pre-commit formatting. Run `npm ci` to install Husky, lint-staged and Prettier and activate the hook. Each commit formats supported staged files; unknown formats are skipped. No typecheck or test step is configured because this configuration repository has no corresponding scripts. Copying `.claude/` alone does not install this repository's Git hooks.
+
+For Codex, copy `AGENTS.md`, `.agents/`, `.codex/`, `.claude/` and `CLAUDE.md` together so relative references and skill symlinks remain valid. Start a new session to discover them. Invoke `$workflow-implement` or another `workflow-*` skill, or ask for a custom agent by name. Claude hook settings are not activated by this adapter; formatting and validation remain explicit workflow steps.
+
+1. Copy `.claude/` and `.agents/` together into the target project; keep their relative paths so shared skill/rule links resolve.
 2. Merge [`.claude/hook/settings.snippet.json`](./.claude/hook/settings.snippet.json) into the target's `.claude/settings.json` (see [`hook/README.md`](./.claude/hook/README.md)).
 3. Make sure `jq` is installed (required by most hooks) — missing tools degrade gracefully, hooks just skip.
 4. Start with `/analyze "<your requirement>"` or jump straight to `/plan` if the requirement is already clear.
@@ -100,3 +111,13 @@ KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-F
 Open a PR if you have a rule, agent, or skill worth adding — keep each one single-purpose and link it from the relevant table above.
 
 **License**: [MIT](./LICENSE)
+
+## Antigravity
+
+Open the repository root in Antigravity and start a new conversation. It loads `AGENTS.md` and uses the shared `.agents/skills/` and `.agents/rules/`. Invoke `/coding-frontend`, `/coding-backend` or `/workflow-implement`. Rules have activation metadata; no separate copy is needed. Codex TOML agents and Claude hooks are not Antigravity configurations.
+
+Setup follows the official [skills](https://www.antigravity.google/docs/skills) and [rules](https://www.antigravity.google/docs/rules) documentation.
+
+## Configuration maintenance
+
+Edit shared rules and skills only in `.agents/`. Claude and Codex paths are relative symlinks to this source. Keep the three directories and root instruction files together when copying the framework. Tool-specific agents and hooks remain separate. Run `python3 scripts/check-agent-config.py` after structural changes; this checks file configuration, not runtime tool discovery.
