@@ -1,9 +1,9 @@
 ---
 name: git-workflow
-description: Thực thi quy tắc git bắt buộc — commit (rules/10-commit-discipline.md) và tạo pull request/resolve conflict (rules/11-pull-request-conflict.md). Tuyệt đối không tự ý git commit khi chưa có lệnh rõ ràng, không commit vụn vặt, message theo Conventional Commits (tiêu đề "<type>: mô tả" ≤ 75 ký tự); khi tạo PR phải check conflict và biết nhánh nào được ưu tiên giữ. Dùng ngay trước khi chạy git commit, tạo/update PR, hoặc resolve conflict. Đi kèm script validate-commit-message.sh để kiểm tra message tự động.
+description: Thực thi quy tắc git bắt buộc — commit (rules/10-commit-discipline.md), format lại bằng Prettier trước khi push, và tạo pull request/resolve conflict (rules/11-pull-request-conflict.md). Tuyệt đối không tự ý git commit khi chưa có lệnh rõ ràng, không commit vụn vặt, message theo Conventional Commits (tiêu đề "<type>: mô tả" ≤ 75 ký tự); trước khi push format lại diff so với remote; khi tạo PR phải check conflict và biết nhánh nào được ưu tiên giữ. Dùng ngay trước khi chạy git commit, git push, tạo/update PR, hoặc resolve conflict. Đi kèm script validate-commit-message.sh để kiểm tra message tự động.
 license: MIT
 metadata:
-  version: "1.3"
+  version: "1.4"
 ---
 
 # 🔧 Git Workflow
@@ -22,7 +22,15 @@ Skill gatekeeper bắt buộc cho **commit** và **pull request** — hành đ�
    ```
    `exit 0` + `✅` nếu hợp lệ; `exit 1` + lỗi cụ thể nếu sai format hoặc vượt 75 ký tự. Script chỉ kiểm tra format máy kiểm được — phần "why" trong body do người soạn tự đảm bảo theo rule.
 
-## 2. Trước khi tạo Pull Request / khi gặp conflict ([rules/11](../../rules/11-pull-request-conflict.md))
+## 2. Trước khi `git push`
+
+1. **Format lại một lần** các file đã đổi so với remote tracking branch (`git diff --name-only @{upstream}...HEAD`) bằng Prettier, nếu project có cài — tránh đẩy lên code lệch format so với lúc Edit/Write (hook `format-on-edit.sh` format theo từng file sửa, bước này là lượt quét cuối trên toàn bộ diff trước khi push).
+2. Prettier format sinh ra thay đổi → đó là thay đổi **chưa commit**; gộp vào đúng commit đang chuẩn bị push (xem mục 1) trước khi push, không để lại format fix trôi sang lần sau.
+3. Project chưa cài Prettier (không có trong `PATH` và `npx` không resolve được) → bỏ qua bước này, không tự cài khi chưa được yêu cầu.
+
+Hook [`format-before-push.sh`](../../hook/scripts/format-before-push.sh) tự chạy bước 1 mỗi lần phát hiện lệnh `git push` và cảnh báo (không chặn) nếu format sinh ra thay đổi chưa commit — xem [`hook/README.md`](../../hook/README.md#format-before-push--format-lại-trước-khi-push).
+
+## 3. Trước khi tạo Pull Request / khi gặp conflict ([rules/11](../../rules/11-pull-request-conflict.md))
 
 1. Trước khi tạo PR, luôn kiểm tra nhánh có **conflict** với nhánh đích (base, thường `main`) không.
 2. Có conflict: **đọc cả hai phía** (`<<<<<<<`/`=======`/`>>>>>>>`) trước khi quyết định — không xóa trắng một bên mà không xem nội dung.
@@ -33,5 +41,7 @@ Skill gatekeeper bắt buộc cho **commit** và **pull request** — hành đ�
 ## Checklist
 
 **Commit**: có lệnh rõ ràng từ người dùng · đã gộp đúng phạm vi (push hết hoặc push theo tính năng — không trộn lẫn) · không có file tmp/test/rác lẫn vào · tiêu đề đúng format `<type>: <mô tả>` ≤ 75 ký tự · body nêu rõ vấn đề được giải quyết · đã chạy `validate-commit-message.sh` và nhận `✅`.
+
+**Push**: đã format lại diff so với remote bằng Prettier (nếu project có cài) · không còn thay đổi format nào trôi ra ngoài commit đang push.
 
 **Pull Request**: đã kiểm tra conflict với nhánh đích · nếu có conflict đã đọc cả hai phía trước khi resolve · xử lý đúng ưu tiên (nhánh nguồn) và rà soát để không mất fix quan trọng ở nhánh đích · đã chạy lại test/lint sau khi resolve.

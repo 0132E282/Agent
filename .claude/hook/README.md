@@ -70,6 +70,16 @@ Trước mỗi lần `git push`, hook này cảnh báo (ask) nếu push thẳng 
 - **Hành vi khi phát hiện**: `permissionDecision: "ask"` — có tình huống hợp lệ cần push thẳng main/force push mà người dùng đã đồng ý, nên hỏi lại chứ không chặn cứng.
 - **Phụ thuộc**: cần `jq`, `git`.
 
+## format-before-push — format lại trước khi push
+
+Trước mỗi lần `git push`, hook này chạy `prettier --write` **một lần** trên các file đã thay đổi so với remote tracking branch (`@{upstream}...HEAD`) — lượt quét cuối trước khi đẩy lên, bổ sung cho `format-on-edit` (chỉ format đúng file vừa Edit/Write, không quét lại toàn bộ diff). Liên hệ skill [`git-workflow`](../skills/git-workflow/SKILL.md) mục "Trước khi git push" và [`rules/08-quality-assurance.md`](../rules/08-quality-assurance.md).
+
+- **Script**: [`scripts/format-before-push.sh`](./scripts/format-before-push.sh)
+- **Loại hook**: `PreToolUse`, matcher `Bash`
+- **Không tự commit**: chỉ `prettier --write` lên working tree. Format sinh ra thay đổi → `permissionDecision: "ask"` cảnh báo các file đó CHƯA được commit (push hiện tại vẫn đẩy bản cũ) — người dùng tự quyết commit thêm hay bỏ qua, không tự ý commit giùm.
+- **An toàn**: luôn `exit 0` khi không cần cảnh báo; thiếu `jq`/`git`, không phải lệnh `git push`, không có remote tracking branch, thiếu Prettier, hoặc diff không có file nào cần format → bỏ qua êm.
+- **Phụ thuộc**: cần `jq`, `git`; Prettier (tuỳ chọn — thiếu thì bỏ qua, giống `format-on-edit`).
+
 ## lint-on-edit — static analysis sau khi Edit/Write
 
 Sau mỗi lần Edit/Write, hook này chạy linter/type-checker tương ứng loại file (`tsc` cho `.ts/.tsx`, `eslint` cho `.js/.jsx`, `ruff`/`flake8` cho `.py`, `phpstan` cho `.php`) và trả lỗi lại cho Claude qua `additionalContext` — liên hệ [`rules/08-quality-assurance.md`](../rules/08-quality-assurance.md). Thuần cố vấn, không block vì tool đã chạy xong.
@@ -149,4 +159,4 @@ Trước mỗi lần gọi Agent tool với `subagent_type: planner`, hook này 
 
 ## Đã bật sẵn trong chính repo này
 
-`hook/` nằm trong `.claude/hook/` của repo này, và `.claude/settings.json` đã trỏ cả 12 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `notify-done`) tới đúng path `.claude/hook/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.
+`hook/` nằm trong `.claude/hook/` của repo này, và `.claude/settings.json` đã trỏ cả 13 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `notify-done`) tới đúng path `.claude/hook/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.
