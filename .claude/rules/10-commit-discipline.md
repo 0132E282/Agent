@@ -7,6 +7,7 @@
 - **Tuyệt đối không tự ý commit** khi chưa có lệnh rõ ràng từ người dùng (ví dụ: "commit đi"). Viết xong code **không đồng nghĩa** được phép commit — luôn chờ yêu cầu.
 - **Không commit vụn vặt**: gộp các thay đổi liên quan của task hiện tại thành **một commit có ý nghĩa**, không commit từng bước nhỏ (`fix typo`, `fix typo 2`, `wip`...).
 - Mỗi lần yêu cầu commit tương ứng đúng phạm vi được giao — không tự ý gộp thêm thay đổi khác, cũng không tách lẻ trừ khi người dùng chỉ định.
+- **Phạm vi push chỉ có 2 kiểu hợp lệ**: "push hết" (toàn bộ thay đổi hiện có, khi người dùng nói rõ) hoặc "push theo tính năng" (chỉ file/đoạn code thật sự liên quan task đang làm, mặc định khi không chỉ định). **Cả hai kiểu đều tuyệt đối không bao giờ** được kèm file tmp/scratch/debug/test thử nghiệm hoặc file rác không thuộc deliverable — dọn bằng skill [`cleanup-temp-files`](../skills/cleanup-temp-files/SKILL.md) trước khi `git add`, luôn rà lại `git status` để xác nhận.
 - **Format Conventional Commits**:
   - Tiêu đề: `<type>: <mô tả ngắn gọn>` — **không quá 75 ký tự**. `type` phổ biến: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `build`, `ci`.
   - Mô tả (body): liệt kê thay đổi/tính năng chính, nêu rõ vấn đề được giải quyết hoặc cái gì được thêm vào — ưu tiên "why" hơn "what".
