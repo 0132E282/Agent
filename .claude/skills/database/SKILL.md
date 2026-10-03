@@ -12,16 +12,16 @@ description: >
 
 ## Quy trình chung
 
-1. Xác định engine, phiên bản, driver/ORM, connection và môi trường. Không coi NoSQL là một dialect; chọn cách phân tích đúng engine.
-2. Đọc schema hoặc document/key model, quan hệ, index, partition/shard key, kiểu dữ liệu, collation/timezone nếu liên quan. Thu thập yêu cầu, input/output, ordering, pagination, quyền tenant và semantics cần giữ.
-3. Xác định quy mô, phân bố dữ liệu, selectivity, tần suất gọi, concurrency, giới hạn latency/tài nguyên. Không có số liệu thì đánh dấu thiếu, không tự đặt ngưỡng.
-4. Viết truy vấn native có tham số hoặc cấu trúc driver phù hợp. Không bịa field/index; nếu thiếu schema, cung cấp bản mẫu ghi rõ giả định thay vì query sẵn chạy. Cung cấp ORM tương đương khi người dùng cần và kiểm tra query thực do ORM phát sinh.
-5. Review tính đúng đắn trước hiệu năng: duplicate, null/missing, cardinality join, count, rounding, timezone, stable ordering, phân trang, filter tenant, consistency và xử lý lỗi.
-6. Phân tích tĩnh đường truy cập và chi phí dự kiến. Đọc [analysis.md](references/analysis.md) để phân biệt độ phức tạp, chi phí thực thi và tải toàn hệ thống.
-7. Nếu được phép và có môi trường phù hợp, thu execution plan/profiler/metrics đúng engine. Đọc [engines.md](references/engines.md). Kiểm tra tài liệu chính thức theo phiên bản trước khi dùng tính năng hoặc lệnh chưa chắc chắn.
-8. Xếp hạng query theo bằng chứng. Không gọi query nặng chỉ vì dài, nhiều JOIN, scan hoặc không dùng index. Xét dữ liệu xử lý, latency, tài nguyên, fan-out và tần suất.
-9. Đề xuất thay đổi nhỏ nhất giữ đúng semantics: query rewrite, index, data model, batch, pagination, cache hoặc precompute khi có căn cứ. Nêu tradeoff về write, storage, freshness và consistency.
-10. Kiểm chứng trước/sau với dữ liệu đại diện, tham số đa dạng, cùng môi trường và điều kiện cache được ghi rõ. So sánh correctness và metrics; không bịa phần trăm cải thiện.
+1. Xác định engine, phiên bản, driver/ORM, connection, môi trường — không coi NoSQL là một dialect.
+2. Đọc schema/document model, quan hệ, index, partition/shard key, kiểu dữ liệu; thu thập input/output, ordering, pagination, quyền tenant cần giữ.
+3. Xác định quy mô, phân bố dữ liệu, selectivity, tần suất gọi, concurrency, giới hạn latency/tài nguyên — thiếu số liệu thì đánh dấu thiếu, không tự đặt ngưỡng.
+4. Viết truy vấn native có tham số; không bịa field/index — thiếu schema thì cung cấp bản mẫu ghi rõ giả định. Có ORM tương đương khi cần, kiểm tra query thực do ORM phát sinh.
+5. Review tính đúng đắn trước hiệu năng: duplicate, null/missing, cardinality join, count, rounding, timezone, stable ordering, phân trang, filter tenant, consistency, xử lý lỗi.
+6. Phân tích tĩnh đường truy cập và chi phí dự kiến — đọc [analysis.md](references/analysis.md) để phân biệt độ phức tạp, chi phí thực thi, tải toàn hệ thống.
+7. Nếu được phép và có môi trường phù hợp, thu execution plan/profiler/metrics đúng engine — đọc [engines.md](references/engines.md), kiểm tra tài liệu chính thức theo phiên bản trước khi dùng tính năng chưa chắc chắn.
+8. Xếp hạng query theo bằng chứng (dữ liệu xử lý, latency, tài nguyên, fan-out, tần suất) — không gọi nặng chỉ vì dài/nhiều JOIN/không dùng index.
+9. Đề xuất thay đổi nhỏ nhất giữ đúng semantics (query rewrite, index, data model, batch, pagination, cache, precompute) kèm tradeoff write/storage/freshness/consistency.
+10. Kiểm chứng trước/sau với dữ liệu đại diện, tham số đa dạng, cùng môi trường/cache — so sánh correctness và metrics, không bịa % cải thiện.
 
 ## Liên quan
 

@@ -1,6 +1,6 @@
-# Mẫu Báo Cáo Review Code
+# Mẫu Báo Cáo Review
 
-Dùng để **trình bày lại** kết quả review/audit đã có sẵn (không phải để tự review). Copy các khối dưới đây và điền vào.
+Dùng để **trình bày lại** kết quả review/audit đã có sẵn (không phải để tự review) — cho cả 3 loại artifact mà agent [`reviewer`](../../../agents/reviewer.md) review: code/diff, kế hoạch triển khai (plan), test case. Copy các khối dưới đây và điền vào.
 
 ## Mức độ nghiêm trọng
 
@@ -12,10 +12,12 @@ Dùng để **trình bày lại** kết quả review/audit đã có sẵn (khôn
 ## Bảng tóm tắt
 
 ```markdown
-| # | File:Dòng | Vấn đề | Mức độ | Big O | Đề xuất xử lý |
+| # | Vị trí | Vấn đề | Mức độ | Big O | Đề xuất xử lý |
 |---|---|---|---|---|---|
 | 1 | `path/to/file.ext:line` | [mô tả vấn đề] | [🚨/⚠️/💡/✅] | [O(n) hiện tại → O(?) sau sửa, nếu liên quan] | [hướng xử lý cụ thể] |
 ```
+
+**Vị trí**: `file:dòng` khi review code; `REQ-xxx`/`TASK-xxx` khi review plan; `TC-xxx` khi review test case. Cột **Big O** chỉ điền khi review code và vấn đề liên quan hiệu năng — review plan/test case để trống.
 
 ## So sánh chi tiết (cho mỗi CRITICAL/WARNING)
 

@@ -50,7 +50,7 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 |---|---|
 | `git-workflow` | Gatekeeper for every commit/PR — Conventional Commits, conflict-safe merging |
 | `report` | Formats change reports and review reports from already-done work |
-| `docs-sync` | Reconciles README/CLAUDE.md/docs against the actual codebase — fixes stale references |
+| `docs` | Reconciles README/CLAUDE.md/docs against the actual codebase, or writes a lean first version when none exists (leaner `/init`) — not system architecture specs |
 | `cleanup-temp-files` | Removes Claude's own temp files from the current session |
 | `markitdown` | Converts PDF/DOCX/PPTX/XLSX/images/... to Markdown |
 | `database` | SQL/NoSQL query review, schema/index design, performance analysis |
@@ -60,6 +60,7 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | `dependency-audit` | Read-only dependency vulnerability audit (npm/composer/pip/cargo/go) — reports and suggests, never auto-upgrades |
 | `refactoring-catalog` | Fowler-style refactoring techniques mapped to specific code smells |
 | `ci-pipeline` | Authoring/reviewing CI workflows (GitHub Actions/GitLab CI) — fail-fast job order, caching, secret handling |
+| `testcase` | Writing a few structured test cases quickly (ID/Priority/Steps/Expected result) without spawning the full `qa-tester` agent |
 
 ---
 

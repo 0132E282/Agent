@@ -3,7 +3,7 @@ name: design-patterns
 description: Tra cứu 22 design pattern GoF (phân loại theo Refactoring.Guru) theo 3 nhóm Creational/Structural/Behavioral — ngữ cảnh nên dùng, ví dụ backend, và bảng phân biệt các cặp pattern dễ nhầm (Strategy/State, Factory Method/Abstract Factory, Adapter/Facade, Decorator/Proxy, Bridge/Adapter, Strategy/Template Method). Dùng khi: cần chọn pattern phù hợp cho một vấn đề cụ thể đang lặp lại hoặc khó sửa, cần giải thích một pattern, hoặc phân vân giữa hai pattern trông giống nhau. KHÔNG dùng để tự ý nhồi pattern vào code khi task chưa thực sự cần (xem rules/01-simplicity.md).
 license: MIT
 metadata:
-  version: "1.0"
+  version: "1.1"
 ---
 
 # 🧩 Design Patterns (GoF)
@@ -31,11 +31,9 @@ Phân loại và mô tả theo Refactoring.Guru — 22 pattern trong danh mục 
 | Decorator / Proxy | Decorator bổ sung hành vi có thể kết hợp; Proxy kiểm soát việc truy cập đối tượng thật. |
 | Bridge / Adapter | Bridge chủ động tách hai chiều phát triển độc lập từ đầu; Adapter kết nối các interface đã tồn tại nhưng không tương thích. |
 
-## Thứ tự học gợi ý (backend, ví dụ Laravel)
+## Thứ tự học gợi ý (backend)
 
-`Strategy → Adapter → Observer → Chain of Responsibility → Factory Method → Template Method → State`
-
-Thứ tự này dễ liên hệ với nhu cầu backend thường gặp: tính giá/giảm giá (Strategy), tích hợp API bên thứ ba (Adapter), sự kiện (Observer), kiểm tra request theo chuỗi (Chain of Responsibility), import/export (Factory Method, Template Method), quy trình đơn hàng theo trạng thái (State).
+`Strategy (tính giá/discount) → Adapter (tích hợp API ngoài) → Observer (sự kiện) → Chain of Responsibility (pipeline request) → Factory Method/Template Method (import/export) → State (quy trình đơn hàng)`
 
 ## Khi áp dụng
 

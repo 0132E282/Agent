@@ -6,7 +6,7 @@
 
 - Sau khi hoàn thành một plan ([`planner`](../agents/planner.md)) **và** `coding-agent` đã triển khai xong (tạo/sửa/xóa file, đổi API, đổi cấu trúc, đổi tên agent/skill/command), luôn kiểm tra `README.md`/`CLAUDE.md`/`docs/` có đoạn nào nhắc tới phần vừa đổi không — có thì **cập nhật ngay trong cùng lượt**, không để lại "làm sau".
 - **"Hoàn thành" (DONE)** của một task không chỉ là code chạy đúng + test pass ([`rules/08`](./08-quality-assurance.md)) — còn phải gồm: docs liên quan (nếu có nhắc tới phần vừa đổi) đã phản ánh đúng thay đổi.
-- Dùng skill [`docs-sync`](../skills/docs-sync/SKILL.md) để rà nhanh khi phạm vi ảnh hưởng tới docs lớn hoặc không chắc hết những đâu đang nhắc tới phần vừa đổi (đổi tên agent/skill/command, xóa/thêm module) — không tự nhớ thủ công từng chỗ rồi bỏ sót.
+- Dùng skill [`docs`](../skills/docs/SKILL.md) để rà nhanh khi phạm vi ảnh hưởng tới docs lớn hoặc không chắc hết những đâu đang nhắc tới phần vừa đổi (đổi tên agent/skill/command, xóa/thêm module) — không tự nhớ thủ công từng chỗ rồi bỏ sót.
 - Chỉ cập nhật đúng phần thực sự bị ảnh hưởng — không viết lại toàn bộ docs hay mở rộng phạm vi khi không cần ([`rules/01`](./01-simplicity.md)).
 
 ```javascript

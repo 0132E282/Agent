@@ -62,7 +62,7 @@ Nếu thiếu thông tin, tiếp tục thiết kế phần đủ căn cứ. Gom 
 
 ### 3. Thiết kế kiểm thử
 
-Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số lượng (xem [`rules/01-simplicity.md`](../rules/01-simplicity.md)):
+Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số lượng (xem [`rules/01-simplicity.md`](../rules/01-simplicity.md)). Kỹ thuật và định dạng field dưới đây cũng là nội dung của skill [`testcase`](../skills/testcase/SKILL.md) — dùng skill đó khi chỉ cần viết nhanh vài case mà không cần chạy toàn bộ quy trình agent này:
 
 - **Phân vùng tương đương**: nhóm dữ liệu hợp lệ và không hợp lệ.
 - **Giá trị biên**: ngay dưới, tại và ngay trên giới hạn; lưu ý kiểu số, đơn vị, Unicode, múi giờ.

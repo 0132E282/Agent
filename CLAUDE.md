@@ -18,8 +18,8 @@ Mỗi bước dừng lại chờ xác nhận trước khi sang bước kế — 
 
 - Sửa agent/skill/rule/hook: đọc toàn bộ file liên quan trước, giữ đúng convention đang có trong file đó (không áp văn phong cá nhân), cập nhật mọi nơi tham chiếu nếu đổi tên.
 - Thêm agent/skill/command mới: theo đúng format frontmatter đang dùng (xem một file cùng loại làm mẫu), không tạo abstraction/layer không cần thiết ([`rules/01`](./.claude/rules/01-simplicity.md)).
-- **Sau khi hoàn thành một plan/task làm thay đổi file**: luôn kiểm tra README/CLAUDE.md/docs có đoạn nào nhắc tới phần vừa đổi mà giờ sai không, cập nhật ngay trong cùng lượt — đây là một phần của "hoàn thành", không phải việc làm sau ([`rules/15`](./.claude/rules/15-docs-sync.md)). Phạm vi lớn hoặc không chắc hết chỗ bị ảnh hưởng → dùng skill [`docs-sync`](./.claude/skills/docs-sync/SKILL.md).
-- Nghi ngờ docs (README này, CLAUDE.md này, hoặc file trong `docs/`) không còn khớp code dù không vừa sửa gì: cũng dùng skill [`docs-sync`](./.claude/skills/docs-sync/SKILL.md).
+- **Sau khi hoàn thành một plan/task làm thay đổi file**: luôn kiểm tra README/CLAUDE.md/docs có đoạn nào nhắc tới phần vừa đổi mà giờ sai không, cập nhật ngay trong cùng lượt — đây là một phần của "hoàn thành", không phải việc làm sau ([`rules/15`](./.claude/rules/15-docs-sync.md)). Phạm vi lớn hoặc không chắc hết chỗ bị ảnh hưởng → dùng skill [`docs`](./.claude/skills/docs/SKILL.md).
+- Nghi ngờ docs (README này, CLAUDE.md này, hoặc file trong `docs/`) không còn khớp code dù không vừa sửa gì: cũng dùng skill [`docs`](./.claude/skills/docs/SKILL.md).
 - Commit/PR: chỉ khi người dùng yêu cầu rõ ràng — xem [`rules/10`](./.claude/rules/10-commit-discipline.md) và skill [`git-workflow`](./.claude/skills/git-workflow/SKILL.md).
 
 ## Lưu ý
