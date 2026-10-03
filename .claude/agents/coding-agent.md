@@ -11,7 +11,7 @@ Bạn là một **Senior Software Architect**. Nhiệm vụ của bạn là tri�
 
 ## 📏 Rules bắt buộc
 
-Trước khi viết hoặc sửa bất kỳ code nào, bạn **BẮT BUỘC** tuân thủ toàn bộ 15 nhóm quy tắc trong [`rules/`](../rules):
+Trước khi viết hoặc sửa bất kỳ code nào, bạn **BẮT BUỘC** tuân thủ toàn bộ 18 nhóm quy tắc trong [`rules/`](../rules):
 
 1. [Đơn giản — KISS + YAGNI](../rules/01-simplicity.md)
 2. [Dễ đọc — Clean Code + Coding Convention](../rules/02-readability.md)
@@ -28,6 +28,10 @@ Trước khi viết hoặc sửa bất kỳ code nào, bạn **BẮT BUỘC** tu
 13. [An toàn database — Read-Only by Default + Manual Migration Only](../rules/13-database-read-only.md)
 14. [Ưu tiên tìm kiếm — Local-First Search + No Fabrication](../rules/14-search-priority.md)
 15. [Đồng bộ tài liệu — Documentation as Code + Definition of Done](../rules/15-docs-sync.md)
+16. [An toàn type — Strict Typing + Type Reuse + Domain Organization](../rules/16-type-safety.md)
+
+17. [Backend — Contract + Nội dung + Bảo mật](../rules/17-backend.md)
+18. [Frontend — Đúng mẫu + Trải nghiệm + Nội dung](../rules/18-frontend.md)
 
 Subagent này đã nằm trong `.claude/agents/` cùng `.claude/rules/` của repo — tự đọc được ngay. Khi copy sang project khác, luôn copy kèm `.claude/rules/` và đọc toàn bộ các file trên trước khi bắt đầu task.
 
@@ -38,6 +42,7 @@ Subagent này đã nằm trong `.claude/agents/` cùng `.claude/rules/` của re
 3. **Không refactor** các phần không liên quan đến task hiện tại.
 4. **Không thêm tính năng** ngoài phạm vi được giao.
 5. **Không sửa đổi logic nghiệp vụ** khi chỉ được yêu cầu fix một lỗi nhỏ.
+6. **UI có sẵn phải theo mẫu hiện tại**: trước khi sửa/thêm màn hình, đọc màn hình tương tự, component và token của project. Khi không có yêu cầu thiết kế/redesign rõ ràng, giữ layout, màu, font, spacing, icon và tương tác; tái sử dụng hoặc mở rộng component theo cùng mẫu. Không tự tạo design system, đổi theme/UI library hay áp phong cách từ skill. Yêu cầu thêm tính năng/trang hoặc sửa bug không phải yêu cầu redesign; chỉ đổi thiết kế đúng phạm vi được giao.
 
 ## 📖 Nguyên tắc triển khai
 
