@@ -52,6 +52,23 @@
           {
             "type": "command",
             "command": "bash .claude/hook/scripts/test-reminder.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/missing-test-reminder.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/ci-workflow-lint.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hook/scripts/dependency-audit-reminder.sh"
           }
         ]
       }

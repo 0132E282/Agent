@@ -88,6 +88,35 @@ Sau mỗi lần Edit/Write một file nguồn, hook này tìm file test tương 
 - **Phạm vi**: chỉ JS/TS (`jest`/`vitest`) và Python (`pytest`) — hai stack phổ biến nhất, không cố cover mọi ngôn ngữ (xem [`rules/01-simplicity.md`](../rules/01-simplicity.md)).
 - **An toàn**: không tìm thấy test tương ứng, hoặc thiếu test runner → bỏ qua êm.
 
+## missing-test-reminder — nhắc viết test khi chưa có test tương ứng
+
+Sau mỗi lần Edit/Write một file nguồn (JS/TS, Python), nếu **không** tìm thấy file test tương ứng theo convention đặt tên (ngược lại với `test-reminder` — hook đó xử lý trường hợp **có** tìm thấy), hook này nhắc cân nhắc viết test qua `additionalContext`, trỏ tới skill [`testing-strategy`](../skills/testing-strategy/SKILL.md) — liên hệ [`rules/08-quality-assurance.md`](../rules/08-quality-assurance.md).
+
+- **Script**: [`scripts/missing-test-reminder.sh`](./scripts/missing-test-reminder.sh)
+- **Loại hook**: `PostToolUse`, matcher `Edit|Write`
+- **Phạm vi**: cùng JS/TS và Python như `test-reminder`; bỏ qua file trong `node_modules/vendor/dist/build/migrations/tests`, file test, và file config/entry point (`index.*`, `main.*`, `config.*`, `settings.*`) — không mang business logic cần test riêng.
+- **An toàn**: chỉ nhắc (advisory) qua `additionalContext`, không chặn gì; luôn `exit 0`.
+- **Phụ thuộc**: cần `jq`.
+
+## dependency-audit-reminder — tự audit dependency sau khi cài
+
+Sau mỗi lần chạy lệnh cài/thêm dependency (`npm install`, `yarn add`, `pnpm add`, `composer require`, `pip install`...) qua tool Bash, hook này tự chạy lệnh audit **read-only** tương ứng của chính package manager (`npm audit`, `composer audit`, `pip-audit`...) và báo kết quả lại cho Claude qua `additionalContext`, trỏ tới skill [`dependency-audit`](../skills/dependency-audit/SKILL.md) — liên hệ [`rules/13-database-read-only.md`](../rules/13-database-read-only.md) (tinh thần tương tự áp cho package manager: audit tự do, không tự upgrade).
+
+- **Script**: [`scripts/dependency-audit-reminder.sh`](./scripts/dependency-audit-reminder.sh)
+- **Loại hook**: `PostToolUse`, matcher `Bash`
+- **Chỉ chạy lệnh audit** (không `--fix`/`--force`, không tự install/update gì thêm); bỏ qua êm nếu tool báo không có lỗ hổng.
+- **An toàn**: luôn `exit 0`; thiếu `jq`, không khớp lệnh cài dependency nào, hoặc thiếu audit tool tương ứng → bỏ qua êm.
+- **Phụ thuộc**: cần `jq`; audit tool tương ứng ecosystem (tuỳ chọn, thiếu thì bỏ qua).
+
+## ci-workflow-lint — lint file workflow CI sau khi sửa
+
+Sau mỗi lần Edit/Write một file workflow CI (`.github/workflows/*.yml`, `.gitlab-ci.yml`, `azure-pipelines.yml`), hook này chạy linter YAML tương ứng (`actionlint` cho GitHub Actions, `yamllint` fallback) và báo lỗi lại qua `additionalContext`, trỏ tới skill [`ci-pipeline`](../skills/ci-pipeline/SKILL.md) — liên hệ [`rules/08-quality-assurance.md`](../rules/08-quality-assurance.md). Thuần cố vấn, không block.
+
+- **Script**: [`scripts/ci-workflow-lint.sh`](./scripts/ci-workflow-lint.sh)
+- **Loại hook**: `PostToolUse`, matcher `Edit|Write`
+- **An toàn**: file không phải workflow CI, hoặc thiếu `actionlint`/`yamllint` → bỏ qua êm.
+- **Phụ thuộc**: cần `jq`; `actionlint` hoặc `yamllint` (tuỳ chọn, thiếu thì bỏ qua).
+
 ## remind-cleanup — nhắc dọn file tạm cuối session
 
 Khi Claude Code kết thúc một turn, hook này tìm file đã `Write` trong session hiện tại (qua `.claude/logs/logs.jsonl`), giới hạn trong phạm vi dự án (so khớp `cwd`), còn tồn trên đĩa và khớp pattern tên file tạm (`tmp`/`scratch`/`debug`/`draft`/`sandbox`/`test-output`/`.bak`/`.orig`) — nếu có, nhắc qua `additionalContext` để Claude thấy và tự quyết có chạy `/cleanup` không. Liên hệ skill [`cleanup-temp-files`](../skills/cleanup-temp-files/SKILL.md).
@@ -120,4 +149,4 @@ Trước mỗi lần gọi Agent tool với `subagent_type: planner`, hook này 
 
 ## Đã bật sẵn trong chính repo này
 
-`hook/` nằm trong `.claude/hook/` của repo này, và `.claude/settings.json` đã trỏ cả 9 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `remind-cleanup`, `notify-done`) tới đúng path `.claude/hook/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.
+`hook/` nằm trong `.claude/hook/` của repo này, và `.claude/settings.json` đã trỏ cả 12 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `notify-done`) tới đúng path `.claude/hook/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.

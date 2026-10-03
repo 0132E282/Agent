@@ -12,8 +12,8 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 |---|---|
 | [`.claude/agents/`](./.claude/agents) | Subagents — each with its own tools, model, and single responsibility |
 | [`.claude/commands/`](./.claude/commands) | Slash commands — the entry points a user actually types |
-| [`.claude/skills/`](./.claude/skills) | Reusable skills — git workflow, reporting, docs sync, format conversion, DB/pattern references |
-| [`.claude/rules/`](./.claude/rules) | 14 mandatory rule files every agent must follow |
+| [`.claude/skills/`](./.claude/skills) | Reusable skills — git workflow, reporting, docs sync, format conversion, DB/pattern references, testing/dependency/CI practices |
+| [`.claude/rules/`](./.claude/rules) | 15 mandatory rule files every agent must follow |
 | [`.claude/hook/`](./.claude/hook) | Automated hooks (audit log, commit-msg guard, secret scan, auto-format, auto-lint...) |
 
 ### Agents
@@ -56,6 +56,10 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | `database` | SQL/NoSQL query review, schema/index design, performance analysis |
 | `design-patterns` | Reference for the 22 GoF patterns, grouped by when to actually use them |
 | `review-web-security` | Web security review (authn/authz, injection, frontend, API, infra...) with evidence, severity, fix, and regression tests |
+| `testing-strategy` | Technical unit testing: picking the right test double, Arrange-Act-Assert structure, risk-based coverage |
+| `dependency-audit` | Read-only dependency vulnerability audit (npm/composer/pip/cargo/go) — reports and suggests, never auto-upgrades |
+| `refactoring-catalog` | Fowler-style refactoring techniques mapped to specific code smells |
+| `ci-pipeline` | Authoring/reviewing CI workflows (GitHub Actions/GitLab CI) — fail-fast job order, caching, secret handling |
 
 ---
 
