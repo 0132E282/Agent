@@ -5,19 +5,20 @@ Dùng để tóm tắt kết quả **đã thiết kế/thực thi** bởi agent 
 ```markdown
 ## ✅ Báo cáo test
 
-**Phạm vi**: [feature/luồng được test] — **Tổng**: [N] test case cho [M] yêu cầu
+**Phạm vi**: [feature/luồng được test]
 
-| REQ | Test case ID | Priority | Trạng thái | Bằng chứng |
-|---|---|---|---|---|
-| REQ-001 | TC-MODULE-001 | P1 | Pass / Fail / Blocked / Skipped / Not Run | [log/response/screenshot đã che dữ liệu nhạy cảm] |
+- **Unit Tests** (`[lệnh]`): [X]/[Y] test suites PASS ([n]/[m] tests pass).
+- **Linter** (`[lệnh]`): [N] lỗi (clean nếu 0).
+- **Build** (`[lệnh]`): [kết quả build, hoặc bỏ dòng này nếu task không cần build].
 
-**Thống kê**: `[R]` Ready, `[D]` Draft | Đã thực thi `[E]`: `[P]` Pass, `[F]` Fail, `[B]` Blocked, `[S]` Skipped, `[U]` Not Run
+### Danh sách Testcase / Bug đã xử lý
 
-### Bug phát hiện (nếu có)
-- `BUG-xxx`: [điều kiện gây lỗi + hành vi sai, severity] — chi tiết đầy đủ ở bug report riêng của `qa-tester`.
+| Mã QA / Bug ID | Mô tả vấn đề | Nguyên nhân & Cách xử lý | Trạng thái |
+|---|---|---|---|
+| `TC-xxx` / `BUG-xxx` (P1/P2/P3) | [hành vi sai quan sát được] | [nguyên nhân gốc + cách xử lý, kèm `file:dòng`] | Pass / Fail / Blocked / Skipped / Not Run |
 
 ### Rủi ro còn lại
 - [Luồng/edge case chưa test và lý do — không ghi "đã test" khi chưa chạy]
 ```
 
-Chưa thực thi → ghi rõ "Chưa thực thi kiểm thử", không suy ra Pass từ việc đã thiết kế xong.
+Chưa thực thi → ghi rõ "Chưa thực thi kiểm thử", không suy ra Pass từ việc đã thiết kế xong. Cột "Nguyên nhân & Cách xử lý" chỉ điền khi đã xác nhận fix thật (không suy đoán); mỗi dòng bảng cần truy ngược được về test case/bug report gốc của `qa-tester` khi cần.
