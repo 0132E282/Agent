@@ -5,10 +5,6 @@ Dùng ngay sau khi agent [`planner-agent`](../../../agents/planner-agent.md) `Wr
 ```markdown
 ## 📐 Báo cáo kế hoạch
 
-| Input | Output | Tổng |
-|---|---|---|
-| [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] |
-
 **Phạm vi**: [tên tính năng/plan] — **File**: `docs/implementation-plan.json`
 
 | Mục | Số lượng |

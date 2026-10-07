@@ -21,11 +21,9 @@ Skill này **chỉ format và xuất báo cáo** — không tự đi tìm lỗi,
 
 Tất cả bắt buộc theo [quality-assurance.md](../../rules/quality-assurance.md) — báo cáo là bước cuối, không được bỏ qua.
 
-Mọi template báo cáo phải có bảng metadata với ba cột **Input**, **Output** và **Tổng** cho token AI đã sử dụng. Chỉ điền số token khi có số đo thực tế từ runtime/tool; nếu không có bộ đếm, ghi rõ `Không có số đo từ runtime` — không tự ước lượng.
-
 ## 1. Báo cáo thay đổi (Change Report)
 
-Copy khung `assets/change-report-template.md`, điền: bảng tóm tắt `Trạng thái (Tạo/Sửa/Xóa) | File | Mô tả` cho toàn bộ file đổi, kèm chi tiết code cũ/mới + lý do cho những thay đổi đáng kể (logic/behavior). File chỉ đổi nhỏ (xóa file tạm, đổi 1 dòng không ảnh hưởng hành vi) chỉ cần nằm trong bảng, không cần mục chi tiết riêng. Chỉ liệt kê những gì **thật sự thay đổi**, không diễn giải lại toàn bộ file; phần "Lý do" trả lời *"vấn đề gì đang được giải quyết"* ([commit-discipline.md](../../rules/commit-discipline.md) — body commit có thể lấy thẳng từ phần Tóm tắt này).
+Copy khung `assets/change-report-template.md`, điền bảng tóm tắt `Trạng thái (Tạo/Sửa/Xóa) | File | Mô tả` cho toàn bộ file đổi + mục Tóm tắt. **Mặc định dừng ở đây — KHÔNG thêm mục "Chi tiết thay đổi"** (code cũ/mới, giải thích quyết định kỹ thuật) dù thay đổi có vẻ đáng kể (logic/behavior); chỉ thêm mục đó khi người dùng yêu cầu rõ ("chi tiết hơn", "xem code cụ thể") — không tự suy đoán người dùng muốn chi tiết. Chỉ liệt kê những gì **thật sự thay đổi**, không diễn giải lại toàn bộ file; phần "Mô tả" trả lời *"vấn đề gì đang được giải quyết"* ([commit-discipline.md](../../rules/commit-discipline.md) — body commit có thể lấy thẳng từ đó).
 
 ## 2. Báo cáo kế hoạch (Plan Summary)
 
