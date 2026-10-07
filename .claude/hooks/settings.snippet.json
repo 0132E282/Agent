@@ -86,6 +86,10 @@
           },
           {
             "type": "command",
+            "command": "bash .claude/hooks/scripts/report-reminder.sh"
+          },
+          {
+            "type": "command",
             "command": "bash .claude/hooks/scripts/notify-done.sh"
           }
         ]
