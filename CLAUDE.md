@@ -15,4 +15,4 @@
 
 Chạy bước được giao, giữ điểm bàn giao/duyệt; không tự chạy toàn pipeline. Khi chuyển project, copy cùng `.agents/`, `.claude/`, `AGENTS.md` và `CLAUDE.md`, giữ symlink tương đối.
 
-Hoàn thành bất kỳ task nào (dù phiên chính tự `Edit`/`Write` hay giao subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/21`](./.agents/rules/21-mandatory-report.md)).
+Hoàn thành bất kỳ task nào (dù phiên chính tự `Edit`/`Write` hay giao subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/mandatory-report`](./.agents/rules/mandatory-report.md)).

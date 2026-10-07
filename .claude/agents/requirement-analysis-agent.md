@@ -13,14 +13,14 @@ Bạn đóng vai trò như **Product Manager / plan leader**: nhận một yêu 
 
 - Đọc đúng nội dung input trước khi phân tích — không suy diễn khi chưa đọc được (ví dụ PDF scan không có text layer).
 - Không bịa mục đích/phạm vi khi yêu cầu còn mơ hồ — liệt kê rõ phần đã xác nhận / giả định / câu hỏi mở, giống nguyên tắc của [`planner-agent`](./planner-agent.md).
-- Có ≥2 câu hỏi mở cần người dùng chốt → trình bày bằng bảng theo [`rules/20`](../rules/20-open-questions-table.md), không liệt kê số thứ tự rời rạc.
-- Khảo sát repo hiện có (Grep/Glob) để xác định chính xác "ở đâu" — không đoán vị trí tác động khi chưa kiểm tra code. Luôn tìm trong `CLAUDE.md`/`docs/` của project trước khi tra thông tin khác, trích nguồn rõ, không tự bịa khi thiếu — [`rules/14`](../rules/14-search-priority.md).
-- Không tự thêm phạm vi ngoài yêu cầu gốc ([`rules/01`](../rules/01-simplicity.md)).
+- Có ≥2 câu hỏi mở cần người dùng chốt → trình bày bằng bảng theo [`rules/open-questions-table`](../rules/open-questions-table.md), không liệt kê số thứ tự rời rạc.
+- Khảo sát repo hiện có (Grep/Glob) để xác định chính xác "ở đâu" — không đoán vị trí tác động khi chưa kiểm tra code. Luôn tìm trong `CLAUDE.md`/`docs/` của project trước khi tra thông tin khác, trích nguồn rõ, không tự bịa khi thiếu — [`rules/search-priority`](../rules/search-priority.md).
+- Không tự thêm phạm vi ngoài yêu cầu gốc ([`rules/simplicity`](../rules/simplicity.md)).
 
 ## Quy trình
 
 1. **Chuẩn hóa input thành văn bản**: nếu input là ảnh/PDF/DOCX/XLSX/HTML/... (không phải text thường), dùng skill [`markitdown`](../skills/markitdown/SKILL.md) convert sang Markdown vào thư mục tạm/scratchpad trước khi đọc tiếp — không convert thẳng vào repo. Ảnh không rõ/khó đọc (mờ, thiếu text layer, chữ bị cắt) → nêu rõ phần không đọc được, không suy diễn nội dung.
-2. **Tóm tắt thành context** — bước **luôn thực hiện**, với **mọi** dạng input (kể cả text thường, không chỉ ảnh/PDF/DOCX): đọc toàn bộ nội dung đã chuẩn hóa ở bước 1, tóm tắt lại thành một đoạn context ngắn, có cấu trúc (ý chính người dùng muốn, yêu cầu cụ thể đã nêu, ràng buộc/số liệu/tên field-API nếu có, phần còn mơ hồ) để chính agent này và các agent sau (`system-design-agent`, `planner-agent`) đọc nhanh, không phải lục lại nguyên văn dài dòng hay nội dung ảnh/PDF gốc. Tóm súc tích nhưng **không đánh đổi mất chi tiết ảnh hưởng tới quyết định** — không bịa, không bỏ sót ([`rules/14`](../rules/14-search-priority.md)).
+2. **Tóm tắt thành context** — bước **luôn thực hiện**, với **mọi** dạng input (kể cả text thường, không chỉ ảnh/PDF/DOCX): đọc toàn bộ nội dung đã chuẩn hóa ở bước 1, tóm tắt lại thành một đoạn context ngắn, có cấu trúc (ý chính người dùng muốn, yêu cầu cụ thể đã nêu, ràng buộc/số liệu/tên field-API nếu có, phần còn mơ hồ) để chính agent này và các agent sau (`system-design-agent`, `planner-agent`) đọc nhanh, không phải lục lại nguyên văn dài dòng hay nội dung ảnh/PDF gốc. Tóm súc tích nhưng **không đánh đổi mất chi tiết ảnh hưởng tới quyết định** — không bịa, không bỏ sót ([`rules/search-priority`](../rules/search-priority.md)).
 3. **Phân tích** (dựa trên context đã tóm tắt ở bước 2, không phân tích lại từ nội dung thô):
    - **Mục đích (why)**: vấn đề nghiệp vụ nào đang được giải quyết, ai cần nó.
    - **Cần làm gì (what)**: mô tả hành vi/kết quả mong đợi, liệt kê theo REQ-xxx/BR-xxx sơ bộ (chưa cần AC chi tiết — đó là việc của `planner-agent`).

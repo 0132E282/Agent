@@ -8,7 +8,7 @@ metadata:
 
 # 🔄 Docs
 
-Hai chế độ cho tài liệu dự án (README.md, CLAUDE.md, docs/) — không phải đặc tả kiến trúc hệ thống (xem [`system-design-agent`](../../agents/system-design-agent.md), skill này không đi vào HLD/LLD/sơ đồ). Mọi kết luận "đúng/sai" hoặc nội dung viết mới phải có bằng chứng (đọc file, Glob, Grep), theo [`rules/14`](../../rules/14-search-priority.md) — không bịa lệnh/convention chưa xác minh.
+Hai chế độ cho tài liệu dự án (README.md, CLAUDE.md, docs/) — không phải đặc tả kiến trúc hệ thống (xem [`system-design-agent`](../../agents/system-design-agent.md), skill này không đi vào HLD/LLD/sơ đồ). Mọi kết luận "đúng/sai" hoặc nội dung viết mới phải có bằng chứng (đọc file, Glob, Grep), theo [`rules/search-priority`](../../rules/search-priority.md) — không bịa lệnh/convention chưa xác minh.
 
 ## Chế độ 1 — Đồng bộ (đã có tài liệu)
 
@@ -17,7 +17,7 @@ Phạm vi mặc định: `README.md`, `CLAUDE.md` (nếu có), `docs/**/*.md` (n
 1. Trích "claim" kiểm chứng được: đường dẫn, tên agent/skill/command/hook, số lượng/liệt kê, mô tả hành vi cụ thể.
 2. Đối chiếu từng claim với thực tế: đường dẫn → `Glob`; tên agent/skill/command → danh sách thật trong `.claude/agents|skills|commands/` (đọc frontmatter, không suy diễn); mô tả hành vi → đọc đúng file nguồn để so khớp.
 3. Phân loại: **sai rõ ràng** (file không còn tồn tại, tên đổi, số liệu sai) → sửa ngay theo thực tế vừa đọc; **không chắc** (mơ hồ, không kiểm chứng trực tiếp được) → không tự xóa, đưa vào "cần hỏi thêm" (giống cách [`workspace-auditor-agent`](../../agents/workspace-auditor-agent.md) xử lý phần không chắc).
-4. Sửa trực tiếp phần đã xác nhận sai, giữ văn phong/cấu trúc tài liệu — không viết lại toàn bộ file, không tự thêm tính năng/mục mới ngoài việc sửa đúng-sai ([`rules/01`](../../rules/01-simplicity.md)).
+4. Sửa trực tiếp phần đã xác nhận sai, giữ văn phong/cấu trúc tài liệu — không viết lại toàn bộ file, không tự thêm tính năng/mục mới ngoài việc sửa đúng-sai ([`rules/simplicity`](../../rules/simplicity.md)).
 5. Báo cáo theo `change-report-template.md` của skill [`report`](../report/SKILL.md): mỗi chỗ sửa ghi *trước → sau* + bằng chứng, cộng danh sách "cần hỏi thêm" nếu có.
 
 ## Chế độ 2 — Viết mới (chưa có gì để đối chiếu)

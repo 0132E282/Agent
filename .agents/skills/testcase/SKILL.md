@@ -16,7 +16,7 @@ Viết test case cho UI, API, nghiệp vụ, database hoặc toàn hệ thống.
 
 ## 2. Khi nào dùng
 
-Tính năng mới, thay đổi yêu cầu, sửa bug (viết test tái hiện bug **trước** khi fix — [`rules/08`](../../rules/08-quality-assurance.md)), hoặc cần bổ sung case cho bộ regression test.
+Tính năng mới, thay đổi yêu cầu, sửa bug (viết test tái hiện bug **trước** khi fix — [`rules/quality-assurance`](../../rules/quality-assurance.md)), hoặc cần bổ sung case cho bộ regression test.
 
 ## 3. Dữ liệu đầu vào
 
@@ -28,7 +28,7 @@ Xác định: luồng chính, luồng thay thế, điều kiện lỗi, trạng 
 
 ## 5. Kỹ thuật thiết kế test
 
-Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số lượng ([`rules/01`](../../rules/01-simplicity.md)):
+Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số lượng ([`rules/simplicity`](../../rules/simplicity.md)):
 
 | Kỹ thuật | Dùng khi |
 |---|---|
@@ -54,12 +54,12 @@ Mỗi test case bắt buộc các trường:
 | Title | Mô tả ngắn hành vi cần kiểm thử |
 | Priority | High / Medium / Low |
 | Preconditions | Trạng thái hệ thống trước khi chạy |
-| Test data | Dữ liệu và tài khoản sử dụng (dữ liệu giả, không dùng secret/PII thật — [`rules/07`](../../rules/07-data-safety.md)) |
+| Test data | Dữ liệu và tài khoản sử dụng (dữ liệu giả, không dùng secret/PII thật — [`rules/data-safety`](../../rules/data-safety.md)) |
 | Steps | Các bước thao tác cụ thể, đánh số |
 | Expected result | Kết quả quan sát được, xác minh được — gắn với bước/checkpoint tương ứng |
 | Postconditions / Cleanup | Trạng thái sau test và cách dọn dữ liệu nếu có tạo mới |
 
-Dùng để **ghi nhận kết quả đã chạy** (không chỉ thiết kế) → bổ sung thêm: Actual result, Status (Pass/Fail/Blocked/Skipped/Not Run), Evidence/Bug ID. Chỉ ghi Pass/Fail khi đã thực thi và có bằng chứng — test mới thiết kế là Not Run ([`rules/08`](../../rules/08-quality-assurance.md)).
+Dùng để **ghi nhận kết quả đã chạy** (không chỉ thiết kế) → bổ sung thêm: Actual result, Status (Pass/Fail/Blocked/Skipped/Not Run), Evidence/Bug ID. Chỉ ghi Pass/Fail khi đã thực thi và có bằng chứng — test mới thiết kế là Not Run ([`rules/quality-assurance`](../../rules/quality-assurance.md)).
 
 ## 8. Tiêu chí chất lượng
 
@@ -70,7 +70,7 @@ Dùng để **ghi nhận kết quả đã chạy** (không chỉ thiết kế) �
 
 ## 9. Khi thiếu thông tin
 
-Ghi rõ giả định đang dùng. Điểm thiếu ảnh hưởng trực tiếp tới expected result → hỏi lại trước khi đánh dấu case Ready; không hỏi được ngay thì đánh dấu Draft/TBD, không tự điền nghiệp vụ để hoàn thiện case ([`rules/06`](../../rules/06-fail-fast-validation.md), [`rules/14`](../../rules/14-search-priority.md): không bịa quy tắc/ngưỡng/thông báo lỗi chưa xác nhận).
+Ghi rõ giả định đang dùng. Điểm thiếu ảnh hưởng trực tiếp tới expected result → hỏi lại trước khi đánh dấu case Ready; không hỏi được ngay thì đánh dấu Draft/TBD, không tự điền nghiệp vụ để hoàn thiện case ([`rules/fail-fast-validation`](../../rules/fail-fast-validation.md), [`rules/search-priority`](../../rules/search-priority.md): không bịa quy tắc/ngưỡng/thông báo lỗi chưa xác nhận).
 
 ## Khi áp dụng
 

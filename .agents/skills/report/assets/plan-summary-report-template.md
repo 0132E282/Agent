@@ -18,7 +18,7 @@ Dùng ngay sau khi agent [`planner-agent`](../../../agents/planner-agent.md) `Wr
 | Câu hỏi mở cần chốt | [N] |
 | Rủi ro còn lại | [N] |
 
-### Câu hỏi mở cần chốt (nếu có — dùng bảng theo [rules/20](../../../rules/20-open-questions-table.md) khi ≥2 câu)
+### Câu hỏi mở cần chốt (nếu có — dùng bảng theo [rules/open-questions-table](../../../rules/open-questions-table.md) khi ≥2 câu)
 
 | # | Câu hỏi | Đề xuất mặc định |
 |---|---|---|

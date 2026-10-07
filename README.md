@@ -85,11 +85,11 @@ Each stage **stops and asks for confirmation** before moving to the next — not
 
 ## 📐 Core rules (`.claude/rules/`)
 
-Every agent is bound by some or all of 19 rule groups — see [`rules/README.md`](./.claude/rules/README.md) for the full table:
+Every agent is bound by some or all of the rule files in `.claude/rules/` (one file per group, e.g. `simplicity.md`, `data-safety.md`):
 
-KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync · Type Safety · Backend Contract/Content/Security · Frontend Design Fidelity/Accessibility · Plan Output Format (JSON, `planner-agent` only).
+KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync · Type Safety · Backend Contract/Content/Security · Frontend Design Fidelity/Accessibility · Plan Output Format (JSON, `planner-agent` only) · Open Questions Table · Mandatory Report · Response Style.
 
-`coding-agent` reads all 18 as its system prompt; other agents link to the specific rules relevant to their task.
+`coding-agent` reads the 18 core rule files as its system prompt; other agents link to the specific rule files relevant to their task.
 
 ---
 

@@ -13,9 +13,9 @@ Lớp **kỹ thuật viết test code** khi implement — khác [`qa-tester-agen
 ## Nguyên tắc bắt buộc
 
 - Test **hành vi** (input/output), không test chi tiết triển khai — đổi cách viết nội bộ hàm mà không đổi input/output thì test không được fail.
-- Sửa bug → viết test tái hiện bug **trước**, thấy fail, rồi fix tới khi pass ([`rules/08`](../../rules/08-quality-assurance.md)).
+- Sửa bug → viết test tái hiện bug **trước**, thấy fail, rồi fix tới khi pass ([`rules/quality-assurance`](../../rules/quality-assurance.md)).
 - Độ phủ theo **rủi ro**, không theo % cứng — ưu tiên business logic/edge case/luồng tiền-dữ liệu nhạy cảm, bỏ qua getter/setter/CRUD đã cover gián tiếp.
-- Rule of Three cho test fixture/helper ([`rules/04`](../../rules/04-dry.md)) — không gom chung từ lần lặp thứ 2.
+- Rule of Three cho test fixture/helper ([`rules/dry`](../../rules/dry.md)) — không gom chung từ lần lặp thứ 2.
 
 ## Chọn test double
 
@@ -26,7 +26,7 @@ Lớp **kỹ thuật viết test code** khi implement — khác [`qa-tester-agen
 | **Fake** | Cần bản triển khai nhẹ, hoạt động thật nhưng không hợp production (in-memory DB thay SQL) |
 | **Spy** | Chạy hành vi thật **và** ghi lại lời gọi để kiểm tra sau |
 
-Chỉ double hóa dependency **không xác định/không kiểm soát được** (I/O thật, `Date.now()`, số ngẫu nhiên, env thay đổi). Logic nội bộ thuần test trực tiếp — mock quá tay làm test chỉ còn xác nhận lại mock ([`rules/01`](../../rules/01-simplicity.md)).
+Chỉ double hóa dependency **không xác định/không kiểm soát được** (I/O thật, `Date.now()`, số ngẫu nhiên, env thay đổi). Logic nội bộ thuần test trực tiếp — mock quá tay làm test chỉ còn xác nhận lại mock ([`rules/simplicity`](../../rules/simplicity.md)).
 
 ## Cấu trúc test
 

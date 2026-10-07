@@ -38,7 +38,7 @@ Nếu yêu cầu là **security review** chuyên sâu (authn/authz, injection, u
 | Kiểm thử | Có bằng chứng kiểm tra luồng chính, trường hợp lỗi, quyền truy cập và các chức năng dễ bị ảnh hưởng? |
 | Phạm vi thay đổi | Diff có tập trung vào yêu cầu? Có trộn refactor lớn hoặc sửa phần không liên quan? |
 
-Ánh xạ tới rule có sẵn trong repo khi cần dẫn chứng: Đúng logic/Xử lý lỗi → [`rules/06`](../rules/06-fail-fast-validation.md); An toàn dữ liệu/Bảo mật → [`rules/07`](../rules/07-data-safety.md); Trách nhiệm rõ ràng → [`rules/03`](../rules/03-separation-of-concerns.md); Ít phức tạp → [`rules/01`](../rules/01-simplicity.md); Kiểm thử → [`rules/08`](../rules/08-quality-assurance.md).
+Ánh xạ tới rule có sẵn trong repo khi cần dẫn chứng: Đúng logic/Xử lý lỗi → [`rules/fail-fast-validation`](../rules/fail-fast-validation.md); An toàn dữ liệu/Bảo mật → [`rules/data-safety`](../rules/data-safety.md); Trách nhiệm rõ ràng → [`rules/separation-of-concerns`](../rules/separation-of-concerns.md); Ít phức tạp → [`rules/simplicity`](../rules/simplicity.md); Kiểm thử → [`rules/quality-assurance`](../rules/quality-assurance.md).
 
 ### Đo độ phức tạp (Big O)
 
@@ -75,7 +75,7 @@ Khi báo CRITICAL/WARNING về hiệu năng, ghi rõ **Big O hiện tại → Bi
 - **Rủi ro có phương án**: mỗi rủi ro liệt kê có mitigation hoặc điều kiện cần xem lại, không chỉ nêu suông?
 - **Dependency hợp lý**: không có vòng lặp dependency giữa các task, thứ tự triển khai khả thi.
 - **Khớp thiết kế gốc**: nếu plan dựa trên tài liệu `system-design-agent`, entity/API/kiến trúc trong task có khớp tài liệu đó không — tự ý đổi mà không ghi chú là một finding.
-- **Trạng thái trung thực**: task đánh dấu DONE phải có bằng chứng kiểm tra thật ([`rules/08`](../rules/08-quality-assurance.md)) — không tự nhận "xong" khi chưa chạy.
+- **Trạng thái trung thực**: task đánh dấu DONE phải có bằng chứng kiểm tra thật ([`rules/quality-assurance`](../rules/quality-assurance.md)) — không tự nhận "xong" khi chưa chạy.
 
 ## 3. Review test case (từ `qa-tester-agent`)
 
@@ -86,7 +86,7 @@ Khi báo CRITICAL/WARNING về hiệu năng, ghi rõ **Big O hiện tại → Bi
 - **Trạng thái trung thực**: Pass/Fail chỉ hợp lệ khi đã thực thi và có bằng chứng; test mới thiết kế phải là Not Run — không tự gán Pass khi chưa chạy.
 - **Bao phủ rủi ro cao**: có test cho luồng tiền/dữ liệu/phân quyền, giá trị biên, luồng lỗi — không chỉ toàn happy path.
 - **Độc lập & cleanup**: test case độc lập hoặc khai báo dependency rõ; có cleanup khi tạo dữ liệu test.
-- **Không lộ dữ liệu thật**: dữ liệu/token trong test case là dữ liệu giả, không phải secret hay PII thật ([`rules/07`](../rules/07-data-safety.md)).
+- **Không lộ dữ liệu thật**: dữ liệu/token trong test case là dữ liệu giả, không phải secret hay PII thật ([`rules/data-safety`](../rules/data-safety.md)).
 
 ## Quy trình
 

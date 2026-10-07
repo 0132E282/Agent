@@ -17,12 +17,12 @@ description: "Áp dụng khi nhiệm vụ liên quan: ⚙️ Backend — Contrac
 - **Không dùng robots để bảo mật**: robots.txt quản lý crawl; noindex quản lý index khi crawler đọc được. Trang riêng tư luôn cần xác thực/phân quyền.
 - **Query và cache có giới hạn**: tránh N+1, phân trang có thứ tự ổn định, chọn field cần thiết và index theo truy vấn thật. Cache không lẫn tenant/quyền/ngôn ngữ; invalidate sau commit cho nội dung, metadata, sitemap và URL liên quan. Không kết luận nhanh hơn khi chưa đo.
 - **Media và HTML an toàn**: kiểm tra quyền upload, kích thước và loại file thực tế; không cho file upload thực thi. Sanitize HTML không tin cậy bằng thư viện phù hợp, không lọc XSS bằng regex; giữ alt/biến thể ảnh theo contract.
-- **Vận hành có kiểm soát**: timeout/retry có giới hạn, idempotency khi cần; log có ngữ cảnh nhưng không chứa secret/PII. Tuân thủ [database-read-only](./13-database-read-only.md) khi chạy migration, seed, ghi database hoặc flush cache; không tự thao tác production.
+- **Vận hành có kiểm soát**: timeout/retry có giới hạn, idempotency khi cần; log có ngữ cảnh nhưng không chứa secret/PII. Tuân thủ [database-read-only](./database-read-only.md) khi chạy migration, seed, ghi database hoặc flush cache; không tự thao tác production.
 
 ## Kiểm chứng
 
-Kiểm tra contract/status, validation, quyền và truy cập chéo tenant nếu có; trạng thái publish/draft, đổi slug và cache invalidation nếu liên quan. Chạy test/lint/type check phù hợp theo [quality-assurance](./08-quality-assurance.md); ghi rõ phần chưa chạy hoặc chưa áp dụng vào database/deployment.
+Kiểm tra contract/status, validation, quyền và truy cập chéo tenant nếu có; trạng thái publish/draft, đổi slug và cache invalidation nếu liên quan. Chạy test/lint/type check phù hợp theo [quality-assurance](./quality-assurance.md); ghi rõ phần chưa chạy hoặc chưa áp dụng vào database/deployment.
 
 ## Khi áp dụng
 
-Khi viết, sửa hoặc review backend/API/CMS. Chỉ áp dụng mục liên quan đến task; không tự bổ sung CMS, SEO, media hoặc đa ngôn ngữ vào dự án không cần chúng. Quy trình chi tiết ở [coding-backend](../skills/coding-backend/SKILL.md); TypeScript tuân thủ [type-safety](./16-type-safety.md).
+Khi viết, sửa hoặc review backend/API/CMS. Chỉ áp dụng mục liên quan đến task; không tự bổ sung CMS, SEO, media hoặc đa ngôn ngữ vào dự án không cần chúng. Quy trình chi tiết ở [coding-backend](../skills/coding-backend/SKILL.md); TypeScript tuân thủ [type-safety](./type-safety.md).

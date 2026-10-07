@@ -8,15 +8,15 @@ metadata:
 
 # ⚙️ CI Pipeline
 
-Soạn/review **file cấu hình CI** (không chạy workflow thật, không deploy) — đảm bảo mọi thay đổi code qua lint + test + build trước khi merge, nối tiếp [`rules/08`](../../rules/08-quality-assurance.md) ở tầng tự động hóa.
+Soạn/review **file cấu hình CI** (không chạy workflow thật, không deploy) — đảm bảo mọi thay đổi code qua lint + test + build trước khi merge, nối tiếp [`rules/quality-assurance`](../../rules/quality-assurance.md) ở tầng tự động hóa.
 
 ## Quy trình
 
 1. Xác định platform từ file có sẵn trong repo (`.github/workflows/*.yml`, `.gitlab-ci.yml`, `azure-pipelines.yml`) — chưa có CI và chưa chỉ định platform → hỏi lại trước khi chọn.
 2. Xác định stack thật từ manifest (`package.json`, `composer.json`, `requirements.txt`, `go.mod`) để chọn đúng setup action + cache dependency.
-3. Thứ tự job chuẩn, **fail fast** ([`rules/06`](../../rules/06-fail-fast-validation.md)): `install → lint → test → build` — lint/test fail thì dừng ngay, không chạy tiếp build.
-4. Trigger: `pull_request` chạy full suite; `push` branch chính tách job riêng (build/deploy) khỏi lint/test ([`rules/03`](../../rules/03-separation-of-concerns.md)).
-5. Secret luôn qua biến CI (`secrets.*`, CI/CD Variables) — không hardcode vào YAML, không log ra output ([`rules/07`](../../rules/07-data-safety.md)).
+3. Thứ tự job chuẩn, **fail fast** ([`rules/fail-fast-validation`](../../rules/fail-fast-validation.md)): `install → lint → test → build` — lint/test fail thì dừng ngay, không chạy tiếp build.
+4. Trigger: `pull_request` chạy full suite; `push` branch chính tách job riêng (build/deploy) khỏi lint/test ([`rules/separation-of-concerns`](../../rules/separation-of-concerns.md)).
+5. Secret luôn qua biến CI (`secrets.*`, CI/CD Variables) — không hardcode vào YAML, không log ra output ([`rules/data-safety`](../../rules/data-safety.md)).
 6. Khi review workflow có sẵn: thiếu lint/test, thiếu cache, matrix version không khớp runtime thật, step chạy trên self-hosted runner không rõ nguồn gốc.
 
 ## Không tự ý

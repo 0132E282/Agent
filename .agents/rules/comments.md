@@ -9,7 +9,7 @@ description: "Áp dụng khi nhiệm vụ liên quan: 💬 Comment có kỷ lu�
 
 ## Khi nào được comment
 
-- **Mặc định không comment.** Tên hàm/biến phải tự giải thích (xem [02-readability.md](./02-readability.md)).
+- **Mặc định không comment.** Tên hàm/biến phải tự giải thích (xem [readability.md](./readability.md)).
 - **Không comment logic đơn giản**: gán biến, gọi hàm tên rõ, `if`/vòng lặp hiển nhiên, CRUD, getter/setter.
 - Chỉ comment khi giải thích **"tại sao"** mà code không tự nói được: ràng buộc nghiệp vụ, workaround, hành vi bất ngờ của thư viện/bên thứ ba.
 
@@ -42,7 +42,7 @@ public function verifyIPN(array $data): array
 ## Độ dài
 
 - Mỗi dòng comment ≤ 180 ký tự; tối đa 1–3 dòng. Cần dài hơn ⇒ đưa vào docs thay vì nhồi vào comment.
-- Sửa code có comment cũ, **cập nhật hoặc xoá** cho đúng với code mới — không để comment nói dối (xem [09-boy-scout-rule.md](./09-boy-scout-rule.md)).
+- Sửa code có comment cũ, **cập nhật hoặc xoá** cho đúng với code mới — không để comment nói dối (xem [boy-scout-rule.md](./boy-scout-rule.md)).
 
 ## Khi áp dụng
 

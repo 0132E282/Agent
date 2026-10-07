@@ -21,8 +21,8 @@ description: "Áp dụng khi nhiệm vụ liên quan: 🖥️ Frontend — Đún
 
 ## Kiểm chứng
 
-Đối chiếu mẫu UI, thử nội dung dài/thiếu dữ liệu, keyboard, form và lỗi API; kiểm tra nhiều kích thước màn hình, route trực tiếp và metadata khi liên quan. Chạy test/lint/type check/build phù hợp theo [quality-assurance](./08-quality-assurance.md); phân biệt check pass/fail/chưa chạy, không coi local preview là bằng chứng đã index hoặc đạt hiệu năng production.
+Đối chiếu mẫu UI, thử nội dung dài/thiếu dữ liệu, keyboard, form và lỗi API; kiểm tra nhiều kích thước màn hình, route trực tiếp và metadata khi liên quan. Chạy test/lint/type check/build phù hợp theo [quality-assurance](./quality-assurance.md); phân biệt check pass/fail/chưa chạy, không coi local preview là bằng chứng đã index hoặc đạt hiệu năng production.
 
 ## Khi áp dụng
 
-Khi viết, sửa hoặc review frontend. SEO/Open Graph áp dụng cho trang công khai phù hợp, không tự index admin/nội dung riêng tư. Quy trình chi tiết ở [coding-frontend](../skills/coding-frontend/SKILL.md); TypeScript tuân thủ [type-safety](./16-type-safety.md).
+Khi viết, sửa hoặc review frontend. SEO/Open Graph áp dụng cho trang công khai phù hợp, không tự index admin/nội dung riêng tư. Quy trình chi tiết ở [coding-frontend](../skills/coding-frontend/SKILL.md); TypeScript tuân thủ [type-safety](./type-safety.md).

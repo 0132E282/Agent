@@ -5,7 +5,7 @@ description: "Áp dụng khi nhiệm vụ liên quan: 📋 Viết plan — JSON 
 
 # 📋 Viết plan — JSON Schema + Task dạng bảng
 
-**Phạm vi**: mở rộng riêng cho kế hoạch triển khai (implementation plan) do agent [`planner-agent`](../agents/planner-agent.md) xuất ra — không áp dụng cho report ([`rules/15`](./15-docs-sync.md) vẫn Markdown) hay tài liệu `system-design-agent`/`requirement-analysis-agent`.
+**Phạm vi**: mở rộng riêng cho kế hoạch triển khai (implementation plan) do agent [`planner-agent`](../agents/planner-agent.md) xuất ra — không áp dụng cho report ([`rules/docs-sync`](./docs-sync.md) vẫn Markdown) hay tài liệu `system-design-agent`/`requirement-analysis-agent`.
 
 ## Cách áp dụng
 

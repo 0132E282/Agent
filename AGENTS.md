@@ -4,7 +4,7 @@ Repo cấu hình agent phát triển phần mềm, không phải ứng dụng. N
 
 ## Nguồn chung và quy tắc
 
-- Nội dung agent/rule/skill tự viết dùng tiếng Việt; README gốc dùng tiếng Anh, skill import giữ ngôn ngữ nguồn. Đọc file liên quan trước khi sửa, giữ convention hiện có. `.agents/rules/` là nguồn chung; `.claude/rules/` và `.codex/rules/` liên kết tới đó. Khi code, đọc toàn bộ file rule được liệt kê trong `.agents/rules/README.md`, áp dụng phần liên quan đến nhiệm vụ; không tự mở rộng phạm vi.
+- Nội dung agent/rule/skill tự viết dùng tiếng Việt; README gốc dùng tiếng Anh, skill import giữ ngôn ngữ nguồn. Đọc file liên quan trước khi sửa, giữ convention hiện có. `.agents/rules/` là nguồn chung; `.claude/rules/` và `.codex/rules/` liên kết tới đó. Khi code, đọc toàn bộ file rule trong `.agents/rules/`, áp dụng phần liên quan đến nhiệm vụ; không tự mở rộng phạm vi.
 - TypeScript không dùng `any`, ưu tiên type có sẵn/dẫn xuất và gom theo domain trong `types/`.
 - UI/Figma có sẵn là mẫu chuẩn: không tự redesign, đổi theme hoặc tạo design system nếu chưa được yêu cầu. Đọc mẫu thật; không truy cập được thì nêu rõ, không đoán.
 - Thao tác database thật mặc định read-only; viết migration không đồng nghĩa được phép chạy. Commit/push/deploy chỉ trong phạm vi được người dùng yêu cầu rõ.
@@ -18,7 +18,7 @@ Các file Markdown trong `.codex/rules/` được đọc theo hướng dẫn nà
 - `.codex/agents/*.toml` định nghĩa custom agent tương ứng `.claude/agents/*.md`, kế thừa model của phiên. Chỉ delegation khi nhiệm vụ/workflow được giao yêu cầu; đọc tài liệu vai trò trước khi thực hiện.
 - Workflow gọi bằng `$workflow-analyze`, `$workflow-plan`, `$workflow-implement`, `$workflow-test`, `$workflow-review`, `$workflow-report`, `$workflow-commit`, `$workflow-pr`, `$workflow-cleanup`, `$workflow-audit-workspace`. Chúng chuyển hành vi từ `.claude/commands/lumina/` (Claude gọi bằng slash command namespace `/lumina:...`), không phải slash command Claude trên Codex.
 - Bàn giao bằng file trong `docs/` theo vai trò, giữ điểm duyệt của workflow. Không tự chạy toàn pipeline từ phân tích tới commit.
-- Hoàn thành task (dù tự làm trực tiếp hay qua subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/21`](./.agents/rules/21-mandatory-report.md)).
+- Hoàn thành task (dù tự làm trực tiếp hay qua subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/mandatory-report`](./.agents/rules/mandatory-report.md)).
 
 ## Hook và format
 

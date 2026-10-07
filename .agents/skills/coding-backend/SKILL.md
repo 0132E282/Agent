@@ -12,7 +12,7 @@ Bảo đảm nội dung, URL và dữ liệu SEO nhất quán, website hoạt đ
 
 ## Nguyên tắc
 
-- Tuân thủ [backend](../../rules/17-backend.md), [type-safety](../../rules/16-type-safety.md) và [database-read-only](../../rules/13-database-read-only.md) khi áp dụng.
+- Tuân thủ [backend](../../rules/backend.md), [type-safety](../../rules/type-safety.md) và [database-read-only](../../rules/database-read-only.md) khi áp dụng.
 
 - Đọc hướng dẫn project, đặc tả, schema, route, API contract và cấu hình liên quan trước khi code. Tái sử dụng model, validation, service, serializer, job và cache hiện có; giữ tương thích contract ngoài phạm vi thay đổi.
 - Tách HTTP/validation/phân quyền/nghiệp vụ theo cấu trúc project. Không tin quyền hiển thị từ frontend; kiểm tra quyền ở backend trên từng tài nguyên và tenant.
@@ -21,7 +21,7 @@ Bảo đảm nội dung, URL và dữ liệu SEO nhất quán, website hoạt đ
 
 1. **Khảo sát**: xác định entity, vòng đời nội dung, actor/quyền, URL công khai, metadata, contract frontend/SSR và tiêu chí nghiệm thu. Kiểm tra phiên bản stack, schema/index, timezone, job/cache/storage và lệnh kiểm tra thật.
 2. **Triển khai**: xử lý nhóm liên quan bên dưới, chọn thay đổi nhỏ nhất đáp ứng đặc tả. Thay đổi schema/API phải nêu cách giữ tương thích; đổi URL phải có mapping redirect và cập nhật nguồn metadata/sitemap/link liên quan.
-3. **Kiểm chứng**: test hành vi, quyền truy cập, trạng thái nội dung, URL/status và cache; chạy lint/type check/build phù hợp. Fix bug viết regression test fail vì lỗi trước khi sửa theo [quality-assurance](../../rules/08-quality-assurance.md).
+3. **Kiểm chứng**: test hành vi, quyền truy cập, trạng thái nội dung, URL/status và cache; chạy lint/type check/build phù hợp. Fix bug viết regression test fail vì lỗi trước khi sửa theo [quality-assurance](../../rules/quality-assurance.md).
 4. **Bàn giao**: tự review diff và đồng bộ tài liệu bị ảnh hưởng. Báo hành vi/file đã đổi, lệnh và kết quả thật, migration/script cần chạy và giới hạn kiểm chứng; phân biệt code đã viết với thay đổi đã áp dụng vào database/deployment.
 
 ## Yêu cầu triển khai

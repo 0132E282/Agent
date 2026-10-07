@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Thực thi quy tắc git bắt buộc — commit (rules/10-commit-discipline.md), format lại bằng Prettier trước khi push, và tạo pull request/resolve conflict (rules/11-pull-request-conflict.md). Tuyệt đối không tự ý git commit khi chưa có lệnh rõ ràng, không commit vụn vặt, message theo Conventional Commits (tiêu đề "<type>: mô tả" ≤ 75 ký tự); trước khi push format lại diff so với remote; khi tạo PR phải check conflict và biết nhánh nào được ưu tiên giữ. Dùng ngay trước khi chạy git commit, git push, tạo/update PR, hoặc resolve conflict. Đi kèm script validate-commit-message.sh để kiểm tra message tự động.
+description: Thực thi quy tắc git bắt buộc — commit (rules/commit-discipline.md), format lại bằng Prettier trước khi push, và tạo pull request/resolve conflict (rules/pull-request-conflict.md). Tuyệt đối không tự ý git commit khi chưa có lệnh rõ ràng, không commit vụn vặt, message theo Conventional Commits (tiêu đề "<type>: mô tả" ≤ 75 ký tự); trước khi push format lại diff so với remote; khi tạo PR phải check conflict và biết nhánh nào được ưu tiên giữ. Dùng ngay trước khi chạy git commit, git push, tạo/update PR, hoặc resolve conflict. Đi kèm script validate-commit-message.sh để kiểm tra message tự động.
 license: MIT
 metadata:
   version: "1.4"
@@ -10,7 +10,7 @@ metadata:
 
 Skill gatekeeper bắt buộc cho **commit** và **pull request** — hành động git có thể thay đổi lịch sử/chia sẻ trạng thái với người khác. Áp dụng dù đang ở phiên chính hay subagent, độc lập với [`coding-agent`](../../agents/coding-agent.md).
 
-## 1. Trước khi `git commit` ([rules/10](../../rules/10-commit-discipline.md))
+## 1. Trước khi `git commit` ([rules/commit-discipline](../../rules/commit-discipline.md))
 
 1. **Có lệnh rõ ràng từ người dùng chưa?** Chưa có → dừng, không commit, bất kể code đã xong hay chưa.
 2. **Gộp đúng phạm vi** — một commit cho toàn bộ thay đổi liên quan của task hiện tại, không tách vụn, không gộp thêm thay đổi ngoài phạm vi. Chỉ 2 kiểu phạm vi hợp lệ: "push hết" (toàn bộ thay đổi hiện có, khi người dùng nói rõ) hoặc "push theo tính năng" (chỉ phần liên quan task, mặc định khi không chỉ định) — **cả hai đều tuyệt đối không được kèm file tmp/scratch/debug/test thử nghiệm hoặc file rác**. Chạy `git status` rà lại trước `git add`; thấy file rác do mình tạo trong session thì dọn bằng skill [`cleanup-temp-files`](../cleanup-temp-files/SKILL.md) trước, không add vào commit.
@@ -30,7 +30,7 @@ Skill gatekeeper bắt buộc cho **commit** và **pull request** — hành đ�
 
 Hook [`format-before-push.sh`](../../hook/scripts/format-before-push.sh) tự chạy bước 1 mỗi lần phát hiện lệnh `git push` và cảnh báo (không chặn) nếu format sinh ra thay đổi chưa commit — xem [`hook/README.md`](../../hook/README.md#format-before-push--format-lại-trước-khi-push).
 
-## 3. Trước khi tạo Pull Request / khi gặp conflict ([rules/11](../../rules/11-pull-request-conflict.md))
+## 3. Trước khi tạo Pull Request / khi gặp conflict ([rules/pull-request-conflict](../../rules/pull-request-conflict.md))
 
 1. Trước khi tạo PR, luôn kiểm tra nhánh có **conflict** với nhánh đích (base, thường `main`) không.
 2. Có conflict: **đọc cả hai phía** (`<<<<<<<`/`=======`/`>>>>>>>`) trước khi quyết định — không xóa trắng một bên mà không xem nội dung.

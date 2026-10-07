@@ -5,12 +5,12 @@ description: "Áp dụng khi nhiệm vụ liên quan: ❓ Câu hỏi mở — B�
 
 # ❓ Câu hỏi mở — Bảng quyết định
 
-**Phạm vi**: áp dụng cho **mọi** agent/skill (không riêng `planner-agent`) khi cần người dùng chốt nhiều câu hỏi mở/giả định/quyết định trước khi tiếp tục — là quy ước trình bày trong hội thoại (chat), khác với [`rules/19`](./19-plan-format.md) (định dạng file JSON của `planner-agent`).
+**Phạm vi**: áp dụng cho **mọi** agent/skill (không riêng `planner-agent`) khi cần người dùng chốt nhiều câu hỏi mở/giả định/quyết định trước khi tiếp tục — là quy ước trình bày trong hội thoại (chat), khác với [`rules/plan-format`](./plan-format.md) (định dạng file JSON của `planner-agent`).
 
 ## Cách áp dụng
 
 - Có **từ 2 câu hỏi mở trở lên** cần người dùng xác nhận trước khi tiếp tục → trình bày bằng **bảng Markdown**, không liệt kê số thứ tự/bullet rời rạc từng câu.
-- Cột tối thiểu: `#` | `Câu hỏi` | `Đề xuất mặc định` (nếu có đề xuất). Thêm `Lý do`/`Ảnh hưởng nếu chọn sai` khi quyết định đó rủi ro cao (tiền, mất dữ liệu, phân quyền — [`rules/07`](./07-data-safety.md)).
+- Cột tối thiểu: `#` | `Câu hỏi` | `Đề xuất mặc định` (nếu có đề xuất). Thêm `Lý do`/`Ảnh hưởng nếu chọn sai` khi quyết định đó rủi ro cao (tiền, mất dữ liệu, phân quyền — [`rules/data-safety`](./data-safety.md)).
 - Chỉ có **1 câu hỏi duy nhất** thì không cần bảng — hỏi thẳng bằng câu bình thường.
 - Không áp dụng cho `AskUserQuestion` hoặc tool hỏi có UI riêng của runtime — rule này chỉ áp dụng khi câu hỏi được viết ra dưới dạng văn bản/Markdown thuần (sub-agent trả chữ, hoặc runtime không có tool hỏi riêng).
 

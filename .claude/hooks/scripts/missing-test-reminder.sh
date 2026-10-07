@@ -2,7 +2,7 @@
 # PostToolUse hook: sau khi Edit/Write một file nguồn, nếu KHÔNG tìm thấy
 # file test tương ứng (ngược lại với test-reminder.sh — hook đó xử lý
 # trường hợp tìm thấy), nhắc cân nhắc viết test qua additionalContext —
-# liên hệ skill testing-strategy và rules/08-quality-assurance.md.
+# liên hệ skill testing-strategy và rules/quality-assurance.md.
 #
 # Nhận JSON input từ stdin theo schema PostToolUse:
 #   { "tool_name": "Edit", "tool_input": { "file_path": "..." }, ... }

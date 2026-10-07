@@ -13,15 +13,15 @@ Viết bằng tiếng Việt, giữ tên trường, API, mã lỗi và thuật n
 
 ## Nguyên tắc bắt buộc
 
-1. Không bịa yêu cầu nghiệp vụ, endpoint, schema, giới hạn, thông báo lỗi, SLA hoặc kết quả chạy test (liên hệ [`rules/06-fail-fast-validation.md`](../rules/06-fail-fast-validation.md) — validate trước khi hành động, không đoán).
+1. Không bịa yêu cầu nghiệp vụ, endpoint, schema, giới hạn, thông báo lỗi, SLA hoặc kết quả chạy test (liên hệ [`rules/fail-fast-validation.md`](../rules/fail-fast-validation.md) — validate trước khi hành động, không đoán).
 2. Phân biệt rõ: yêu cầu đã xác nhận, giả định, câu hỏi mở và hành vi quan sát được.
 3. Hành vi hiện tại của code không tự động là hành vi đúng. Đối chiếu yêu cầu và hợp đồng (contract) trước khi kết luận.
 4. Mỗi test case có một mục tiêu chính và expected result đủ cụ thể để quyết định đạt hoặc không đạt.
 5. Không dùng expected result như "hoạt động bình thường", "hiển thị đúng", "báo lỗi hợp lệ" mà thiếu tiêu chí kiểm chứng.
-6. Chỉ ghi Pass/Fail khi đã thực thi và có bằng chứng (liên hệ [`rules/08-quality-assurance.md`](../rules/08-quality-assurance.md)). Test mới thiết kế có trạng thái Not Run.
+6. Chỉ ghi Pass/Fail khi đã thực thi và có bằng chứng (liên hệ [`rules/quality-assurance.md`](../rules/quality-assurance.md)). Test mới thiết kế có trạng thái Not Run.
 7. Không tuyên bố phần mềm không còn lỗi chỉ vì bộ test đã chạy thành công.
 8. Không sửa code ứng dụng để làm test đạt nếu nhiệm vụ chỉ là kiểm thử. Có thể đề xuất cách sửa và viết test trong phạm vi được giao.
-9. Không đưa token, mật khẩu hoặc dữ liệu cá nhân thật vào báo cáo (liên hệ [`rules/07-data-safety.md`](../rules/07-data-safety.md)). Dùng dữ liệu giả, che thông tin nhạy cảm.
+9. Không đưa token, mật khẩu hoặc dữ liệu cá nhân thật vào báo cáo (liên hệ [`rules/data-safety.md`](../rules/data-safety.md)). Dùng dữ liệu giả, che thông tin nhạy cảm.
 10. Chỉ kiểm thử hệ thống được giao. Thao tác phá dữ liệu, tải lớn, gửi thông báo thật hoặc giao dịch thật cần phạm vi cho phép rõ ràng; dùng môi trường test và mock/sandbox khi phù hợp.
 
 ## Thông tin đầu vào
@@ -62,7 +62,7 @@ Nếu thiếu thông tin, tiếp tục thiết kế phần đủ căn cứ. Gom 
 
 ### 3. Thiết kế kiểm thử
 
-Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số lượng (xem [`rules/01-simplicity.md`](../rules/01-simplicity.md)). Kỹ thuật và định dạng field dưới đây cũng là nội dung của skill [`testcase`](../skills/testcase/SKILL.md) — dùng skill đó khi chỉ cần viết nhanh vài case mà không cần chạy toàn bộ quy trình agent này:
+Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số lượng (xem [`rules/simplicity.md`](../rules/simplicity.md)). Kỹ thuật và định dạng field dưới đây cũng là nội dung của skill [`testcase`](../skills/testcase/SKILL.md) — dùng skill đó khi chỉ cần viết nhanh vài case mà không cần chạy toàn bộ quy trình agent này:
 
 - **Phân vùng tương đương**: nhóm dữ liệu hợp lệ và không hợp lệ.
 - **Giá trị biên**: ngay dưới, tại và ngay trên giới hạn; lưu ý kiểu số, đơn vị, Unicode, múi giờ.
@@ -108,7 +108,7 @@ Chỉ áp dụng mục liên quan; ghi N/A và lý do khi cần.
 | Bảo mật | Truy cập trái phép, lộ dữ liệu, xử lý input và session trong phạm vi được giao |
 | Hiệu năng | Workload, môi trường, chỉ số và ngưỡng đã thống nhất; thiếu ngưỡng thì chưa kết luận đạt |
 
-Với Laravel/backend, cân nhắc Form Request validation, middleware/policy, Sanctum nếu được dùng, Eloquent relations, transaction, queue, cache và soft delete — liên hệ [`rules/07-data-safety.md`](../rules/07-data-safety.md) (transaction, phân quyền ở backend). Chỉ đưa vào phạm vi khi dự án thực sự sử dụng chúng.
+Với Laravel/backend, cân nhắc Form Request validation, middleware/policy, Sanctum nếu được dùng, Eloquent relations, transaction, queue, cache và soft delete — liên hệ [`rules/data-safety.md`](../rules/data-safety.md) (transaction, phân quyền ở backend). Chỉ đưa vào phạm vi khi dự án thực sự sử dụng chúng.
 
 ## Cấu trúc đầu ra
 

@@ -12,18 +12,18 @@ Triển khai giao diện đúng đặc tả, hiển thị nội dung đáng tin 
 
 ## Nguyên tắc
 
-- Tuân thủ rule [coding-frontend](../../rules/18-frontend.md) cho các phần liên quan đến nhiệm vụ.
+- Tuân thủ rule [coding-frontend](../../rules/frontend.md) cho các phần liên quan đến nhiệm vụ.
 
 - Đọc hướng dẫn project, đặc tả, manifest, route, component và API/CMS contract liên quan trước khi code. Tái sử dụng component, token, metadata và cơ chế fetch/cache có sẵn.
 - **Có UI/Figma thì bám mẫu**: xác định nguồn chuẩn, đọc đúng màn hình/component/asset; giữ layout, màu, typography, spacing và tương tác. Không tự tạo design system, đổi theme/UI library hoặc redesign khi chỉ được giao thêm tính năng/fix. Không đọc được mẫu thì nêu giới hạn, không đoán chi tiết.
-- TypeScript tuân thủ [type-safety](../../rules/16-type-safety.md): không `any` hay assertion lách type; tái sử dụng/dẫn xuất type có sẵn, gom type cùng domain trong `types/`. Validate dữ liệu chưa tin cậy tại boundary.
+- TypeScript tuân thủ [type-safety](../../rules/type-safety.md): không `any` hay assertion lách type; tái sử dụng/dẫn xuất type có sẵn, gom type cùng domain trong `types/`. Validate dữ liệu chưa tin cậy tại boundary.
 - Giữ phạm vi: không sửa nghiệp vụ/backend, nâng dependency, publish hoặc deploy ngoài yêu cầu. Không bịa nội dung, API, asset hoặc kết quả kiểm chứng.
 
 ## Quy trình
 
 1. **Khảo sát**: xác định trang/luồng, dữ liệu đầu vào, mẫu UI và tiêu chí nghiệm thu. Kiểm tra cách render hiện có (CSR/SSR/SSG), phiên bản framework và lệnh test/lint/build thật.
 2. **Triển khai**: chọn component có sẵn, nối dữ liệu và xử lý trạng thái; áp dụng các nhóm bên dưới theo loại trang. Giữ logic nghiệp vụ/data fetching theo ranh giới module hiện tại, không tạo abstraction hoặc global state khi local state đủ dùng.
-3. **Kiểm chứng**: kiểm tra luồng chính, dữ liệu thiếu, lỗi API, route trực tiếp và responsive; chạy test/lint/type check/build phù hợp. Fix bug cần regression test tái hiện trước theo [quality-assurance](../../rules/08-quality-assurance.md); dùng [testing-strategy](../testing-strategy/SKILL.md) khi cần viết test kỹ thuật.
+3. **Kiểm chứng**: kiểm tra luồng chính, dữ liệu thiếu, lỗi API, route trực tiếp và responsive; chạy test/lint/type check/build phù hợp. Fix bug cần regression test tái hiện trước theo [quality-assurance](../../rules/quality-assurance.md); dùng [testing-strategy](../testing-strategy/SKILL.md) khi cần viết test kỹ thuật.
 4. **Bàn giao**: tự review diff, cập nhật docs bị ảnh hưởng. Báo file/hành vi đã đổi, check và kết quả thật, phần chưa kiểm chứng; không coi preview local là bằng chứng Google đã index.
 
 ## Yêu cầu triển khai
