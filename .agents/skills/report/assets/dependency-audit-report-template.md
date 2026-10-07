@@ -5,6 +5,10 @@ Dùng sau khi skill [`dependency-audit`](../../dependency-audit/SKILL.md) chạy
 ```markdown
 ## 📦 Báo cáo dependency audit
 
+| Input | Output | Tổng |
+|---|---|---|
+| [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] |
+
 **Ecosystem**: [npm/yarn/pnpm/composer/pip/cargo/go] — **Tool đã chạy**: `[npm audit / composer audit / pip-audit ...]`
 
 | Package | Severity (theo tool) | Version hiện tại | Version fix tối thiểu | Loại thay đổi | Lệnh đề xuất |

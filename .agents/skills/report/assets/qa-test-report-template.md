@@ -5,6 +5,10 @@ Dùng để tóm tắt kết quả **đã thiết kế/thực thi** bởi agent 
 ```markdown
 ## ✅ Báo cáo test
 
+| Input | Output | Tổng |
+|---|---|---|
+| [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] |
+
 **Phạm vi**: [feature/luồng được test]
 
 - **Unit Tests** (`[lệnh]`): [X]/[Y] test suites PASS ([n]/[m] tests pass).

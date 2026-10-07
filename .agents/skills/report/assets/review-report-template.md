@@ -2,6 +2,10 @@
 
 Dùng để **trình bày lại** kết quả review/audit đã có sẵn (không phải để tự review) — cho cả 3 loại artifact mà agent [`reviewer-agent`](../../../agents/reviewer-agent.md) review: code/diff, kế hoạch triển khai (plan), test case. Copy các khối dưới đây và điền vào.
 
+| Input | Output | Tổng |
+|---|---|---|
+| [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] |
+
 ## Mức độ nghiêm trọng
 
 - **CRITICAL** 🚨 `[!]` — lỗi logic nặng, lỗ hổng bảo mật, crash, silent catch, vi phạm SOLID nghiêm trọng.

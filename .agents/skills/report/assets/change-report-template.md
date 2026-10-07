@@ -5,9 +5,13 @@ Dùng ngay sau khi Edit/Write hoàn tất một task code. Copy khối dưới �
 ```markdown
 ## 📝 Báo cáo thay đổi
 
+| Input | Output | Tổng |
+|---|---|---|
+| [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] |
+
 Tổng số file đã tạo/sửa/xóa: [N] file ([tóm tắt ngắn, ví dụ: 2 tạo mới, 3 sửa, 1 xóa])
 
-| Trạng thái | File | Ghi chú |
+| Trạng thái | File | Mô tả |
 |---|---|---|
 | Tạo / Sửa / Xóa | `path/to/file.ext` | [mô tả ngắn gọn thay đổi gì] |
 

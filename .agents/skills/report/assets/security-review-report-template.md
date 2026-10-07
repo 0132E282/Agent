@@ -5,6 +5,10 @@ Dùng để trình bày lại kết quả đã review theo skill [`review-web-se
 ```markdown
 ## 🔐 Báo cáo security review
 
+| Input | Output | Tổng |
+|---|---|---|
+| [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] | [N token / Không có số đo từ runtime] |
+
 **Tổng quan**: [X] lỗi đã xác nhận, mức cao nhất [Critical/High/Medium/Low], phạm vi đã review: [...]
 
 ### Finding #1 — [Tiêu đề]
