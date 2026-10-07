@@ -14,6 +14,8 @@ for path in (root / '.agents').iterdir():
     if path.is_symlink() and not path.exists():
         errors.append(f'Broken link: {path.relative_to(root)}')
 for folder in (root / '.agents/skills').iterdir():
+    if folder.name.startswith('.') or not folder.is_dir():
+        continue
     if not (folder / 'SKILL.md').is_file():
         errors.append(f'Missing SKILL.md: {folder.name}')
 for path in (root / '.codex/agents').glob('*.toml'):
