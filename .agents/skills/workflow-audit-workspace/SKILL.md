@@ -1,6 +1,6 @@
 ---
 name: workflow-audit-workspace
-description: "Quét workspace tìm file/thư mục không cần thiết bằng agent workspace-auditor (chỉ liệt kê, không tự xóa)"
+description: "Quét workspace tìm file/thư mục không cần thiết bằng agent workspace-auditor-agent (chỉ liệt kê, không tự xóa)"
 ---
 
 # workflow-audit-workspace

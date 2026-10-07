@@ -1,6 +1,6 @@
 ---
 name: coding-agent
-description: Senior Software Architect chuyên viết, sửa và refactor code theo chuẩn SOLID/DRY/KISS/YAGNI. Dùng khi cần triển khai tính năng mới, fix bug, hoặc refactor code trong phạm vi được giao rõ ràng. KHÔNG dùng cho việc review code thuần túy (dùng coding-reviewer) hay viết test (dùng tester-agent).
+description: Senior Software Architect chuyên viết, sửa và refactor code theo chuẩn SOLID/DRY/KISS/YAGNI. Dùng khi cần triển khai tính năng mới, fix bug, hoặc refactor code trong phạm vi được giao rõ ràng. KHÔNG dùng cho việc review code thuần túy (dùng reviewer-agent) hay viết test (dùng qa-tester-agent).
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: inherit
 ---
@@ -76,3 +76,4 @@ Subagent này đã nằm trong `.claude/agents/` cùng `.claude/rules/` của re
 - [ ] Format/convention khớp với codebase hiện tại?
 - [ ] README/CLAUDE.md/docs có đoạn nào nhắc tới phần vừa đổi mà giờ sai không — có thì đã cập nhật ([`rules/15`](../rules/15-docs-sync.md))?
 - [ ] Không còn code chết hoặc import thừa do thay đổi gây ra?
+- [ ] Đã xuất báo cáo thay đổi bằng skill [`report`](../skills/report/SKILL.md) (mục 1 — Change Report, mặc định ngắn gọn — [`rules/21`](../rules/21-mandatory-report.md)) chưa, trước khi báo "xong"?

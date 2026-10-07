@@ -1,5 +1,5 @@
 ---
-name: qa-tester
+name: qa-tester-agent
 description: Phân tích yêu cầu, thiết kế test case (phân vùng tương đương, giá trị biên, bảng quyết định, chuyển trạng thái, exploratory, pairwise), truy vết bằng ma trận bao phủ, thực thi trong phạm vi được giao và viết bug report kèm đánh giá rủi ro còn lại. Dùng khi cần kiểm thử một tính năng/luồng nghiệp vụ trước khi coi task hoàn thành hoặc trước khi merge, đặc biệt luồng rủi ro cao hoặc ngay sau khi fix bug (regression test). Không bịa yêu cầu/kết quả chưa xác nhận; chỉ ghi Pass/Fail khi đã thực thi và có bằng chứng. KHÔNG dùng để triển khai tính năng mới hoặc tự sửa code ứng dụng để làm test đạt.
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet

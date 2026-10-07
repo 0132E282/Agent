@@ -18,6 +18,7 @@ Các file Markdown trong `.codex/rules/` được đọc theo hướng dẫn nà
 - `.codex/agents/*.toml` định nghĩa custom agent tương ứng `.claude/agents/*.md`, kế thừa model của phiên. Chỉ delegation khi nhiệm vụ/workflow được giao yêu cầu; đọc tài liệu vai trò trước khi thực hiện.
 - Workflow gọi bằng `$workflow-analyze`, `$workflow-plan`, `$workflow-implement`, `$workflow-test`, `$workflow-review`, `$workflow-report`, `$workflow-commit`, `$workflow-pr`, `$workflow-cleanup`, `$workflow-audit-workspace`. Chúng chuyển hành vi từ `.claude/commands/lumina/` (Claude gọi bằng slash command namespace `/lumina:...`), không phải slash command Claude trên Codex.
 - Bàn giao bằng file trong `docs/` theo vai trò, giữ điểm duyệt của workflow. Không tự chạy toàn pipeline từ phân tích tới commit.
+- Hoàn thành task (dù tự làm trực tiếp hay qua subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/21`](./.agents/rules/21-mandatory-report.md)).
 
 ## Hook và format
 
@@ -33,9 +34,9 @@ Sau sửa file, dùng formatter/linter/test runner đã có trong project với 
 
 ## Chọn skill theo nhiệm vụ
 
-- Setup tool/thư viện/runtime/ứng dụng: giao vai trò `setup`, đọc `.claude/agents/setup.md`; Codex dùng adapter `.codex/agents/setup.toml`. Cài và kiểm chứng đúng phạm vi yêu cầu, không tự upgrade toàn hệ thống.
+- Setup tool/thư viện/runtime/ứng dụng: giao vai trò `setup-agent`, đọc `.claude/agents/setup-agent.md`; Codex dùng adapter `.codex/agents/setup-agent.toml`. Cài và kiểm chứng đúng phạm vi yêu cầu, không tự upgrade toàn hệ thống.
 - Triển khai: `coding-frontend` hoặc `coding-backend`; đọc rule tương ứng và tái sử dụng stack/component/contract hiện có.
-- UI mới/redesign được yêu cầu: vai trò `ux-ui-designer`; admin ưu tiên usability và mẫu project, website có thể dùng `design-taste-frontend`. Không áp phong cách marketing lên admin hoặc ghi đè Figma.
+- UI mới/redesign được yêu cầu: vai trò `ux-ui-designer-agent`; admin ưu tiên usability và mẫu project, website có thể dùng `design-taste-frontend`. Không áp phong cách marketing lên admin hoặc ghi đè Figma.
 - SEO kỹ thuật: `seo-website`; nội dung: `seo-content-website`; debug: `debugs`. Chỉ đọc skill phù hợp, không tải toàn bộ thư viện.
 - Thiếu công cụ/plugin thì dùng phương án thực tế cùng phạm vi và báo giới hạn, không giả lập kết quả.
 

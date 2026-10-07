@@ -1,6 +1,6 @@
 ---
 name: workflow-plan
-description: "Pipeline lập kế hoạch đầy đủ — research → system-design (nếu cần) → planner → review kế hoạch → report"
+description: "Pipeline lập kế hoạch đầy đủ — research → system-design-agent (nếu cần) → planner-agent → review kế hoạch → report"
 ---
 
 # workflow-plan

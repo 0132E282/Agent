@@ -55,4 +55,4 @@ Bảo đảm nội dung, URL và dữ liệu SEO nhất quán, website hoạt đ
 - [database](../database/SKILL.md) khi viết/review query, index hoặc đo hiệu năng theo engine thật.
 - [seo-website](../seo-website/SKILL.md) khi cần audit SEO, kiểm chứng crawl/index hoặc tra hướng dẫn SEO hiện hành.
 - [testing-strategy](../testing-strategy/SKILL.md) khi viết test; [coding-frontend](../coding-frontend/SKILL.md) để đối chiếu contract render/metadata khi nhiệm vụ có cả frontend.
-- Thiết kế kiến trúc mới do [system-design](../../agents/system-design.md) xử lý; không tự mở rộng nhiệm vụ code thành thiết kế lại hệ thống.
+- Thiết kế kiến trúc mới do [system-design-agent](../../agents/system-design-agent.md) xử lý; không tự mở rộng nhiệm vụ code thành thiết kế lại hệ thống.

@@ -1,6 +1,6 @@
 ---
 name: cleanup-temp-files
-description: Dọn dẹp file tạm/scratch/debug/test thử nghiệm do CHÍNH Claude tạo ra trong lúc làm task (không phải deliverable) để tránh phình dự án — xóa thẳng, không cần hỏi xác nhận vì là file tự tạo trong session hiện tại. KHÔNG xóa test chính thức thuộc bộ test suite của project (unit/integration/regression — xem rules/08-quality-assurance.md) và KHÔNG xóa file không rõ nguồn gốc/có sẵn trong workspace (việc đó thuộc agent workspace-auditor, luôn phải liệt kê + chờ xác nhận). Dùng ngay trước khi báo "hoàn thành task", hoặc khi người dùng yêu cầu dọn file tạm/rác do Claude tạo ra.
+description: Dọn dẹp file tạm/scratch/debug/test thử nghiệm do CHÍNH Claude tạo ra trong lúc làm task (không phải deliverable) để tránh phình dự án — xóa thẳng, không cần hỏi xác nhận vì là file tự tạo trong session hiện tại. KHÔNG xóa test chính thức thuộc bộ test suite của project (unit/integration/regression — xem rules/08-quality-assurance.md) và KHÔNG xóa file không rõ nguồn gốc/có sẵn trong workspace (việc đó thuộc agent workspace-auditor-agent, luôn phải liệt kê + chờ xác nhận). Dùng ngay trước khi báo "hoàn thành task", hoặc khi người dùng yêu cầu dọn file tạm/rác do Claude tạo ra.
 license: MIT
 metadata:
   version: "1.0"
@@ -15,7 +15,7 @@ Skill dọn dẹp file tạm do **chính mình (Claude) tạo ra** trong lúc l�
 1. **Do mình tạo ra trong session hiện tại** (nhớ rõ đã `Write`/tạo file đó lúc nào, để làm gì).
 2. **Không phải deliverable**: không phải code được yêu cầu, không phải test chính thức (xem dưới), không phải doc được yêu cầu tạo.
 
-Không chắc một trong hai điều kiện → **không xóa**. Việc quét file không rõ nguồn gốc/có sẵn trong toàn workspace là phạm vi của agent [`workspace-auditor`](../../agents/workspace-auditor.md) (luôn liệt kê + chờ xác nhận người dùng), không phải skill này.
+Không chắc một trong hai điều kiện → **không xóa**. Việc quét file không rõ nguồn gốc/có sẵn trong toàn workspace là phạm vi của agent [`workspace-auditor-agent`](../../agents/workspace-auditor-agent.md) (luôn liệt kê + chờ xác nhận người dùng), không phải skill này.
 
 ## Không xóa — test chính thức
 
@@ -40,10 +40,10 @@ Dấu hiệu phân biệt file test là rác (nên xóa) vs chính thức (giữ
 3. Xóa trực tiếp các file rác đã xác định (không cần hỏi xác nhận — tự chịu trách nhiệm vì là file tự tạo).
 4. Báo ngắn gọn: đã xóa file nào, giữ lại file nào vì là deliverable/test chính thức.
 
-Ưu tiên không tạo file tạm trong repo từ đầu — dùng scratchpad directory hoặc `/tmp` khi có thể, để không phải dọn lại. Hook `remind-cleanup` (xem [`hook/README.md`](../../hook/README.md)) tự nhắc ở cuối session nếu phát hiện ứng viên chưa dọn.
+Ưu tiên không tạo file tạm trong repo từ đầu — dùng scratchpad directory hoặc `/tmp` khi có thể, để không phải dọn lại. Hook `remind-cleanup` (xem [`hook/README.md`](../../hooks/README.md)) tự nhắc ở cuối session nếu phát hiện ứng viên chưa dọn.
 
 ## Khi áp dụng
 
 - Trước khi báo "hoàn thành task", nếu trong lúc làm có tạo file tạm/scratch/debug/test thử.
 - Khi người dùng yêu cầu dọn file tạm/rác do Claude tạo ra.
-- **Không** dùng cho file không rõ Claude có tạo ra hay không, hoặc file có sẵn trong workspace trước khi task bắt đầu — chuyển sang `workspace-auditor`.
+- **Không** dùng cho file không rõ Claude có tạo ra hay không, hoặc file có sẵn trong workspace trước khi task bắt đầu — chuyển sang `workspace-auditor-agent`.

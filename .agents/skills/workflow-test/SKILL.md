@@ -1,6 +1,6 @@
 ---
 name: workflow-test
-description: "Phân tích yêu cầu, thiết kế và chạy test bằng agent qa-tester"
+description: "Phân tích yêu cầu, thiết kế và chạy test bằng agent qa-tester-agent"
 ---
 
 # workflow-test

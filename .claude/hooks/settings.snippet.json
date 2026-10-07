@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/audit-log.sh"
+            "command": "bash .claude/hooks/scripts/audit-log.sh"
           }
         ]
       },
@@ -15,19 +15,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/commit-msg-guard.sh"
+            "command": "bash .claude/hooks/scripts/commit-msg-guard.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/secret-scan.sh"
+            "command": "bash .claude/hooks/scripts/secret-scan.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/protected-branch-guard.sh"
+            "command": "bash .claude/hooks/scripts/protected-branch-guard.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/format-before-push.sh"
+            "command": "bash .claude/hooks/scripts/format-before-push.sh"
           }
         ]
       },
@@ -36,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/condense-planner-input.sh"
+            "command": "bash .claude/hooks/scripts/condense-planner-input.sh"
           }
         ]
       }
@@ -47,23 +47,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/format-on-edit.sh"
+            "command": "bash .claude/hooks/scripts/format-on-edit.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/lint-on-edit.sh"
+            "command": "bash .claude/hooks/scripts/lint-on-edit.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/test-reminder.sh"
+            "command": "bash .claude/hooks/scripts/test-reminder.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/missing-test-reminder.sh"
+            "command": "bash .claude/hooks/scripts/missing-test-reminder.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/ci-workflow-lint.sh"
+            "command": "bash .claude/hooks/scripts/ci-workflow-lint.sh"
           }
         ]
       },
@@ -72,7 +72,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/dependency-audit-reminder.sh"
+            "command": "bash .claude/hooks/scripts/dependency-audit-reminder.sh"
           }
         ]
       }
@@ -82,11 +82,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/remind-cleanup.sh"
+            "command": "bash .claude/hooks/scripts/remind-cleanup.sh"
           },
           {
             "type": "command",
-            "command": "bash .claude/hook/scripts/notify-done.sh"
+            "command": "bash .claude/hooks/scripts/notify-done.sh"
           }
         ]
       }

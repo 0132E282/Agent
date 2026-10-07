@@ -6,7 +6,7 @@
 
 - `.claude/agents/*.md`: vai trò, tools và model cho Claude Code.
 - `.claude/commands/lumina/*.md`: slash command, namespace `/lumina:...`; skill `workflow-*` dùng cùng nguồn quy trình trên các công cụ khác.
-- `.claude/settings.json` và `.claude/hook/`: hook Claude, không tự chạy trên Codex hoặc Antigravity.
+- `.claude/settings.json` và `.claude/hooks/`: hook Claude, không tự chạy trên Codex hoặc Antigravity.
 - `.claude/logs/` bị ignore; không commit log/file tạm. Tài liệu bàn giao `docs/` là deliverable.
 
 ## Pipeline
@@ -14,3 +14,5 @@
 `/lumina:analyze` → `/lumina:plan` → `/lumina:implement` → `/lumina:test` → `/lumina:review` → `/lumina:commit` → `/lumina:pr`.
 
 Chạy bước được giao, giữ điểm bàn giao/duyệt; không tự chạy toàn pipeline. Khi chuyển project, copy cùng `.agents/`, `.claude/`, `AGENTS.md` và `CLAUDE.md`, giữ symlink tương đối.
+
+Hoàn thành bất kỳ task nào (dù phiên chính tự `Edit`/`Write` hay giao subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/21`](./.agents/rules/21-mandatory-report.md)).

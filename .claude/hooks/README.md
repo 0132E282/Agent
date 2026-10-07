@@ -14,9 +14,9 @@ Sau mỗi lần Claude Code (hoặc subagent) **Edit/Write** một file, hook n�
 
 ### Cài đặt vào project khác
 
-1. Copy thư mục này vào `.claude/hook/` của project đích:
+1. Copy thư mục này vào `.claude/hooks/` của project đích:
    ```bash
-   cp -r .claude/hook /path/to/project/.claude/hook
+   cp -r .claude/hooks /path/to/project/.claude/hooks
    ```
 2. Merge nội dung [`settings.snippet.json`](./settings.snippet.json) vào `.claude/settings.json` của project đích (key `hooks`). Nếu project đã có `hooks` khác, gộp mảng thay vì ghi đè.
 3. Đảm bảo project có Prettier (local `devDependencies` hoặc global) — nếu không có, hook sẽ không làm gì (không báo lỗi).
@@ -146,17 +146,17 @@ Khi Claude Code kết thúc một turn (trả lời xong, không còn việc gì
 - **Âm thanh theo hệ điều hành**: `afplay` (macOS, dùng `Glass.aiff`) → `paplay`/`aplay` (Linux) → `powershell.exe [console]::beep` (Windows/WSL). Không có công cụ nào khả dụng thì bỏ qua êm.
 - **An toàn**: luôn `exit 0`, chạy ngầm (`&`) nên không làm chậm việc Claude Code dừng lại.
 
-## condense-planner-input — lưới an toàn chặn prompt quá dài khi gọi planner
+## condense-planner-input — lưới an toàn chặn prompt quá dài khi gọi planner-agent
 
-Trước mỗi lần gọi Agent tool với `subagent_type: planner`, hook này kiểm tra độ dài `prompt` — nếu vượt ngưỡng rất lớn (ví dụ dán nhầm nguyên văn cả tài liệu `system-design` dài), tự cắt gọn (giữ phần đầu + phần cuối, cắt phần giữa) trước khi `planner` nhận. **Đây chỉ là lưới an toàn cuối, không phải cơ chế rút gọn context chính** — bash không hiểu ngữ nghĩa nên không biết phần nào thật sự cần giữ; việc chọn lọc đúng phần liên quan là trách nhiệm của bước gọi `planner` (xem [`commands/plan.md`](../commands/plan.md)).
+Trước mỗi lần gọi Agent tool với `subagent_type: planner-agent`, hook này kiểm tra độ dài `prompt` — nếu vượt ngưỡng rất lớn (ví dụ dán nhầm nguyên văn cả tài liệu `system-design-agent` dài), tự cắt gọn (giữ phần đầu + phần cuối, cắt phần giữa) trước khi `planner-agent` nhận. **Đây chỉ là lưới an toàn cuối, không phải cơ chế rút gọn context chính** — bash không hiểu ngữ nghĩa nên không biết phần nào thật sự cần giữ; việc chọn lọc đúng phần liên quan là trách nhiệm của bước gọi `planner-agent` (xem [`commands/lumina/plan.md`](../commands/lumina/plan.md)).
 
 - **Script**: [`scripts/condense-planner-input.sh`](./scripts/condense-planner-input.sh)
 - **Loại hook**: `PreToolUse`, matcher `Agent`
 - **Cơ chế**: dùng `hookSpecificOutput.updatedInput` để thay `tool_input.prompt` trước khi tool chạy — giữ nguyên các field khác (`subagent_type`, `description`...).
 - **Ngưỡng**: cắt khi `prompt` > 20000 ký tự, giữ 13000 ký tự đầu + 6000 ký tự cuối, chèn dòng đánh dấu phần đã cắt.
-- **An toàn**: `prompt` dưới ngưỡng, không phải tool `Agent`, không phải `subagent_type: planner`, hoặc thiếu `jq` → không sửa gì.
+- **An toàn**: `prompt` dưới ngưỡng, không phải tool `Agent`, không phải `subagent_type: planner-agent`, hoặc thiếu `jq` → không sửa gì.
 - **Phụ thuộc**: cần `jq`.
 
 ## Đã bật sẵn trong chính repo này
 
-`hook/` nằm trong `.claude/hook/` của repo này, và `.claude/settings.json` đã trỏ cả 13 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `notify-done`) tới đúng path `.claude/hook/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.
+`hook/` nằm trong `.claude/hooks/` của repo này, và `.claude/settings.json` đã trỏ cả 13 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `notify-done`) tới đúng path `.claude/hooks/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.

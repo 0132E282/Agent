@@ -1,6 +1,6 @@
 ---
 name: testing-strategy
-description: Chuẩn hóa viết unit test kỹ thuật khi implement/sửa code — chọn test double đúng loại (mock/stub/fake/spy), tổ chức test theo Arrange-Act-Assert, cách ly dependency ngoài (I/O, network, time, random), và review độ phủ theo rủi ro (không chạy theo % coverage cứng). Dùng khi coding-agent viết code mới/sửa logic cần test kỹ thuật kèm theo, hoặc khi review test hiện có thiếu cách ly dependency/test giả luôn pass. KHÔNG dùng để thiết kế test case nghiệp vụ theo đặc tả (equivalence/boundary/pairwise) — đó là agent qa-tester; skill này là lớp kỹ thuật viết test code khi implement, không phải thiết kế ca kiểm thử từ yêu cầu.
+description: Chuẩn hóa viết unit test kỹ thuật khi implement/sửa code — chọn test double đúng loại (mock/stub/fake/spy), tổ chức test theo Arrange-Act-Assert, cách ly dependency ngoài (I/O, network, time, random), và review độ phủ theo rủi ro (không chạy theo % coverage cứng). Dùng khi coding-agent viết code mới/sửa logic cần test kỹ thuật kèm theo, hoặc khi review test hiện có thiếu cách ly dependency/test giả luôn pass. KHÔNG dùng để thiết kế test case nghiệp vụ theo đặc tả (equivalence/boundary/pairwise) — đó là agent qa-tester-agent; skill này là lớp kỹ thuật viết test code khi implement, không phải thiết kế ca kiểm thử từ yêu cầu.
 license: MIT
 metadata:
   version: "1.1"
@@ -8,7 +8,7 @@ metadata:
 
 # 🧪 Testing Strategy
 
-Lớp **kỹ thuật viết test code** khi implement — khác [`qa-tester`](../../agents/qa-tester.md) (thiết kế ca kiểm thử **nghiệp vụ** từ đặc tả). Skill này không quan tâm case nghiệp vụ nào cần test, chỉ quan tâm cách viết test đúng kỹ thuật cho một đơn vị code.
+Lớp **kỹ thuật viết test code** khi implement — khác [`qa-tester-agent`](../../agents/qa-tester-agent.md) (thiết kế ca kiểm thử **nghiệp vụ** từ đặc tả). Skill này không quan tâm case nghiệp vụ nào cần test, chỉ quan tâm cách viết test đúng kỹ thuật cho một đơn vị code.
 
 ## Nguyên tắc bắt buộc
 
@@ -43,4 +43,4 @@ Chỉ double hóa dependency **không xác định/không kiểm soát được*
 
 - Sau khi viết/sửa logic mới cần test kỹ thuật, hoặc ngay sau khi fix bug (regression test).
 - Khi review test hiện có nghi giả/flaky — rà theo mục "Dấu hiệu" trên.
-- Không dùng cho thiết kế ca kiểm thử nghiệp vụ (→ `qa-tester`) hay chọn pattern kiến trúc (→ [`design-patterns`](../design-patterns/SKILL.md)).
+- Không dùng cho thiết kế ca kiểm thử nghiệp vụ (→ `qa-tester-agent`) hay chọn pattern kiến trúc (→ [`design-patterns`](../design-patterns/SKILL.md)).

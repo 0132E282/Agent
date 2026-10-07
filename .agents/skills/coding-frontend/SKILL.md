@@ -54,5 +54,5 @@ Triển khai giao diện đúng đặc tả, hiển thị nội dung đáng tin 
 
 - [seo-website](../seo-website/SKILL.md) khi cần audit crawl/index, sitemap, structured data hoặc vấn đề SEO rộng hơn frontend.
 - [seo-content-website](../seo-content-website/SKILL.md) khi được giao lập kế hoạch/viết nội dung; không tự đổi content đã duyệt chỉ để thêm từ khóa.
-- Thiết kế mới/redesign giao cho [ux-ui-designer](../../agents/ux-ui-designer.md); không tự áp skill phong cách lên UI có sẵn.
+- Thiết kế mới/redesign giao cho [ux-ui-designer-agent](../../agents/ux-ui-designer-agent.md); không tự áp skill phong cách lên UI có sẵn.
 - Tra tài liệu chính thức theo phiên bản thật khi cần: [HTML và accessibility — MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML), [responsive images — MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Responsive_images), [JavaScript SEO — Google](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics).

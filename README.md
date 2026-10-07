@@ -20,31 +20,31 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | [`.claude/commands/lumina/`](./.claude/commands/lumina) | Slash commands, namespaced `/lumina:...` — the entry points a user actually types |
 | [`.claude/skills/`](./.claude/skills) | Link to the shared `.agents/skills/` directory |
 | [`.claude/rules/`](./.claude/rules) | Link to the 19 shared rules in `.agents/rules/` |
-| [`.claude/hook/`](./.claude/hook) | Automated hooks (audit log, commit-msg guard, secret scan, auto-format, auto-lint...) |
+| [`.claude/hooks/`](./.claude/hooks) | Automated hooks (audit log, commit-msg guard, secret scan, auto-format, auto-lint...) |
 
 ### Agents
 
 | Agent | Role |
 |---|---|
-| `requirement-analysis` | Turns a raw requirement (text/image/PDF/DOCX...) into a clear purpose/scope/impact analysis, classifies it as a new feature vs. a small fix, and recommends the next step |
-| `system-design` | Produces HLD/LLD, data model, API, and reliability/security/performance design for features that need architecture |
-| `planner` | Breaks a spec or design doc into traceable tasks (REQ → Task → AC → Test) — plan only, never touches product code |
+| `requirement-analysis-agent` | Turns a raw requirement (text/image/PDF/DOCX...) into a clear purpose/scope/impact analysis, classifies it as a new feature vs. a small fix, and recommends the next step |
+| `system-design-agent` | Produces HLD/LLD, data model, API, and reliability/security/performance design for features that need architecture |
+| `planner-agent` | Breaks a spec or design doc into traceable tasks (REQ → Task → AC → Test) — plan only, never touches product code |
 | `coding-agent` | Implements code per SOLID/DRY/KISS/YAGNI, strictly within the assigned scope |
-| `setup` | Installs and configures requested tools, libraries, runtimes and applications; verifies compatibility and a working smoke test |
-| `qa-tester` | Designs and executes test cases (equivalence partitioning, boundary values, decision tables...) with full requirement traceability |
-| `reviewer` | Independent "fresh eyes" review for code, plans, or test cases — never fixes, only reports |
-| `researcher` | Reads widely, answers briefly — local docs first, then web, no fabrication |
-| `workspace-auditor` | Finds likely-unneeded files/folders — lists with evidence, never deletes |
+| `setup-agent` | Installs and configures requested tools, libraries, runtimes and applications; verifies compatibility and a working smoke test |
+| `qa-tester-agent` | Designs and executes test cases (equivalence partitioning, boundary values, decision tables...) with full requirement traceability |
+| `reviewer-agent` | Independent "fresh eyes" review for code, plans, or test cases — never fixes, only reports |
+| `researcher-agent` | Reads widely, answers briefly — local docs first, then web, no fabrication |
+| `workspace-auditor-agent` | Finds likely-unneeded files/folders — lists with evidence, never deletes |
 
 ### Commands
 
 | Command | Does |
 |---|---|
-| `/lumina:analyze` | Run `requirement-analysis`, then stop and ask whether to continue to `/lumina:plan` or go straight to `coding-agent` |
-| `/lumina:plan` | Full planning pipeline: research → system-design → planner → review → report |
+| `/lumina:analyze` | Run `requirement-analysis-agent`, then stop and ask whether to continue to `/lumina:plan` or go straight to `coding-agent` |
+| `/lumina:plan` | Full planning pipeline: research → system-design-agent → planner-agent → review → report |
 | `/lumina:implement` | Hand a task (or `docs/implementation-plan.json`) to `coding-agent` |
-| `/lumina:test` | Hand a feature/flow to `qa-tester` |
-| `/lumina:review` | Review the current diff (via the `open-code-review` skill) or a plan/test case (via `reviewer`) |
+| `/lumina:test` | Hand a feature/flow to `qa-tester-agent` |
+| `/lumina:review` | Review the current diff (via the `open-code-review` skill) or a plan/test case (via `reviewer-agent`) |
 | `/lumina:report` | Produce a change report for recent edits |
 | `/lumina:commit` | Commit with Conventional Commits, validated by script |
 | `/lumina:pr` | Create/update a PR — checks for conflicts first |
@@ -67,7 +67,7 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | `dependency-audit` | Read-only dependency vulnerability audit (npm/composer/pip/cargo/go) — reports and suggests, never auto-upgrades |
 | `refactoring-catalog` | Fowler-style refactoring techniques mapped to specific code smells |
 | `ci-pipeline` | Authoring/reviewing CI workflows (GitHub Actions/GitLab CI) — fail-fast job order, caching, secret handling |
-| `testcase` | Writing a few structured test cases quickly (ID/Priority/Steps/Expected result) without spawning the full `qa-tester` agent |
+| `testcase` | Writing a few structured test cases quickly (ID/Priority/Steps/Expected result) without spawning the full `qa-tester-agent` agent |
 
 ---
 
@@ -87,7 +87,7 @@ Each stage **stops and asks for confirmation** before moving to the next — not
 
 Every agent is bound by some or all of 19 rule groups — see [`rules/README.md`](./.claude/rules/README.md) for the full table:
 
-KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync · Type Safety · Backend Contract/Content/Security · Frontend Design Fidelity/Accessibility · Plan Output Format (JSON, `planner` only).
+KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync · Type Safety · Backend Contract/Content/Security · Frontend Design Fidelity/Accessibility · Plan Output Format (JSON, `planner-agent` only).
 
 `coding-agent` reads all 18 as its system prompt; other agents link to the specific rules relevant to their task.
 
@@ -100,7 +100,7 @@ This repository uses npm tooling for Git pre-commit formatting. Run `npm ci` to 
 For Codex, copy `AGENTS.md`, `.agents/`, `.codex/`, `.claude/` and `CLAUDE.md` together so relative references and skill symlinks remain valid. Start a new session to discover them. Invoke `$workflow-implement` or another `workflow-*` skill, or ask for a custom agent by name. Claude hook settings are not activated by this adapter; formatting and validation remain explicit workflow steps.
 
 1. Copy `.claude/` and `.agents/` together into the target project; keep their relative paths so shared skill/rule links resolve.
-2. Merge [`.claude/hook/settings.snippet.json`](./.claude/hook/settings.snippet.json) into the target's `.claude/settings.json` (see [`hook/README.md`](./.claude/hook/README.md)).
+2. Merge [`.claude/hooks/settings.snippet.json`](./.claude/hooks/settings.snippet.json) into the target's `.claude/settings.json` (see [`hook/README.md`](./.claude/hooks/README.md)).
 3. Make sure `jq` is installed (required by most hooks) — missing tools degrade gracefully, hooks just skip.
 4. Start with `/lumina:analyze "<your requirement>"` or jump straight to `/lumina:plan` if the requirement is already clear.
 

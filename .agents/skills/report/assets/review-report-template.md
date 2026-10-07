@@ -1,6 +1,6 @@
 # Mẫu Báo Cáo Review
 
-Dùng để **trình bày lại** kết quả review/audit đã có sẵn (không phải để tự review) — cho cả 3 loại artifact mà agent [`reviewer`](../../../agents/reviewer.md) review: code/diff, kế hoạch triển khai (plan), test case. Copy các khối dưới đây và điền vào.
+Dùng để **trình bày lại** kết quả review/audit đã có sẵn (không phải để tự review) — cho cả 3 loại artifact mà agent [`reviewer-agent`](../../../agents/reviewer-agent.md) review: code/diff, kế hoạch triển khai (plan), test case. Copy các khối dưới đây và điền vào.
 
 ## Mức độ nghiêm trọng
 
