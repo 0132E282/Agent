@@ -27,10 +27,12 @@ Bộ quy tắc coding **bắt buộc** cho các subagent trong [`agents/`](../ag
 | 16 | An toàn type | Strict Typing + Type Reuse + Domain Organization | [16-type-safety.md](./16-type-safety.md) |
 | 17 | Backend | API Correctness + Content Lifecycle + Secure Data Handling | [17-backend.md](./17-backend.md) |
 | 18 | Frontend | Design Fidelity + Semantic HTML + Accessible Content Rendering | [18-frontend.md](./18-frontend.md) |
+| 19 | Viết plan | JSON Schema + Task dạng bảng (chỉ áp dụng cho kế hoạch triển khai của `planner`) | [19-plan-format.md](./19-plan-format.md) |
 
 ## Cách dùng
 
 Thư mục này đã nằm sẵn trong `.claude/rules/` của repo — Claude Code tự đọc được khi subagent/skill tham chiếu tới. Muốn dùng ở project khác, copy nguyên `.claude/rules/` sang `.claude/rules/` của project đích, rồi tham chiếu trong subagent/skill để bắt buộc tuân thủ:
 
-- [`agents/coding-agent.md`](../agents/coding-agent.md) — subagent đọc trực tiếp cả 18 file làm system prompt.
+- [`agents/coding-agent.md`](../agents/coding-agent.md) — subagent đọc trực tiếp cả 18 file (01-18) làm system prompt; rule #19 không liên quan tới coding nên không nằm trong danh sách này.
 - [`skills/git-workflow`](../skills/git-workflow/SKILL.md) — skill gatekeeper riêng cho mọi hành động git (rule #10 commit + rule #11 pull request/conflict), kèm script `validate-commit-message.sh` kiểm tra commit message tự động.
+- [`agents/planner.md`](../agents/planner.md) — áp dụng riêng rule #19 khi xuất kế hoạch triển khai (`docs/implementation-plan.json`).

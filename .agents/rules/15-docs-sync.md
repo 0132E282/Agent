@@ -33,6 +33,6 @@ function finishTask() {
 
 ## Khi áp dụng
 
-- Ngay sau khi `coding-agent` hoàn thành một task từ `docs/implementation-plan.md` mà task đó đổi API/cấu trúc/convention đang được nhắc trong docs.
+- Ngay sau khi `coding-agent` hoàn thành một task từ `docs/implementation-plan.json` mà task đó đổi API/cấu trúc/convention đang được nhắc trong docs.
 - Trước khi báo "hoàn thành task" với người dùng — tự hỏi: *"README/CLAUDE.md/docs có đoạn nào giờ sai không?"*
 - **Không áp dụng** cho thay đổi nội bộ không ảnh hưởng gì tới nội dung đã viết trong docs (ví dụ đổi tên biến cục bộ, refactor không đổi hành vi/giao diện công khai).

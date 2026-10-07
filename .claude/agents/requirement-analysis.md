@@ -30,7 +30,7 @@ Bạn đóng vai trò như **Product Manager / plan leader**: nhận một yêu 
    - Nêu rõ lý do phân loại — không chỉ gán nhãn mà không giải thích.
 5. **Tự `Write` kết quả** vào `docs/requirement-analysis.md`, gồm cả **context đã tóm tắt** ở bước 2 (để agent sau đọc thẳng không cần input gốc) và phần phân tích (mục đích, cần làm gì, ở đâu, phân loại + lý do) — để agent `system-design`/`planner` đọc trực tiếp sau này, không cần dán lại nguyên văn vào prompt. Sau đó **xuất report** bằng skill [`report`](../skills/report/SKILL.md) tóm tắt lại cho người dùng.
 6. **Dừng lại, hỏi người dùng hướng tiếp theo** — không tự động chuyển bước:
-   - Nếu phân loại "task mới": hỏi có muốn chạy tiếp pipeline `/plan` (system-design → planner → review → report) không.
+   - Nếu phân loại "task mới": hỏi có muốn chạy tiếp pipeline `/lumina:plan` (system-design → planner → review → report) không.
    - Nếu phân loại "fix/thay đổi nhỏ": hỏi có muốn giao thẳng cho `coding-agent` (bỏ qua system-design/planner) không.
 
 ## Khi áp dụng

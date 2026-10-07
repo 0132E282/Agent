@@ -17,9 +17,9 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | [`.codex/rules/`](./.codex/rules) | Link to `.agents/rules/`, loaded through AGENTS.md |
 | [`.codex/skills/`](./.codex/skills) | Convenience link to `.agents/skills/`; Codex discovery remains in `.agents/skills/` |
 | [`.claude/agents/`](./.claude/agents) | Subagents — each with its own tools, model, and single responsibility |
-| [`.claude/commands/`](./.claude/commands) | Slash commands — the entry points a user actually types |
+| [`.claude/commands/lumina/`](./.claude/commands/lumina) | Slash commands, namespaced `/lumina:...` — the entry points a user actually types |
 | [`.claude/skills/`](./.claude/skills) | Link to the shared `.agents/skills/` directory |
-| [`.claude/rules/`](./.claude/rules) | Link to the 18 shared rules in `.agents/rules/` |
+| [`.claude/rules/`](./.claude/rules) | Link to the 19 shared rules in `.agents/rules/` |
 | [`.claude/hook/`](./.claude/hook) | Automated hooks (audit log, commit-msg guard, secret scan, auto-format, auto-lint...) |
 
 ### Agents
@@ -40,16 +40,16 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 
 | Command | Does |
 |---|---|
-| `/analyze` | Run `requirement-analysis`, then stop and ask whether to continue to `/plan` or go straight to `coding-agent` |
-| `/plan` | Full planning pipeline: research → system-design → planner → review → report |
-| `/implement` | Hand a task (or `docs/implementation-plan.md`) to `coding-agent` |
-| `/test` | Hand a feature/flow to `qa-tester` |
-| `/review` | Review the current diff (via the `open-code-review` skill) or a plan/test case (via `reviewer`) |
-| `/report` | Produce a change report for recent edits |
-| `/commit` | Commit with Conventional Commits, validated by script |
-| `/pr` | Create/update a PR — checks for conflicts first |
-| `/cleanup` | Delete temp/scratch files Claude created this session |
-| `/audit-workspace` | List (never delete) suspicious leftover files in the workspace |
+| `/lumina:analyze` | Run `requirement-analysis`, then stop and ask whether to continue to `/lumina:plan` or go straight to `coding-agent` |
+| `/lumina:plan` | Full planning pipeline: research → system-design → planner → review → report |
+| `/lumina:implement` | Hand a task (or `docs/implementation-plan.json`) to `coding-agent` |
+| `/lumina:test` | Hand a feature/flow to `qa-tester` |
+| `/lumina:review` | Review the current diff (via the `open-code-review` skill) or a plan/test case (via `reviewer`) |
+| `/lumina:report` | Produce a change report for recent edits |
+| `/lumina:commit` | Commit with Conventional Commits, validated by script |
+| `/lumina:pr` | Create/update a PR — checks for conflicts first |
+| `/lumina:cleanup` | Delete temp/scratch files Claude created this session |
+| `/lumina:audit-workspace` | List (never delete) suspicious leftover files in the workspace |
 
 ### Skills
 
@@ -74,20 +74,20 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 ## 🔄 End-to-end workflow
 
 ```
-/analyze  →  (new feature?) → /plan  →  /implement  →  /test  →  /review  →  /commit  →  /pr
-                 │                                        ↑
-                 └── (small fix) ─────────────────────────┘
+/lumina:analyze  →  (new feature?) → /lumina:plan  →  /lumina:implement  →  /lumina:test  →  /lumina:review  →  /lumina:commit  →  /lumina:pr
+                 │                                               ↑
+                 └── (small fix) ────────────────────────────────┘
 ```
 
-Each stage **stops and asks for confirmation** before moving to the next — nothing auto-cascades from analysis straight to a commit. Documents are handed off **by file path** (`docs/requirement-analysis.md` → `docs/system-design.md` → `docs/implementation-plan.md`), not by pasting full text into the next agent's prompt, so context stays small and traceable.
+Each stage **stops and asks for confirmation** before moving to the next — nothing auto-cascades from analysis straight to a commit. Documents are handed off **by file path** (`docs/requirement-analysis.md` → `docs/system-design.md` → `docs/implementation-plan.json`), not by pasting full text into the next agent's prompt, so context stays small and traceable.
 
 ---
 
 ## 📐 Core rules (`.claude/rules/`)
 
-Every agent is bound by some or all of 18 rule groups — see [`rules/README.md`](./.claude/rules/README.md) for the full table:
+Every agent is bound by some or all of 19 rule groups — see [`rules/README.md`](./.claude/rules/README.md) for the full table:
 
-KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync.
+KISS+YAGNI · Clean Code · SRP/Separation of Concerns · DRY · SOLID · Fail-Fast Validation · Data Safety (authz/transactions) · Quality Assurance (test/lint/review) · Boy Scout Rule · Commit Discipline · PR Conflict Safety · Comment Discipline · Database Read-Only by Default · Local-First Search + No Fabrication · Documentation as Code Sync · Type Safety · Backend Contract/Content/Security · Frontend Design Fidelity/Accessibility · Plan Output Format (JSON, `planner` only).
 
 `coding-agent` reads all 18 as its system prompt; other agents link to the specific rules relevant to their task.
 
@@ -102,7 +102,7 @@ For Codex, copy `AGENTS.md`, `.agents/`, `.codex/`, `.claude/` and `CLAUDE.md` t
 1. Copy `.claude/` and `.agents/` together into the target project; keep their relative paths so shared skill/rule links resolve.
 2. Merge [`.claude/hook/settings.snippet.json`](./.claude/hook/settings.snippet.json) into the target's `.claude/settings.json` (see [`hook/README.md`](./.claude/hook/README.md)).
 3. Make sure `jq` is installed (required by most hooks) — missing tools degrade gracefully, hooks just skip.
-4. Start with `/analyze "<your requirement>"` or jump straight to `/plan` if the requirement is already clear.
+4. Start with `/lumina:analyze "<your requirement>"` or jump straight to `/lumina:plan` if the requirement is already clear.
 
 ---
 

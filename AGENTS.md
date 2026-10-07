@@ -16,7 +16,7 @@ Các file Markdown trong `.codex/rules/` được đọc theo hướng dẫn nà
 
 - `.codex/skills/` là đường dẫn liên kết để quản lý cùng bộ skill; Codex khám phá skill qua `.agents/skills/`. `.agents/skills/` là nguồn skill chung; `.claude/skills/` và `.codex/skills/` cùng liên kết tới đó. Giải quyết liên kết và script theo thư mục nguồn `.agents/skills/<name>/`; `.agents/agents`, `.agents/hook` và `.agents/commands` liên kết tới tài nguyên Claude để giữ các tham chiếu tương đối.
 - `.codex/agents/*.toml` định nghĩa custom agent tương ứng `.claude/agents/*.md`, kế thừa model của phiên. Chỉ delegation khi nhiệm vụ/workflow được giao yêu cầu; đọc tài liệu vai trò trước khi thực hiện.
-- Workflow gọi bằng `$workflow-analyze`, `$workflow-plan`, `$workflow-implement`, `$workflow-test`, `$workflow-review`, `$workflow-report`, `$workflow-commit`, `$workflow-pr`, `$workflow-cleanup`, `$workflow-audit-workspace`. Chúng chuyển hành vi từ `.claude/commands/`, không phải slash command Claude.
+- Workflow gọi bằng `$workflow-analyze`, `$workflow-plan`, `$workflow-implement`, `$workflow-test`, `$workflow-review`, `$workflow-report`, `$workflow-commit`, `$workflow-pr`, `$workflow-cleanup`, `$workflow-audit-workspace`. Chúng chuyển hành vi từ `.claude/commands/lumina/` (Claude gọi bằng slash command namespace `/lumina:...`), không phải slash command Claude trên Codex.
 - Bàn giao bằng file trong `docs/` theo vai trò, giữ điểm duyệt của workflow. Không tự chạy toàn pipeline từ phân tích tới commit.
 
 ## Hook và format
