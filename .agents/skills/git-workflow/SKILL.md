@@ -36,7 +36,8 @@ Hook [`format-before-push.sh`](../../hook/scripts/format-before-push.sh) tự ch
 2. Có conflict: **đọc cả hai phía** (`<<<<<<<`/`=======`/`>>>>>>>`) trước khi quyết định — không xóa trắng một bên mà không xem nội dung.
 3. **Conflict chỉ do format/vị trí dòng**: giữ code của **nhánh nguồn** (nhánh đang tạo PR).
 4. **Conflict do logic thật sự thay đổi ở cả hai bên**: giữ logic của **nhánh nguồn** (thay đổi cần merge vào), nhưng đọc lướt phần bị ghi đè ở nhánh đích — nghi ngờ đó là fix quan trọng không liên quan task của PR thì dừng lại hỏi người dùng thay vì tự quyết.
-5. Resolve xong, chạy lại test/lint liên quan trước khi coi là hoàn tất.
+5. **Không tự ý kéo thêm logic từ nhánh đích vào nhánh nguồn** ngoài phần bắt buộc phải gộp để resolve conflict — kể cả khi thấy nhánh đích có tính năng/fix "có vẻ nên có". Người dùng chỉ giao task trên nhánh nguồn; thấy thiếu gì từ nhánh khác thì báo và hỏi, không tự quyết gộp vào.
+6. Resolve xong, chạy lại test/lint liên quan trước khi coi là hoàn tất.
 
 ## Checklist
 
@@ -44,4 +45,4 @@ Hook [`format-before-push.sh`](../../hook/scripts/format-before-push.sh) tự ch
 
 **Push**: đã format lại diff so với remote bằng Prettier (nếu project có cài) · không còn thay đổi format nào trôi ra ngoài commit đang push.
 
-**Pull Request**: đã kiểm tra conflict với nhánh đích · nếu có conflict đã đọc cả hai phía trước khi resolve · xử lý đúng ưu tiên (nhánh nguồn) và rà soát để không mất fix quan trọng ở nhánh đích · đã chạy lại test/lint sau khi resolve.
+**Pull Request**: đã kiểm tra conflict với nhánh đích · nếu có conflict đã đọc cả hai phía trước khi resolve · xử lý đúng ưu tiên (nhánh nguồn) và rà soát để không mất fix quan trọng ở nhánh đích · không tự kéo thêm logic từ nhánh đích ngoài phần bắt buộc để resolve conflict · đã chạy lại test/lint sau khi resolve.

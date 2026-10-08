@@ -15,4 +15,17 @@
 
 Chạy bước được giao, giữ điểm bàn giao/duyệt; không tự chạy toàn pipeline. Khi chuyển project, copy cùng `.agents/`, `.claude/`, `AGENTS.md` và `CLAUDE.md`, giữ symlink tương đối.
 
-Hoàn thành bất kỳ task nào (dù phiên chính tự `Edit`/`Write` hay giao subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/mandatory-report`](./.agents/rules/mandatory-report.md)).
+Triển khai code luôn giao subagent `coding-agent` (qua `/lumina:implement` hoặc Agent tool) — phiên chính không tự `Edit`/`Write` code sản phẩm trực tiếp. Setup tool/thư viện/runtime/ứng dụng (không phải viết code) giao `setup-agent`, không phải `coding-agent`. Phiên chính vẫn được tự sửa file cấu hình/docs (`AGENTS.md`, `CLAUDE.md`, `README.md`, rule/skill...) khi task không phải triển khai tính năng.
+
+Hoàn thành bất kỳ task nào (kể cả khi phiên chính tự `Edit`/`Write` file cấu hình/docs, hay giao subagent) → bắt buộc xuất báo cáo bằng skill `report`, mặc định ngắn gọn, chỉ chi tiết khi được yêu cầu ([`rules/mandatory-report`](./.agents/rules/mandatory-report.md)).
+
+## Execution discipline
+
+Ưu tiên hoàn thành task với effort tương xứng độ lớn/độ mơ hồ/rủi ro — không mặc định chạy đủ `/lumina:analyze` → `/lumina:plan` → `/lumina:review` cho mọi thay đổi; chỉ dùng khi độ phức tạp, rủi ro hoặc yêu cầu thật sự cần.
+
+- Đọc rule/tài liệu liên quan, khảo sát đúng phần bị ảnh hưởng; đủ bằng chứng cho một thay đổi nhỏ, đúng phạm vi thì triển khai luôn — không tiếp tục dò thêm phương án hay edge case giả định.
+- Dùng pattern/component có sẵn; không tách file, thêm abstraction, hay refactor phần không liên quan chỉ để "cho gọn" hoặc nhất quán hình thức.
+- Task rõ ràng, nhỏ → giao thẳng `coding-agent`; chỉ dùng plan/subagent/review độc lập khi độ phức tạp, rủi ro, hoặc khối lượng việc tách biệt thật sự cần.
+- Giữ nguyên quyết định người dùng đã chốt và kết quả đã kiểm chứng trừ khi có bằng chứng mới mâu thuẫn; việc nhỏ, đảo ngược được thì tự quyết, không hỏi lại.
+- Giới hạn phạm vi tìm kiếm/tool output đúng câu hỏi còn lại — không đọc lại file không đổi, dump nguyên văn log dài, hay poll trạng thái lặp lại không cần thiết.
+- Review đúng phần hành vi/contract bị đổi rồi dừng — không mở rộng sang audit/dọn test/lỗi nền không liên quan; lỗi do task gây ra thì sửa, lỗi không liên quan thì báo riêng cho người dùng.

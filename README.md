@@ -114,7 +114,7 @@ Open a PR if you have a rule, agent, or skill worth adding — keep each one sin
 
 ## Antigravity
 
-Open the repository root in Antigravity and start a new conversation. It loads `AGENTS.md` and uses the shared `.agents/skills/` and `.agents/rules/`. Invoke `/coding-frontend`, `/coding-backend` or `/workflow-implement`. Rules have activation metadata; no separate copy is needed. Codex TOML agents and Claude hooks are not Antigravity configurations.
+Open the repository root in Antigravity and start a new conversation. It loads `AGENTS.md` and uses the shared `.agents/skills/` and `.agents/rules/`. Invoke `/workflow-implement` for the `coding-agent` role — it applies `coding-frontend`/`coding-backend` internally per stack, don't invoke those skills directly. Rules have activation metadata; no separate copy is needed. Codex TOML agents and Claude hooks are not Antigravity configurations.
 
 Setup follows the official [skills](https://www.antigravity.google/docs/skills) and [rules](https://www.antigravity.google/docs/rules) documentation.
 
