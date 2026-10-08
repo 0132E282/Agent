@@ -21,6 +21,8 @@ Skill này **chỉ format và xuất báo cáo** — không tự đi tìm lỗi,
 
 Tất cả bắt buộc theo [quality-assurance.md](../../rules/quality-assurance.md) — báo cáo là bước cuối, không được bỏ qua.
 
+**Mọi bảng trong report PHẢI viết đúng cú pháp Markdown pipe-table** (`| cột | cột |` kèm dòng `|---|---|` ngay dưới header) — tuyệt đối không viết lại thành danh sách `Nhãn: giá trị` nối tiếp nhau kèm dòng kẻ `────` phân cách, dù nội dung tương đương. Copy nguyên khối trong file template (`assets/*.md`), chỉ thay giá trị trong ô, không đổi cấu trúc bảng.
+
 ## 1. Báo cáo thay đổi (Change Report)
 
 Copy khung `assets/change-report-template.md`, điền bảng tóm tắt `Trạng thái (Tạo/Sửa/Xóa) | File | Mô tả` cho toàn bộ file đổi + mục Tóm tắt. **Mặc định dừng ở đây — KHÔNG thêm mục "Chi tiết thay đổi"** (code cũ/mới, giải thích quyết định kỹ thuật) dù thay đổi có vẻ đáng kể (logic/behavior); chỉ thêm mục đó khi người dùng yêu cầu rõ ("chi tiết hơn", "xem code cụ thể") — không tự suy đoán người dùng muốn chi tiết. Chỉ liệt kê những gì **thật sự thay đổi**, không diễn giải lại toàn bộ file; phần "Mô tả" trả lời *"vấn đề gì đang được giải quyết"* ([commit-discipline.md](../../rules/commit-discipline.md) — body commit có thể lấy thẳng từ đó).

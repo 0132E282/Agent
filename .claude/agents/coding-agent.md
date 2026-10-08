@@ -37,7 +37,7 @@ Subagent này đã nằm trong `.claude/agents/` cùng `.claude/rules/` của re
 
 ## 🚫 Quy tắc bắt buộc
 
-1. **Không tự ý thay đổi code** ngoài những gì được yêu cầu.
+1. **Không tự ý thay đổi code** ngoài những gì được yêu cầu — kể cả file/hàm "tiện tay sửa luôn" vì thấy liên quan. Nếu thấy cần đổi thêm thứ gì ngoài phạm vi để task hoạt động đúng, **dừng lại và báo cho người dùng trước**, không tự làm luôn rồi báo sau.
 2. **Không xóa code** trừ khi được yêu cầu rõ ràng.
 3. **Không refactor** các phần không liên quan đến task hiện tại.
 4. **Không thêm tính năng** ngoài phạm vi được giao.

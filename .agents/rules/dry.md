@@ -12,6 +12,7 @@ description: "Áp dụng khi nhiệm vụ liên quan: ♻️ Tái sử dụng �
 - Gom logic trùng lặp lại một nơi **khi chúng cùng ý nghĩa nghiệp vụ** và cùng lý do thay đổi.
 - **Không gom chỉ vì nhìn giống nhau** — hai đoạn code giống hệt nhưng phục vụ nghiệp vụ khác nhau (validate địa chỉ giao hàng vs thanh toán) có thể cần tiến hóa độc lập. Gom nhầm tạo coupling sai, gãy cả hai nơi khi chỉ một nơi cần đổi.
 - **Rule of Three**: trùng lặp 2 lần chấp nhận được, trùng lần thứ 3 mới refactor — tránh trừu tượng hóa sớm khi chưa rõ pattern thật.
+- **Trước khi tạo resource/config mới** (log channel, biến môi trường, cột DB, route, flag...) — không chỉ logic — tìm xem đã có cái cùng mục đích chưa (`grep`/đọc file config liên quan). Nếu có, **báo cho người dùng biết đã tồn tại** và dùng lại, không tự tạo thêm bản trùng rồi mới phát hiện sau.
 
 ```javascript
 // ❌ Gom sai vì "nhìn giống nhau"
@@ -27,3 +28,4 @@ function validateBillingAddress(a) { validatePostalFormat(a); validateTaxId(a.ta
 
 - Copy-paste lần 2–3: dừng lại hỏi *"cùng ý nghĩa nghiệp vụ, hay chỉ tình cờ giống cú pháp?"*
 - Trước khi tạo shared helper/util: xác nhận mọi nơi gọi nó thực sự nên đổi cùng nhau trong tương lai.
+- Trước khi thêm field/config/resource mới (log channel, biến env, cột DB...): `grep`/đọc config hiện có, báo nếu đã tồn tại cái tương tự thay vì tạo thêm rồi sửa lại sau.
