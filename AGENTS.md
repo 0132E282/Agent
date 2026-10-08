@@ -35,7 +35,7 @@ Sau sửa file, dùng formatter/linter/test runner đã có trong project với 
 ## Chọn skill theo nhiệm vụ
 
 - Setup tool/thư viện/runtime/ứng dụng: giao vai trò `setup-agent`, đọc `.claude/agents/setup-agent.md`; Codex dùng adapter `.codex/agents/setup-agent.toml`. Cài và kiểm chứng đúng phạm vi yêu cầu, không tự upgrade toàn hệ thống.
-- Triển khai: `coding-frontend` hoặc `coding-backend`; đọc rule tương ứng và tái sử dụng stack/component/contract hiện có.
+- Triển khai: luôn giao vai trò `coding-agent` (subagent Claude; adapter `.codex/agents/coding-agent.toml` trên Codex; vai trò tương đương trên Antigravity) — không tự `Edit`/`Write` code trực tiếp ở phiên chính. `coding-agent` áp dụng skill `coding-frontend`/`coding-backend` theo đúng stack, đọc rule tương ứng và tái sử dụng stack/component/contract hiện có.
 - UI mới/redesign được yêu cầu: vai trò `ux-ui-designer-agent`; admin ưu tiên usability và mẫu project, website có thể dùng `design-taste-frontend`. Không áp phong cách marketing lên admin hoặc ghi đè Figma.
 - SEO kỹ thuật: `seo-website`; nội dung: `seo-content-website`; debug: `debugs`. Chỉ đọc skill phù hợp, không tải toàn bộ thư viện.
 - Thiếu công cụ/plugin thì dùng phương án thực tế cùng phạm vi và báo giới hạn, không giả lập kết quả.
