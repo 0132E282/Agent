@@ -15,6 +15,30 @@ Tổng số file đã tạo/sửa/xóa: [N] file ([tóm tắt ngắn, ví dụ: 
 - ➕ Thêm mới: [số dòng/function]
 - ✏️ Sửa đổi: [số dòng/function]
 - ➖ Xóa bỏ: [số dòng/function] (nếu có)
+
+### Độ phức tạp thuật toán
+
+> Chỉ áp dụng khi thay đổi có code hoặc luồng xử lý phụ thuộc dữ liệu. Với rule, skill, docs, template hoặc config thuần túy, ghi: **Không áp dụng — không có thuật toán/runtime phụ thuộc input; không suy diễn Big O từ việc agent đọc file.**
+
+| Phạm vi | Trước | Sau |
+|---|---|---|
+| Mỗi lần gọi — `file:function` | Time: [O(...)]; Space: [O(...)]; [ghi allocation nếu đáng kể] | Time: [O(...)]; Space: [O(...)]; [ghi allocation nếu đáng kể] |
+| Khởi tạo / preprocessing | [O(...) hoặc `0`] | [O(...) — số lần chạy: [mỗi lần / một lần / Lazy]] |
+
+**Căn cứ đo**: `n` là [kích thước input]. [Mô tả ngắn: số vòng lặp, lookup, traversal, sort, allocation...]. Không dùng chi phí agent đọc tài liệu hoặc số lượng file cấu hình làm `n` của thuật toán ứng dụng.
+
+### Hành vi và kiểm chứng
+
+- **Hành vi giữ nguyên**: [input/output hoặc các case tương thích quan trọng]
+- **Kiểm chứng**: `[lệnh]` — [kết quả thực tế, ví dụ: `0 error`, `0 warning mới`, `[X]/[Y] tests pass`]
+- **Giới hạn**: [chưa chạy/chưa áp dụng hoặc `Không có`]
+
+### Đánh giá của coding
+
+- **Kết luận**: [Đạt / Đạt có điều kiện / Chưa đạt]
+- **Trade-off**: [lợi ích chính và chi phí/đánh đổi]
+- **Rủi ro còn lại**: [rủi ro cần theo dõi hoặc `Không có`]
+- **Khuyến nghị**: [bước tiếp theo hoặc `Không cần`]
 ```
 
 ## Chỉ dùng khi người dùng yêu cầu rõ ("chi tiết hơn", "xem code cụ thể")

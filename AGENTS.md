@@ -11,6 +11,9 @@ Repo cấu hình agent phát triển phần mềm, không phải ứng dụng. N
 - UI/Figma có sẵn là mẫu chuẩn: không tự redesign, đổi theme hoặc tạo design system nếu chưa được yêu cầu. Đọc mẫu thật; không truy cập được thì nêu rõ, không đoán.
 - Thao tác database thật mặc định read-only; viết migration không đồng nghĩa được phép chạy. Commit/push/deploy chỉ trong phạm vi được người dùng yêu cầu rõ.
 - Sau sửa, chạy check phù hợp có sẵn, tự review diff và đồng bộ tài liệu liên quan. Không bịa kết quả test, benchmark hoặc kết quả tool.
+- Với báo cáo coding/sửa code có thuật toán hoặc luồng xử lý phụ thuộc dữ liệu, phân tích và ghi Big O Before/After gồm time complexity, space complexity, allocation nếu đáng kể, chi phí khởi tạo/preprocessing, input `n`/`m`, căn cứ đo, hành vi giữ nguyên và kết quả kiểm chứng; đồng thời phải có đánh giá coding gồm kết luận, trade-off, rủi ro còn lại và khuyến nghị. Với rule, skill, docs, template hoặc config thuần túy, ghi rõ `Không áp dụng — không có thuật toán/runtime phụ thuộc input`, không bịa Big O từ việc agent đọc file.
+- Khi setup hoặc thay đổi rule/template, mọi agent (Codex, Claude Code, Antigravity) phải báo cáo dạng text theo mẫu: `- File:`, `Mô tả:`, `Điều kiện kích hoạt:`; kèm kiểm tra đã thực hiện và vấn đề còn tồn tại. Không dùng bảng cho mẫu báo cáo này.
+- Mỗi lần báo cáo kết quả của task coding/sửa code, phải dùng skill [`complexity-performance`](./.agents/skills/complexity-performance/SKILL.md) để phân tích phần xử lý liên quan trước khi xuất report; task chỉ đổi rule, skill, docs, template hoặc config thuần túy thì không cần kích hoạt skill này.
 
 Các file Markdown trong `.codex/rules/` được đọc theo hướng dẫn này, không phải rule thực thi lệnh dạng `.rules`. Liên kết tương đối bên trong được giải quyết từ thư mục nguồn `.agents/rules/`.
 

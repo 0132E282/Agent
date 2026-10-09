@@ -42,7 +42,7 @@ Trước mỗi lần Claude Code (hoặc subagent) gọi **bất kỳ tool nào*
 - **Loại hook**: `PreToolUse`, matcher `.*` (mọi tool)
 - **File log**: `.claude/storage/logs/logs.jsonl` (JSON Lines, append-only) — cả thư mục `.claude/storage/` đã nằm trong `.gitignore`, không commit nhầm.
 - **Nội dung mỗi dòng**: `ts` (UTC ISO8601), `session_id`, `tool`, `cwd`, `input` (tóm tắt — chỉ `file_path`/`command` (≤200 ký tự)/`pattern`/`skill` (tên skill khi tool là `Skill`) tùy loại tool, **không** ghi nguyên nội dung file Write/Edit để tránh log phình to và rò rỉ dữ liệu nhạy cảm).
-- **An toàn**: luôn `exit 0`; input JSON hỏng, thiếu `jq`, hoặc `tool_name` rỗng đều bị bỏ qua êm, không ghi dòng rác.
+- **An toàn**: luôn `exit 0`; input JSON hỏng, thiếu `jq`, hoặc `tool_name` rỗng đều bị bỏ qua êm, không ghi dòng rác. Đường dẫn log lấy từ `cwd` trong payload (fallback sang `CLAUDE_PROJECT_DIR`/working directory), nên không phụ thuộc hook được khởi chạy từ đâu.
 - **Phụ thuộc**: cần `jq`.
 
 ### Xem log
