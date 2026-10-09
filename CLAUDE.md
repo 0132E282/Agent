@@ -7,7 +7,7 @@
 - `.claude/agents/*.md`: vai trò, tools và model cho Claude Code.
 - `.claude/commands/lumina/*.md`: slash command, namespace `/lumina:...`; skill `workflow-*` dùng cùng nguồn quy trình trên các công cụ khác.
 - `.claude/settings.json` và `.claude/hooks/`: hook Claude, không tự chạy trên Codex hoặc Antigravity.
-- `.claude/logs/` bị ignore; không commit log/file tạm. Tài liệu bàn giao `docs/` là deliverable.
+- `.claude/storage/` bị ignore; không commit log/file tạm. Tài liệu bàn giao `docs/` là deliverable.
 
 ## Pipeline
 
@@ -29,3 +29,10 @@ Hoàn thành bất kỳ task nào (kể cả khi phiên chính tự `Edit`/`Writ
 - Giữ nguyên quyết định người dùng đã chốt và kết quả đã kiểm chứng trừ khi có bằng chứng mới mâu thuẫn; việc nhỏ, đảo ngược được thì tự quyết, không hỏi lại.
 - Giới hạn phạm vi tìm kiếm/tool output đúng câu hỏi còn lại — không đọc lại file không đổi, dump nguyên văn log dài, hay poll trạng thái lặp lại không cần thiết.
 - Review đúng phần hành vi/contract bị đổi rồi dừng — không mở rộng sang audit/dọn test/lỗi nền không liên quan; lỗi do task gây ra thì sửa, lỗi không liên quan thì báo riêng cho người dùng.
+
+## Điều phối giữa subagent
+
+- Subagent sau đọc **bàn giao** của subagent trước qua file trong `docs/` (`requirement-analysis.md`, `system-design.md`, `implementation-plan.json`) — không diễn giải lại nội dung đã có trong file đó khi gọi `Agent`.
+- Mỗi subagent chỉ làm đúng vai trò được giao, không tự lấn sang vai trò khác trong cùng chuỗi: `reviewer-agent` không tự sửa code, `planner-agent` không tự triển khai, `qa-tester-agent` không tự sửa code ứng dụng để test đạt.
+- Bàn giao cũ còn hợp lệ (yêu cầu chưa đổi) → tái dùng, không gọi lại subagent đã chạy xong cho cùng input.
+- Gọi `Agent` cho subagent sau kèm đúng file/diff/phạm vi cụ thể cần xử lý trong prompt — không bắt subagent tự dò lại toàn repo hoặc toàn bộ hội thoại trước đó để suy ra phạm vi.

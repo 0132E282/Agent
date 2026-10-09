@@ -51,6 +51,13 @@ Sau sửa file, dùng formatter/linter/test runner đã có trong project với 
 - SEO kỹ thuật: `seo-website`; nội dung: `seo-content-website`; debug: `debugs`. Chỉ đọc skill phù hợp, không tải toàn bộ thư viện.
 - Thiếu công cụ/plugin thì dùng phương án thực tế cùng phạm vi và báo giới hạn, không giả lập kết quả.
 
+## Điều phối giữa agent
+
+- Agent sau đọc **bàn giao** của agent trước qua file trong `docs/` (`requirement-analysis.md`, `system-design.md`, `implementation-plan.json`) — không bắt người dùng diễn giải lại nội dung đã có trong file đó.
+- Mỗi agent chỉ làm đúng vai trò được giao, không tự lấn sang vai trò agent khác trong cùng chuỗi: `reviewer-agent` không tự sửa code, `planner-agent` không tự triển khai, `qa-tester-agent` không tự sửa code ứng dụng để test đạt.
+- Bàn giao cũ còn hợp lệ (yêu cầu chưa đổi) → tái dùng, không chạy lại agent đã làm xong cho cùng input.
+- Giao task cho agent sau kèm đúng file/diff/phạm vi cụ thể cần xử lý — không bắt agent sau tự dò lại toàn repo hoặc toàn bộ hội thoại trước đó để suy ra phạm vi.
+
 ## Bảo trì cấu hình
 
 Chỉnh rule/skill tại `.agents/`; giữ adapter theo runtime, không nhân bản nội dung. Kiểm tra README/docs bị ảnh hưởng sau thay đổi. Chạy `python3 scripts/check-agent-config.py` để kiểm tra symlink, skill và agent TOML. Copy nguyên cấu trúc chung khi chuyển project, không copy riêng một adapter.

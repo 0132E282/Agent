@@ -19,7 +19,7 @@ input="$(cat)"
 tool_name_check="$(printf '%s' "$input" | jq -r '.tool_name // ""' 2>/dev/null)"
 [ -z "$tool_name_check" ] && exit 0
 
-log_dir=".claude/logs"
+log_dir=".claude/storage/logs"
 log_file="$log_dir/logs.jsonl"
 mkdir -p "$log_dir" 2>/dev/null || exit 0
 

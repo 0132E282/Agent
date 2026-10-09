@@ -2,6 +2,15 @@
 
 Hook phụ trợ cho các subagent trong [`agents/`](../agents) — tự động hóa các bước nên làm nhưng dễ bị bỏ quên.
 
+## rtk — giảm token tiêu thụ cho lệnh Bash phổ biến
+
+Trước mỗi lệnh `Bash`, hook này gọi CLI [`rtk`](https://github.com/rtk-ai/rtk) để viết lại các lệnh dev phổ biến (đọc file, grep, git...) sang dạng tiết kiệm token hơn — không phải script tự viết trong repo này.
+
+- **Lệnh**: `rtk hook claude`
+- **Loại hook**: `PreToolUse`, matcher `Bash`
+- **Khác biệt với các hook còn lại**: đây là **tool bên ngoài**, không đi kèm framework — máy chưa cài `rtk` thì lệnh sẽ báo "command not found" ở mỗi lần chạy Bash (không chặn, chỉ ồn log). Cài theo [hướng dẫn chính thức](https://github.com/rtk-ai/rtk/blob/master/INSTALL.md), rồi chạy `rtk init -g` (hoặc `rtk init` trong 1 project) để đăng ký hook — khi copy project này sang máy khác, tự cân nhắc giữ hay bỏ dòng `rtk hook claude` trong `settings.json`/`settings.snippet.json` tuỳ máy đó có cài `rtk` hay không.
+- **Kiểm tra mức tiết kiệm**: `rtk gain`.
+
 ## format-on-edit — tự động format bằng Prettier
 
 Sau mỗi lần Claude Code (hoặc subagent) **Edit/Write** một file, hook này tự động chạy `prettier --write` trên đúng file vừa sửa — tương ứng quy tắc [`rules/quality-assurance.md`](../rules/quality-assurance.md) (format thống nhất, không tranh cãi khoảng trắng trong review).
@@ -31,7 +40,7 @@ Trước mỗi lần Claude Code (hoặc subagent) gọi **bất kỳ tool nào*
 
 - **Script**: [`scripts/audit-log.sh`](./scripts/audit-log.sh)
 - **Loại hook**: `PreToolUse`, matcher `.*` (mọi tool)
-- **File log**: `.claude/logs/logs.jsonl` (JSON Lines, append-only) — cả thư mục `.claude/logs/` đã nằm trong `.gitignore`, không commit nhầm.
+- **File log**: `.claude/storage/logs/logs.jsonl` (JSON Lines, append-only) — cả thư mục `.claude/storage/` đã nằm trong `.gitignore`, không commit nhầm.
 - **Nội dung mỗi dòng**: `ts` (UTC ISO8601), `session_id`, `tool`, `cwd`, `input` (tóm tắt — chỉ `file_path`/`command` (≤200 ký tự)/`pattern`/`skill` (tên skill khi tool là `Skill`) tùy loại tool, **không** ghi nguyên nội dung file Write/Edit để tránh log phình to và rò rỉ dữ liệu nhạy cảm).
 - **An toàn**: luôn `exit 0`; input JSON hỏng, thiếu `jq`, hoặc `tool_name` rỗng đều bị bỏ qua êm, không ghi dòng rác.
 - **Phụ thuộc**: cần `jq`.
@@ -39,7 +48,11 @@ Trước mỗi lần Claude Code (hoặc subagent) gọi **bất kỳ tool nào*
 ### Xem log
 
 ```bash
-tail -f .claude/logs/logs.jsonl | jq .
+# Theo dõi real-time, mỗi dòng in đẹp
+tail -f .claude/storage/logs/logs.jsonl | jq .
+
+# Đọc toàn bộ log hiện có dưới dạng 1 mảng JSON dễ đọc (ví dụ mở trong editor)
+jq -s '.' .claude/storage/logs/logs.jsonl
 ```
 
 ## commit-msg-guard — chặn commit message sai format
@@ -129,7 +142,7 @@ Sau mỗi lần Edit/Write một file workflow CI (`.github/workflows/*.yml`, `.
 
 ## remind-cleanup — nhắc dọn file tạm cuối session
 
-Khi Claude Code kết thúc một turn, hook này tìm file đã `Write` trong session hiện tại (qua `.claude/logs/logs.jsonl`), giới hạn trong phạm vi dự án (so khớp `cwd`), còn tồn trên đĩa và khớp pattern tên file tạm (`tmp`/`scratch`/`debug`/`draft`/`sandbox`/`test-output`/`.bak`/`.orig`) — nếu có, nhắc qua `additionalContext` để Claude thấy và tự quyết có chạy `/lumina:cleanup` không. Liên hệ skill [`cleanup-temp-files`](../skills/cleanup-temp-files/SKILL.md).
+Khi Claude Code kết thúc một turn, hook này tìm file đã `Write` trong session hiện tại (qua `.claude/storage/logs/logs.jsonl`), giới hạn trong phạm vi dự án (so khớp `cwd`), còn tồn trên đĩa và khớp pattern tên file tạm (`tmp`/`scratch`/`debug`/`draft`/`sandbox`/`test-output`/`.bak`/`.orig`) — nếu có, nhắc qua `additionalContext` để Claude thấy và tự quyết có chạy `/lumina:cleanup` không. Liên hệ skill [`cleanup-temp-files`](../skills/cleanup-temp-files/SKILL.md).
 
 - **Script**: [`scripts/remind-cleanup.sh`](./scripts/remind-cleanup.sh) — gọi `skills/cleanup-temp-files/scripts/find-session-scratch-files.sh`
 - **Loại hook**: `Stop`
@@ -139,7 +152,7 @@ Khi Claude Code kết thúc một turn, hook này tìm file đã `Write` trong s
 
 ## report-reminder — nhắc dùng skill `report` nếu chưa báo cáo thay đổi
 
-Khi Claude Code kết thúc một turn, hook này tìm trong `.claude/logs/logs.jsonl` các lần `Edit`/`Write` của session hiện tại (giới hạn `cwd` đúng dự án) xảy ra **sau** lần gọi skill `report` gần nhất (hoặc từ đầu session nếu chưa gọi lần nào) — có thì nhắc qua `additionalContext`. Đây là lớp enforce cơ chế cho [`rules/mandatory-report.md`](../rules/mandatory-report.md), thay vì chỉ dựa vào Claude tự giác nhớ gọi skill `report`.
+Khi Claude Code kết thúc một turn, hook này tìm trong `.claude/storage/logs/logs.jsonl` các lần `Edit`/`Write` của session hiện tại (giới hạn `cwd` đúng dự án) xảy ra **sau** lần gọi skill `report` gần nhất (hoặc từ đầu session nếu chưa gọi lần nào) — có thì nhắc qua `additionalContext`. Đây là lớp enforce cơ chế cho [`rules/mandatory-report.md`](../rules/mandatory-report.md), thay vì chỉ dựa vào Claude tự giác nhớ gọi skill `report`.
 
 - **Script**: [`scripts/report-reminder.sh`](./scripts/report-reminder.sh)
 - **Loại hook**: `Stop`
@@ -167,6 +180,18 @@ Trước mỗi lần gọi Agent tool với `subagent_type: planner-agent`, hook
 - **An toàn**: `prompt` dưới ngưỡng, không phải tool `Agent`, không phải `subagent_type: planner-agent`, hoặc thiếu `jq` → không sửa gì.
 - **Phụ thuộc**: cần `jq`.
 
+## markitdown — tự convert file đính kèm sang Markdown
+
+Khi gửi prompt có đính kèm file PDF/HTML/ảnh, hook này tự chạy CLI `markitdown` convert file đó sang Markdown rồi bơm nội dung vào context trước khi Claude xử lý — không cần tự gọi skill [`markitdown`](../skills/markitdown/SKILL.md) bằng tay mỗi lần dán tài liệu.
+
+- **Script**: [`scripts/markitdown.sh`](./scripts/markitdown.sh)
+- **Loại hook**: `UserPromptSubmit` (không cần `matcher`)
+- **Phạm vi file**: lấy từ `files[]`/`images[]` trong input, chỉ convert đúng phần mở rộng `.pdf .html .htm .png .jpg .jpeg .gif .webp`.
+- **Cơ chế**: convert mỗi file vào `.claude/storage/attachments/<session_id>/` (tài nguyên của session, cùng chỗ với log Claude khác, đã ignore qua `.gitignore` — không tự xoá), cắt mỗi file còn tối đa 8000 ký tự rồi trả qua `hookSpecificOutput.additionalContext`. File cùng tên đã convert rồi (còn tồn tại) thì tái dùng, không convert lại.
+- **Ảnh (PNG/JPG/GIF/WEBP)**: `markitdown` mặc định không OCR ảnh thường (chỉ đọc EXIF) nếu không cấu hình Azure/LLM — hook tự fallback sang `tesseract -l vie+eng` (OCR offline, không cần key/API) khi `markitdown` ra rỗng. Độ chính xác phụ thuộc chất lượng ảnh/cỡ chữ, không đảm bảo hoàn hảo.
+- **An toàn**: luôn `exit 0`; thiếu `jq`/`markitdown`, không có file đính kèm phù hợp, hoặc convert lỗi từng file → bỏ qua êm, không chặn prompt.
+- **Phụ thuộc**: cần `jq` và CLI `markitdown` (`uv tool install "markitdown[all]"` hoặc `pip install "markitdown[all]"`) trong `PATH`. Tuỳ chọn: `tesseract` kèm gói ngôn ngữ `vie`+`eng` (`brew install tesseract tesseract-lang` / `apt install tesseract-ocr tesseract-ocr-vie`) để OCR ảnh — thiếu thì phần ảnh chỉ im lặng bỏ qua, không lỗi; thiếu riêng gói `vie` thì OCR vẫn chạy nhưng sai dấu tiếng Việt.
+
 ## Đã bật sẵn trong chính repo này
 
-`hook/` nằm trong `.claude/hooks/` của repo này, và `.claude/settings.json` đã trỏ cả 14 hook (`audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `report-reminder`, `notify-done`) tới đúng path `.claude/hooks/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.
+`hook/` nằm trong `.claude/hooks/` của repo này, và `.claude/settings.json` đã trỏ cả 16 hook tự viết (`markitdown`, `audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `condense-planner-input`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `report-reminder`, `notify-done`) tới đúng path `.claude/hooks/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. Riêng hook `rtk hook claude` gọi tool ngoài, chỉ chạy được nếu máy đã cài [`rtk`](https://github.com/rtk-ai/rtk) (xem mục riêng ở trên). [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.

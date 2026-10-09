@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Liệt kê file đã Write trong một session cụ thể, dựa vào .claude/logs/logs.jsonl
+# Liệt kê file đã Write trong một session cụ thể, dựa vào .claude/storage/logs/logs.jsonl
 # (ghi bởi hook audit-log) — CHỈ trong phạm vi dự án hiện tại (cwd ghi trong
 # log phải khớp cwd lúc chạy script này), còn tồn trên đĩa, và khớp pattern
 # "có vẻ là file tạm/scratch". Không quét gì ngoài project, không xóa gì.
@@ -17,7 +17,7 @@ trap 'exit 0' ERR
 session_id="${1:-}"
 [ -z "$session_id" ] && exit 0
 
-log_file=".claude/logs/logs.jsonl"
+log_file=".claude/storage/logs/logs.jsonl"
 [ -f "$log_file" ] || exit 0
 command -v jq >/dev/null 2>&1 || exit 0
 
