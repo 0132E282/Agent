@@ -25,7 +25,7 @@ Tổng số file đã tạo/sửa/xóa: [N] file ([tóm tắt ngắn, ví dụ: 
 | Mỗi lần gọi — `file:function` | Time: [O(...)]; Space: [O(...)]; [ghi allocation nếu đáng kể] | Time: [O(...)]; Space: [O(...)]; [ghi allocation nếu đáng kể] |
 | Khởi tạo / preprocessing | [O(...) hoặc `0`] | [O(...) — số lần chạy: [mỗi lần / một lần / Lazy]] |
 
-**Căn cứ đo**: `n` là [kích thước input]. [Mô tả ngắn: số vòng lặp, lookup, traversal, sort, allocation...]. Không dùng chi phí agent đọc tài liệu hoặc số lượng file cấu hình làm `n` của thuật toán ứng dụng.
+**Căn cứ đo**: `n` là [kích thước input]. [Mô tả ngắn: số vòng lặp, lookup, traversal, sort, allocation; nếu có database: số query, dạng `WHERE`/`JOIN`/`ORDER BY`, record quét/trả về, index hoặc query plan]. Không dùng chi phí agent đọc tài liệu hoặc số lượng file cấu hình làm `n` của thuật toán ứng dụng.
 
 ### Hành vi và kiểm chứng
 

@@ -10,6 +10,7 @@
 - `.claude/commands/lumina/*.md`: slash command, namespace `/lumina:...`; skill `workflow-*` dùng cùng nguồn quy trình trên các công cụ khác.
 - `.claude/settings.json` và `.claude/hooks/`: hook Claude, không tự chạy trên Codex hoặc Antigravity.
 - `.claude/storage/` bị ignore; không commit log/file tạm. Tài liệu bàn giao `docs/` là deliverable.
+- Docs mặc định là `AI-readable`: context tối thiểu, chỉ đọc phần liên quan, tóm tắt một lần ở nguồn chuẩn, link thay vì lặp và dùng `system-diagrams` khi quan hệ/flow phức tạp. `human-readable` chỉ dùng khi người dùng yêu cầu.
 
 ## Pipeline
 

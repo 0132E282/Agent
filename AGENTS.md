@@ -14,6 +14,7 @@ Repo cấu hình agent phát triển phần mềm, không phải ứng dụng. N
 - Với báo cáo coding/sửa code có thuật toán hoặc luồng xử lý phụ thuộc dữ liệu, phân tích và ghi Big O Before/After gồm time complexity, space complexity, allocation nếu đáng kể, chi phí khởi tạo/preprocessing, input `n`/`m`, căn cứ đo, hành vi giữ nguyên và kết quả kiểm chứng; đồng thời phải có đánh giá coding gồm kết luận, trade-off, rủi ro còn lại và khuyến nghị. Với rule, skill, docs, template hoặc config thuần túy, ghi rõ `Không áp dụng — không có thuật toán/runtime phụ thuộc input`, không bịa Big O từ việc agent đọc file.
 - Khi setup hoặc thay đổi rule/template, mọi agent (Codex, Claude Code, Antigravity) phải báo cáo dạng text theo mẫu: `- File:`, `Mô tả:`, `Điều kiện kích hoạt:`; kèm kiểm tra đã thực hiện và vấn đề còn tồn tại. Không dùng bảng cho mẫu báo cáo này.
 - Mỗi lần báo cáo kết quả của task coding/sửa code, phải dùng skill [`complexity-performance`](./.agents/skills/complexity-performance/SKILL.md) để phân tích phần xử lý liên quan trước khi xuất report; task chỉ đổi rule, skill, docs, template hoặc config thuần túy thì không cần kích hoạt skill này.
+- Nếu task có query/database, kết hợp skill [`database`](./.agents/skills/database/SKILL.md) với `complexity-performance`: kiểm tra schema, semantics, index, query plan, tải query và trade-off; vẫn giữ nguyên nguyên tắc database read-only.
 
 Các file Markdown trong `.codex/rules/` được đọc theo hướng dẫn này, không phải rule thực thi lệnh dạng `.rules`. Liên kết tương đối bên trong được giải quyết từ thư mục nguồn `.agents/rules/`.
 
@@ -51,6 +52,10 @@ Sau sửa file, dùng formatter/linter/test runner đã có trong project với 
 ## Chọn skill theo nhiệm vụ
 
 - Setup tool/thư viện/runtime/ứng dụng: giao vai trò `setup-agent`, đọc `.claude/agents/setup-agent.md`; Codex dùng adapter `.codex/agents/setup-agent.toml`. Cài và kiểm chứng đúng phạm vi yêu cầu, không tự upgrade toàn hệ thống.
+- Khảo sát hệ thống hoặc cần sơ đồ hiện trạng: dùng `system-understanding`; dùng `system-diagrams` cho sơ đồ cấu trúc thư mục, ERD và user/system flow; dùng `database` bổ sung khi cần phân tích schema/query/index.
+- Khi viết docs có từ 3 thành phần liên quan, flow nhiều bước, hierarchy hoặc dependency phức tạp, ưu tiên sơ đồ trực quan để giảm tải đọc hiểu cho AI; giữ văn bản cho context, giả định, constraint và kết luận.
+- Tài liệu có hai chế độ: `AI-readable` là mặc định để agent đọc, truy vết và ra quyết định; `human-readable` chỉ dùng khi người dùng yêu cầu rõ tài liệu cho người đọc. Nếu không chỉ định, luôn chọn `AI-readable`.
+- Với docs `AI-readable`, giảm context đến mức nhỏ nhất đủ dùng: chỉ đọc phần liên quan, tóm tắt một lần ở nguồn chuẩn, link thay vì lặp lại, progressive disclosure và không dump repo/log/file không ảnh hưởng.
 - Triển khai: luôn giao vai trò `coding-agent` (subagent Claude; adapter `.codex/agents/coding-agent.toml` trên Codex; vai trò tương đương trên Antigravity) — không tự `Edit`/`Write` code trực tiếp ở phiên chính. `coding-agent` áp dụng skill `coding-frontend`/`coding-backend` theo đúng stack, đọc rule tương ứng và tái sử dụng stack/component/contract hiện có.
 - UI mới/redesign được yêu cầu: vai trò `ux-ui-designer-agent`; admin ưu tiên usability và mẫu project, website có thể dùng `design-taste-frontend`. Không áp phong cách marketing lên admin hoặc ghi đè Figma.
 - SEO kỹ thuật: `seo-website`; nội dung: `seo-content-website`; debug: `debugs`. Chỉ đọc skill phù hợp, không tải toàn bộ thư viện.

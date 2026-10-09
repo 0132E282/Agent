@@ -13,13 +13,14 @@ metadata:
 ## Quy trình
 
 1. Xác định đoạn xử lý, input và `n`/`m` đại diện cho dữ liệu nào.
-2. Kiểm tra vòng lặp, traversal, lookup, sort, allocation, query, network, I/O và retry.
+2. Kiểm tra vòng lặp, traversal, lookup, sort, allocation, query database, network, I/O và retry. Nếu có database, đọc và áp dụng thêm skill [`database`](../database/SKILL.md) cùng rule [`database-read-only`](../../rules/database-read-only.md).
 3. Tính time/space complexity cho đường đi chính, worst case và khởi tạo/preprocessing nếu có.
 4. Với vòng lặp lồng nhau, xác định kích thước từng tập; dùng `O(n × m)` khi chúng độc lập, không mặc định `O(n²)`.
 5. Tìm N+1 query/API call, tải toàn bộ dữ liệu vào RAM, retry vô hạn và thiếu giới hạn page/batch/upload/input.
-6. Đánh giá cyclomatic complexity, độ dài hàm, số tham số và độ sâu lồng nhau như tín hiệu review.
-7. Đề xuất tối ưu phù hợp: `Map`/`Set`, eager loading, batch, pagination, chunk, cursor, streaming, queue/job hoặc cache; nêu trade-off.
-8. Kiểm chứng bằng test, benchmark, query log hoặc profiler; ghi rõ phần chưa đo.
+6. Với query database, xác định số query mỗi request/job, N+1, join/eager loading, điều kiện `WHERE`, `JOIN`, `ORDER BY`, pagination, cột được đọc, index và lượng record quét/trả về. Dùng `EXPLAIN`/query plan hoặc query log khi có thể.
+7. Đánh giá cyclomatic complexity, độ dài hàm, số tham số và độ sâu lồng nhau như tín hiệu review.
+8. Đề xuất tối ưu phù hợp: `Map`/`Set`, eager loading, batch, pagination, chunk, cursor, streaming, queue/job, cache hoặc index; nêu trade-off.
+9. Kiểm chứng bằng test, benchmark, query log, `EXPLAIN` hoặc profiler; ghi rõ phần chưa đo.
 
 ## Ngưỡng cần chú ý
 
@@ -31,7 +32,7 @@ metadata:
 
 ## Báo cáo
 
-Với code/luồng xử lý phụ thuộc dữ liệu, dùng template [`change-report-template.md`](../report/assets/change-report-template.md) và ghi Big O Before/After, `n`/`m`, query/I/O/bộ nhớ, hành vi giữ nguyên, kiểm chứng và đánh giá coding.
+Với code/luồng xử lý phụ thuộc dữ liệu, dùng template [`change-report-template.md`](../report/assets/change-report-template.md) và ghi Big O Before/After, `n`/`m`, số query, dạng query, record quét/trả về, index/query plan nếu có, I/O/bộ nhớ, hành vi giữ nguyên, kiểm chứng và đánh giá coding. Khi có database, kết hợp kết quả từ skill [`database`](../database/SKILL.md), không tự chạy thao tác ghi/DDL hoặc thay đổi index.
 
 Với rule, skill, docs, template hoặc config thuần túy, ghi `Không áp dụng — không có thuật toán/runtime phụ thuộc input`; không suy diễn Big O từ việc agent đọc file hoặc số lượng file.
 

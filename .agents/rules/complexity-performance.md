@@ -18,6 +18,7 @@ description: "Kiểm soát độ phức tạp thuật toán, vòng lặp, tài n
 - Khi có vòng lặp lồng nhau, xác định số lần thực thi tối đa.
 - Không mặc định hai vòng lặp lồng nhau luôn là `O(n²)`; duyệt `n` phần tử, mỗi phần tử duyệt `m` mục là `O(n × m)`.
 - Tránh truy vấn database hoặc gọi API cho từng phần tử; ưu tiên eager loading, batch query hoặc batch request.
+- Khi review query database, ghi số query, N+1, điều kiện `WHERE`/`JOIN`/`ORDER BY`, cột đọc, index, số record quét/trả về và pagination; dùng `EXPLAIN` hoặc query log khi có thể.
 - Nếu tìm kiếm lặp lại trong danh sách, cân nhắc `Map`, `Set` hoặc bảng tra cứu.
 - Không tải toàn bộ dữ liệu lớn vào RAM; cân nhắc phân trang, chunk, cursor hoặc streaming.
 - Mọi vòng lặp retry phải có giới hạn số lần và điều kiện dừng.
