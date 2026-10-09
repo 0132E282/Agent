@@ -14,6 +14,7 @@ description: "Áp dụng khi nhiệm vụ liên quan: ✅ Chất lượng — Te
 - **Code review**: thay đổi đáng kể nên được review lại (tự review nếu không có người khác) — kiểm tra đúng phạm vi, đúng chuẩn, không phá vỡ hành vi hiện có.
 - Sửa bug → **viết test tái hiện bug trước khi fix** — đảm bảo bug không quay lại (regression test).
 - **Phạm vi kiểm tra tương xứng task**: chọn mức kiểm tra nhỏ nhất đủ cho đúng hành vi/contract vừa đổi — không mặc định chạy toàn bộ test suite/E2E cho mọi thay đổi nhỏ. Full suite, full E2E, hoặc kiểm tra tổng hợp chỉ khi người dùng yêu cầu rõ hoặc có gate release/CI áp dụng.
+- Khi kiểm thử theo module/tính năng, áp dụng rule [`black-box-feature-testing`](../rules/black-box-feature-testing.md) cho thiết kế hộp đen, lập lịch và đối soát case; không tự tạo quy tắc song song khác ở rule chung này.
 - Người dùng nói rõ không cần test/check → tôn trọng, không lách qua bằng cách đổi lệnh hay tự chạy ngầm. Luôn nói rõ đã kiểm tra gì và còn thiếu/chưa kiểm tra gì.
 
 ### Checklist trước khi hoàn thành

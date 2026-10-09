@@ -8,6 +8,8 @@ metadata:
 
 # 🧪 Test Case Writer
 
+Khi thiết kế hoặc thực thi test hộp đen theo module/tính năng, áp dụng thêm rule [`black-box-feature-testing`](../../rules/black-box-feature-testing.md).
+
 Skill viết **test case có cấu trúc** cho một hành vi/luồng cụ thể, dùng ngay trong phiên hiện tại. Khác agent [`qa-tester-agent`](../../agents/qa-tester-agent.md) — agent đó làm toàn bộ quy trình (phân tích yêu cầu diện rộng, đánh giá rủi ro P0–P3, thực thi, bug report, bàn giao) cho một feature; skill này là lớp kỹ thuật "viết đúng định dạng, đúng kỹ thuật" khi chỉ cần vài test case nhanh, không cần spawn agent riêng. Dùng chung field/định dạng với `qa-tester-agent` để hai bên tương thích.
 
 ## 1. Mục tiêu và phạm vi
@@ -60,6 +62,12 @@ Mỗi test case bắt buộc các trường:
 | Postconditions / Cleanup | Trạng thái sau test và cách dọn dữ liệu nếu có tạo mới |
 
 Dùng để **ghi nhận kết quả đã chạy** (không chỉ thiết kế) → bổ sung thêm: Actual result, Status (Pass/Fail/Blocked/Skipped/Not Run), Evidence/Bug ID. Chỉ ghi Pass/Fail khi đã thực thi và có bằng chứng — test mới thiết kế là Not Run ([`rules/quality-assurance`](../../rules/quality-assurance.md)).
+
+## 7.1. Hộp đen và lập lịch khi thực thi
+
+Khi test theo module/tính năng, áp dụng rule [`black-box-feature-testing`](../../rules/black-box-feature-testing.md); không lặp lại hoặc tự đặt giới hạn khác trong test case.
+- Helper phải kiểm tra `đã phân bổ = tổng case đầu vào`, ID không trùng, và ghi nhận đủ `Pass/Fail/Blocked/Skipped/Not Run` sau mỗi batch.
+- Nếu chưa có framework/runner hỗ trợ, chỉ ghi rõ kế hoạch batch và trạng thái `Not Run`; không tự thêm dependency để tạo chạy song song.
 
 ## 8. Tiêu chí chất lượng
 

@@ -86,6 +86,9 @@ Chọn kỹ thuật theo bài toán, không thêm case chỉ để tăng số l�
 
 - Xác nhận môi trường/build và chuẩn bị dữ liệu test.
 - Chạy nhóm smoke trước, rồi các case theo rủi ro và phạm vi.
+- Khi task áp dụng kiểm thử theo module/tính năng, tuân thủ rule [`black-box-feature-testing`](../rules/black-box-feature-testing.md): kiểm thử hộp đen từ yêu cầu/contract, input/output và lập lịch toàn bộ module trong cùng một đợt.
+- Trước khi chạy, kiểm tra tổng case sau phân bổ bằng tổng case đầu vào và ID không trùng. Sau khi chạy, đối soát Pass/Fail/Blocked/Skipped/Not Run để không bỏ sót case.
+- Hạ concurrency hoặc chạy tuần tự khi case phụ thuộc thứ tự, dùng fixture/state chung, có rate limit hoặc môi trường không đủ tài nguyên; ghi rõ lý do trong báo cáo.
 - Lưu actual result, bằng chứng, thời điểm và execution ID; mỗi lần chạy là một bản ghi riêng.
 - Nếu không có công cụ/môi trường, bàn giao test thiết kế và ghi rõ chưa thực thi.
 - Khi phát hiện lỗi, tạo bug report, kiểm tra lại sau sửa và chọn phạm vi regression theo ảnh hưởng thay đổi.

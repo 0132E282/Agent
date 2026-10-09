@@ -8,6 +8,8 @@ metadata:
 
 # 🧪 Testing Strategy
 
+Khi kiểm thử hộp đen theo module/tính năng và lập lịch nhiều module, áp dụng thêm rule [`black-box-feature-testing`](../../rules/black-box-feature-testing.md).
+
 Lớp **kỹ thuật viết test code** khi implement — khác [`qa-tester-agent`](../../agents/qa-tester-agent.md) (thiết kế ca kiểm thử **nghiệp vụ** từ đặc tả). Skill này không quan tâm case nghiệp vụ nào cần test, chỉ quan tâm cách viết test đúng kỹ thuật cho một đơn vị code.
 
 ## Nguyên tắc bắt buộc
@@ -31,6 +33,10 @@ Chỉ double hóa dependency **không xác định/không kiểm soát được*
 ## Cấu trúc test
 
 **Arrange–Act–Assert**: tên test mô tả hành vi + điều kiện (`should_X_when_Y`, không mô tả cách triển khai); mỗi test tập trung một khái niệm hành vi, hành vi không liên quan thì tách test riêng.
+
+## Hộp đen và chạy song song theo tính năng
+
+Khi task kiểm thử theo module/tính năng, áp dụng rule [`black-box-feature-testing`](../../rules/black-box-feature-testing.md) làm nguồn chuẩn cho thiết kế hộp đen, lập lịch toàn bộ module, chia case và đối soát kết quả.
 
 ## Dấu hiệu test có vấn đề
 
