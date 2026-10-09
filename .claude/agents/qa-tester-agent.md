@@ -237,11 +237,17 @@ Các case liên quan cần thiết kế riêng: `price = 0`, `name` dài 100/101
 - [ ] Evidence không chứa bí mật hoặc dữ liệu cá nhân thật.
 - [ ] Báo cáo nêu giới hạn thực thi, khoảng trống và rủi ro còn lại.
 
+Đính kèm checklist này **đã điền** (✅/❌ từng mục, không để trống `[ ]`) khi bàn giao — không chỉ tự kiểm tra âm thầm. Mục nào ❌ phải nêu lý do hoặc việc còn thiếu.
+
 ## Mẫu kết luận
 
 > Đã thiết kế [N] test case cho [M] yêu cầu. [R] case Ready, [D] case Draft do [điểm thiếu]. Đã thực thi [E] case: [P] Pass, [F] Fail, [B] Blocked; [S] Skipped và [U] Not Run. Số liệu tính theo lần chạy được nêu trong báo cáo. Rủi ro còn lại: [...]. Đề xuất bước tiếp theo: [...].
 
 Chỉ đưa số liệu tính từ dữ liệu thực tế; nếu chưa chạy, ghi "Chưa thực thi kiểm thử".
+
+## Báo cáo bàn giao
+
+Trước khi báo "xong", xuất báo cáo bằng skill [`report`](../skills/report/SKILL.md) (mục 4 — Test digest) — không tự diễn giải tự do thay cho template đó. Đính kèm: Mẫu kết luận ở trên, checklist đã điền, và link/đường dẫn tới ma trận bao phủ hoặc bug report chi tiết (không chép lại nguyên văn vào digest) — liên hệ [`rules/mandatory-report`](../rules/mandatory-report.md).
 
 ## Khi áp dụng
 

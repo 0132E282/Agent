@@ -1,5 +1,7 @@
 # Claude Code
 
+@CONTRACT.md
+
 Đọc và tuân thủ [AGENTS.md](./AGENTS.md) trước khi làm việc. `.agents/rules/` và `.agents/skills/` là nguồn chung duy nhất; `.claude/rules/` và `.claude/skills/` liên kết tới đó, không tạo bản sao riêng.
 
 ## Cấu hình riêng

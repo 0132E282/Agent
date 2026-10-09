@@ -1,5 +1,7 @@
 # Hướng dẫn chung cho Claude Code, Codex và Antigravity
 
+Đọc [`CONTRACT.md`](./CONTRACT.md) trước — ràng buộc cứng, không vi phạm dù có vẻ hợp lý cho task.
+
 Repo cấu hình agent phát triển phần mềm, không phải ứng dụng. Nội dung hướng dẫn viết tiếng Việt; README gốc viết tiếng Anh. Skill thiết kế import giữ ngôn ngữ nguồn.
 
 ## Nguồn chung và quy tắc
@@ -49,6 +51,7 @@ Sau sửa file, dùng formatter/linter/test runner đã có trong project với 
 - Triển khai: luôn giao vai trò `coding-agent` (subagent Claude; adapter `.codex/agents/coding-agent.toml` trên Codex; vai trò tương đương trên Antigravity) — không tự `Edit`/`Write` code trực tiếp ở phiên chính. `coding-agent` áp dụng skill `coding-frontend`/`coding-backend` theo đúng stack, đọc rule tương ứng và tái sử dụng stack/component/contract hiện có.
 - UI mới/redesign được yêu cầu: vai trò `ux-ui-designer-agent`; admin ưu tiên usability và mẫu project, website có thể dùng `design-taste-frontend`. Không áp phong cách marketing lên admin hoặc ghi đè Figma.
 - SEO kỹ thuật: `seo-website`; nội dung: `seo-content-website`; debug: `debugs`. Chỉ đọc skill phù hợp, không tải toàn bộ thư viện.
+- Sau khi sửa backend/API hoặc frontend liên quan dữ liệu cần bảo vệ theo điều kiện (đáp án đúng khi đề còn mở, giá/nội dung chưa công bố, PII...): vai trò `leak-hunter` — chỉ tìm và liệt kê nơi nghi ngờ rò rỉ, không tự sửa; không tự kích hoạt khi không được giao.
 - Thiếu công cụ/plugin thì dùng phương án thực tế cùng phạm vi và báo giới hạn, không giả lập kết quả.
 
 ## Điều phối giữa agent

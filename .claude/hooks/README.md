@@ -180,6 +180,17 @@ Trước mỗi lần gọi Agent tool với `subagent_type: planner-agent`, hook
 - **An toàn**: `prompt` dưới ngưỡng, không phải tool `Agent`, không phải `subagent_type: planner-agent`, hoặc thiếu `jq` → không sửa gì.
 - **Phụ thuộc**: cần `jq`.
 
+## agent-role-reminder — báo tên agent đang gọi + nhắc khi có vẻ over-delegate
+
+Mỗi lần gọi Agent tool, hook này luôn báo rõ tên `subagent_type` đang được dùng. Riêng với các vai trò "nặng" (`requirement-analysis-agent`, `planner-agent`, `system-design-agent`, `reviewer-agent`, `qa-tester-agent`, `researcher-agent`) kèm `prompt` quá ngắn — tín hiệu cơ học cho khả năng đang over-delegate một task nhỏ — hook chuyển sang hỏi xác nhận thay vì chỉ báo tin. Liên hệ [Execution discipline](../../AGENTS.md#execution-discipline)/[Điều phối giữa agent](../../AGENTS.md#điều-phối-giữa-agent).
+
+- **Script**: [`scripts/agent-role-reminder.sh`](./scripts/agent-role-reminder.sh)
+- **Loại hook**: `PreToolUse`, matcher `Agent`
+- **Cơ chế**: `permissionDecision: "allow"` + `permissionDecisionReason` báo tên agent (không chặn) cho mọi lần gọi; đổi sang `"ask"` khi `subagent_type` thuộc nhóm "nặng" **và** `prompt` < 150 ký tự — người dùng xác nhận tiếp tục hay không.
+- **Giới hạn**: chỉ xét độ dài `prompt`, không hiểu ngữ nghĩa task — task nhỏ về chữ nhưng thật sự cần vai trò đó (ví dụ review 1 file rủi ro cao) vẫn bị hỏi, xác nhận để tiếp tục là bình thường.
+- **An toàn**: thiếu `jq` hoặc không phải tool `Agent` → không làm gì.
+- **Phụ thuộc**: cần `jq`.
+
 ## markitdown — tự convert file đính kèm sang Markdown
 
 Khi gửi prompt có đính kèm file PDF/HTML/ảnh, hook này tự chạy CLI `markitdown` convert file đó sang Markdown rồi bơm nội dung vào context trước khi Claude xử lý — không cần tự gọi skill [`markitdown`](../skills/markitdown/SKILL.md) bằng tay mỗi lần dán tài liệu.
@@ -194,4 +205,4 @@ Khi gửi prompt có đính kèm file PDF/HTML/ảnh, hook này tự chạy CLI 
 
 ## Đã bật sẵn trong chính repo này
 
-`hook/` nằm trong `.claude/hooks/` của repo này, và `.claude/settings.json` đã trỏ cả 16 hook tự viết (`markitdown`, `audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `condense-planner-input`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `report-reminder`, `notify-done`) tới đúng path `.claude/hooks/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. Riêng hook `rtk hook claude` gọi tool ngoài, chỉ chạy được nếu máy đã cài [`rtk`](https://github.com/rtk-ai/rtk) (xem mục riêng ở trên). [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.
+`hook/` nằm trong `.claude/hooks/` của repo này, và `.claude/settings.json` đã trỏ cả 17 hook tự viết (`markitdown`, `audit-log`, `commit-msg-guard`, `secret-scan`, `protected-branch-guard`, `format-before-push`, `condense-planner-input`, `agent-role-reminder`, `format-on-edit`, `lint-on-edit`, `test-reminder`, `missing-test-reminder`, `dependency-audit-reminder`, `ci-workflow-lint`, `remind-cleanup`, `report-reminder`, `notify-done`) tới đúng path `.claude/hooks/scripts/...` — không cần cài thêm gì để dùng ngay trong repo này. Riêng hook `rtk hook claude` gọi tool ngoài, chỉ chạy được nếu máy đã cài [`rtk`](https://github.com/rtk-ai/rtk) (xem mục riêng ở trên). [`settings.snippet.json`](./settings.snippet.json) có nội dung tương đương, dùng khi copy sang project khác theo hướng dẫn ở trên.

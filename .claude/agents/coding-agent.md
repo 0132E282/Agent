@@ -77,3 +77,5 @@ Subagent này đã nằm trong `.claude/agents/` cùng `.claude/rules/` của re
 - [ ] README/CLAUDE.md/docs có đoạn nào nhắc tới phần vừa đổi mà giờ sai không — có thì đã cập nhật ([`rules/docs-sync`](../rules/docs-sync.md))?
 - [ ] Không còn code chết hoặc import thừa do thay đổi gây ra?
 - [ ] Đã xuất báo cáo thay đổi bằng skill [`report`](../skills/report/SKILL.md) (mục 1 — Change Report, mặc định ngắn gọn — [`rules/mandatory-report`](../rules/mandatory-report.md)) chưa, trước khi báo "xong"?
+
+Đính kèm checklist này **đã điền** (✅/❌ từng mục, không để trống `[ ]`) ngay sau bảng Change Report khi báo cáo — không chỉ tự kiểm tra âm thầm rồi chỉ báo "xong". Mục nào ❌ phải nêu lý do hoặc việc còn thiếu.

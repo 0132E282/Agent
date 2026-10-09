@@ -35,6 +35,7 @@ A reusable **`.claude/` configuration** that turns Claude Code into a structured
 | `reviewer-agent` | Independent "fresh eyes" review for code, plans, or test cases — never fixes, only reports |
 | `researcher-agent` | Reads widely, answers briefly — local docs first, then web, no fabrication |
 | `workspace-auditor-agent` | Finds likely-unneeded files/folders — lists with evidence, never deletes |
+| `leak-hunter` | Finds where protected data (correct answers, unreleased content, PII...) could reach the client early — lists with evidence, never fixes |
 
 ### Commands
 
