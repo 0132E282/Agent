@@ -105,6 +105,25 @@ For Codex, copy `AGENTS.md`, `.agents/`, `.codex/`, `.claude/` and `CLAUDE.md` t
 3. Make sure `jq` is installed (required by most hooks) — missing tools degrade gracefully, hooks just skip.
 4. Start with `/lumina:analyze "<your requirement>"` or jump straight to `/lumina:plan` if the requirement is already clear.
 
+## ✅ GitHub Actions
+
+Workflow [`agent-config.yml`](./.github/workflows/agent-config.yml) runs on `push` and `pull_request` events targeting `main`.
+
+It checks:
+
+- Shared rules and skills structure and links.
+- Codex agent adapters and their role sources.
+- Whitespace errors in the commit changes.
+
+Run the equivalent checks locally:
+
+```bash
+python3 scripts/check-agent-config.py
+git diff --check HEAD^ HEAD
+```
+
+When enabling branch protection on GitHub, require the `Validate agent configuration` status check before merging. This repository has no package manifest or runtime test suite, so CI does not install dependencies or deploy.
+
 ---
 
 ## 🤝 Contributing
